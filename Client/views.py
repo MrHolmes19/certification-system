@@ -2,22 +2,9 @@ from Client.forms import FormLogin, FormDoc
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from CertificationsApp.models import Client, Vehicle, Operation
+from .utils import loginRedirect
 
 # Create your views here.
-
-stage_levels={
-    "doc_sent": "formulario-pendiente",
-    "doc_rejected": "formulario",
-    "doc_aproved": "pago",
-    "payment_done": "pago-pendiente",
-    "payment_aproved": "turno-verificacion",
-    "appointment_confirmed": "verificacion-pendiente",
-    "verification_aproved": "certificado-pendiente",
-    "certificate_available": "download",
-    "certificate_expired": "fuckyou",    
-    "operation_ended": "",
-}
-
 def login(request):
     form_login = FormLogin()
     if request.method == "POST":
@@ -26,30 +13,9 @@ def login(request):
             id_number_input = request.POST.get("id_number")
             domain_input = request.POST.get("domain")
 
-        client = Client.objects.filter(id_number=id_number_input)
-        # Check if this client already exists in out database
-        if len(client) > 0:
-            vehicles = client[0].vehicles
-            for i in vehicles:
-                coincidence = False
-                # Check if this client has this domain
-                if i.domain == domain_input:
-                    coincidence = True
-                    vehicle = i
-                    operation = i.operation
-                    break                 
-            if coincidence == True:
-                for x in vehicles:
-                    # Check if this vehicle has active operations
-                    if x.stage != "ended":
-                        stage = x.stage
-                        return redirect("/"+stage_levels[stage]+"/?id_number_client,domain_client") #Chequear
-                    else:
-                        return redirect("Doc") 
-            else:
-                return redirect("Doc")
-        else:
-            return redirect("formulario/?id_number_client,domain_client")      
+            targetPage = loginRedirect(id_number_input, domain_input)
+
+            return redirect("/" + targetPage + "/?id_number_client,domain_client")  # Chequear
 
     return render(request,"login.html",{'form_login':form_login})
 '''
@@ -71,7 +37,7 @@ def doc(request):
             id_number = request.POST.get("id_number")
             domain = request.POST.get("domain")
 
-    return render(request,"login.html",{'form_doc':form_doc})
+    return render(request,"doc.html",{'form_doc':form_doc})
 
 
 

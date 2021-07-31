@@ -3,19 +3,43 @@
 {% load static %}
 
 {% block content %}
-    <section>
-        <p> Hola mundo </p>
-    </section>
 
     <div class="container">    
-        <form action="" method="POST"> {% csrf_token %}
-        
-            <table>
-                {{form_login.as_table}}
-            </table>
-            <input type="submit" value="INGRESAR">
+        <form action="{% url 'Doc' %}" method="POST"> {% csrf_token %}
+
+    {% for input in form_doc %}
+             {% if forloop.counter < 13 %}
+          <div class="form-group">
+            <label>{{input.label}}</label>
+            {{input}}
+            <small class="form-text text-muted"></small>
+          </div>
+        {% endif %}
+        {% endfor %}
+            <div class="container">
+                <div class="row">
+                {% for input in form_doc %}
+                {% if forloop.counter > 12 %}
+                <div class="col">
+                <div class="card my-2" style="width: 18rem;">
+                  <img class="card-img-top" src="https://i1.wp.com/www.camionesybuses.com.ar/wp-content/uploads/2018/10/furgon-h350.gif?resize=1490%2C710" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title">{{input.label}}</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    {{input}}
+                  </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+                                </div>
+            </div>
+          <button type="submit" class="btn btn-primary">Enviar documentacion</button>
+</form>
+
 
         </form>
     </div>
 
+  <script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script>
 {% endblock %}

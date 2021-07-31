@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'CertificationsApp',
     'Client',
     'Administrator',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
