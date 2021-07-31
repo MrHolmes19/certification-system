@@ -4,24 +4,25 @@
 
 {% block content %}
 
-    <div class="container">    
-        <form action="{% url 'Doc' %}" method="POST"> {% csrf_token %}
+  <div class="container">    
+    <form action="{% url 'Doc' %}" method="POST"> {% csrf_token %}
 
-    {% for input in form_doc %}
-             {% if forloop.counter < 13 %}
+      {% for input in form_doc %}
+        {% if forloop.counter < 13 %}
           <div class="form-group">
             <label>{{input.label}}</label>
             {{input}}
             <small class="form-text text-muted"></small>
           </div>
         {% endif %}
-        {% endfor %}
-            <div class="container">
-                <div class="row">
-                {% for input in form_doc %}
-                {% if forloop.counter > 12 %}
-                <div class="col">
-                <div class="card my-2" style="width: 18rem;">
+      {% endfor %}
+      
+      <div class="container">
+        <div class="row">
+          {% for input in form_doc %}
+            {% if forloop.counter > 12 %}
+              <div class="col">
+                <div class="card my-2 d-none" style="width: 18rem;">
                   <img class="card-img-top" src="https://i1.wp.com/www.camionesybuses.com.ar/wp-content/uploads/2018/10/furgon-h350.gif?resize=1490%2C710" alt="Card image cap">
                   <div class="card-body">
                     <h5 class="card-title">{{input.label}}</h5>
@@ -29,17 +30,15 @@
                     {{input}}
                   </div>
                 </div>
-            </div>
+              </div>
             {% endif %}
-        {% endfor %}
-                                </div>
-            </div>
-          <button type="submit" class="btn btn-primary">Enviar documentacion</button>
-</form>
-
-
-        </form>
-    </div>
+          {% endfor %}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Enviar documentacion</button>
+    </form>
+  </div>
 
   <script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script>
+  <script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script>
 {% endblock %}

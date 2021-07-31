@@ -18,8 +18,6 @@ class FormDoc(forms.Form):
     email = forms.EmailField(label="Email", required=True)
     phone = forms.CharField(label="Telefono", required=True)
 
-
-
     domain = forms.CharField(label="Patente", required=True)
     brand = forms.CharField(label="Marca", required=True)
     model = forms.CharField(label="Modelo", required=True)
