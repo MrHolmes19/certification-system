@@ -60,6 +60,7 @@ class Operation(models.Model):
     image4_uploaded = models.ImageField(upload_to="images")
     image5_uploaded = models.ImageField(upload_to="images")
     image6_uploaded = models.ImageField(upload_to="images", null=True)
+    image7_uploaded = models.ImageField(upload_to="images", null=True)
     paid_at = models.DateTimeField(default=None, null=True) #Puede llegar a joder el None
     paid_by = models.CharField(max_length=64, null=True)
     doc_verified_at = models.DateTimeField(default=None, null=True)

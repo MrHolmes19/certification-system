@@ -1,5 +1,5 @@
 from django import forms
-from CertificationsApp.models import ModificationsType
+from CertificationsApp.models import ModificationsType, Operation
 
 typelist = [
     ("tipo1", "tipo1"), ("tipo2", "tipo2"), ("tipo3", "tipo3")
@@ -15,7 +15,7 @@ class FormDoc(forms.Form):
     id_number = forms.CharField(label="DNI", required=True)
     name = forms.CharField(label="Nombre", required=True)
     surname = forms.CharField(label="Apellido", required=True)
-    email = forms.EmailField(label="Email", required=True)
+    mail = forms.EmailField(label="Email", required=True)
     phone = forms.CharField(label="Telefono", required=True)
 
     domain = forms.CharField(label="Patente", required=True)
@@ -35,4 +35,28 @@ class FormDoc(forms.Form):
     image3_uploaded = forms.ImageField(label="Foto lateral 1")
     image4_uploaded = forms.ImageField(label="Foto lateral 2")
     image5_uploaded = forms.ImageField(label="Foto trasera")
-    image6_uploaded = forms.ImageField(label="Foto detalle")
+    image6_uploaded = forms.ImageField(label="Foto detalle", required=False)
+    image7_uploaded = forms.ImageField(label="Foto detalle 2", required=False)
+
+class formRegisterOperation(forms.ModelForm):
+    class Meta:
+        model = Operation
+        fields = (
+            #'stage', 
+            'image1_uploaded',
+            'image2_uploaded',
+            'image3_uploaded',
+            'image4_uploaded',
+            'image5_uploaded',
+            'image6_uploaded',
+            'image7_uploaded',
+            #'owner',
+            #'id_vehicle',
+            'original_type',
+            'final_type',
+        )
+
+class imagenesPrueba(forms.Form):
+    image1_uploaded = forms.ImageField(label="prueba1")
+    image2_uploaded = forms.ImageField(label="Foto Frente")
+    image3_uploaded = forms.ImageField(label="Foto lateral 1")
