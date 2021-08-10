@@ -48,7 +48,6 @@ function showCards(){
         if(type_selected == type[0]){
             typeqt = parseInt(type[1]) + 4
             for(var i=0; i<=typeqt;i++){
-                console.log(i)
                 cards[i].removeAttribute('class','d-none')
             }
         }
