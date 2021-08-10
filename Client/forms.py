@@ -39,6 +39,10 @@ class FormDoc(forms.Form):
     image7_uploaded = forms.ImageField(label="Foto detalle 2", required=False)
 
 class formRegisterOperation(forms.ModelForm):
+
+    image6_uploaded = forms.ImageField(required=False)
+    image7_uploaded = forms.ImageField(required=False)
+
     class Meta:
         model = Operation
         fields = (

@@ -4,25 +4,38 @@
 
 {% block content %}
 
-  <div class="container">    
-    <form action="{% url 'Doc' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+<div class="container">
+  <form action="{% url 'Doc' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
 
-      {% for input in form_doc %}
-        {% if forloop.counter < 13 %}
-          <div class="form-group">
-            <label>{{input.label}}</label>
-            {{input}}
-            <small class="form-text text-muted"></small>
-          </div>
-        {% endif %}
-      {% endfor %}
+    {% for input in form_doc %}
+    {% if forloop.counter < 13 %} <div class="form-group">
+      <label>{{input.label}}</label>
+      {{input}}
+      <small class="form-text text-muted"></small>
+</div>
+{% endif %}
+{% endfor %}
 
-      {% for input in form_doc %}
-        {% if forloop.counter > 12 %}
+<div class="container">
+  <div class="row">
+    {% for input in form_doc %}
+    {% if forloop.counter > 12 %}
+    <div class="col">
+      <div class="card my-2 d-none" style="width: 18rem;">
+        <img class="card-img-top" src="{% static 'CertificationsApp/images/furgon.jpg' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{input.label}}</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
           {{input}}
-        {% endif %}
-      {% endfor %}
-      <!--
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+<!--
       <div class="container">
         <div class="row">
           {% for input in form_doc %}
@@ -42,9 +55,9 @@
         </div>
       </div>
       -->
-      <button type="submit" class="btn btn-primary">Enviar documentacion</button>
-    </form>
-  </div>
+<button type="submit" class="btn btn-primary">Enviar documentacion</button>
+</form>
+</div>
 <!--
   <div class="container">    
     <form action="{% url 'Doc' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
@@ -57,8 +70,8 @@
     <button type="submit" class="btn btn-primary">PRUEBA</button>     
     </form>
 -->
-  </div>
+</div>
 
-  <script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script>
-  <script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script>
+<script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script>
+<script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script>
 {% endblock %}

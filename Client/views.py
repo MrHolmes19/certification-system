@@ -73,7 +73,8 @@ def doc(request):
                 operation.owner = client
                 operation.id_vehicle = vehicle
                 operation.stage = 'doc_sent'
-                operation.save()                
+                operation.save()  
+                print("guardado con exito")              
             else:
                 print(operation.errors)
 
