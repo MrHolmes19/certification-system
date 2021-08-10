@@ -23,11 +23,11 @@ class FormDoc(forms.Form):
     model = forms.CharField(label="Modelo", required=True)
     chassis_number = forms.CharField(label="Nº de chasis", required=True)
     engine_number = forms.CharField(label="Nº de motor", required=True)
-    original_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(), label="Tipo actual",
+    original_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(), label="Vehiculo actual",
                                            required=True)
     # original_type2 = forms.CharField(label="Tipo actual (charfield)",
     #                                  required=True, widget=forms.Select(choices=typelist))
-    final_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(), label="Tipo final",
+    final_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(), label="Vehiculo a homologar",
                                            required=True)
 
     image1_uploaded = forms.ImageField(label="Foto Cedula")

@@ -3,19 +3,23 @@
 {% load static %}
 
 {% block content %}
-    <section>
-        <p> Hola mundo </p>
+    <section id="intro-login">
+        <div class="row">
+            <div class="col text-center my-2">        
+                <h2> ¡ Bienvenido/a ! </h2>
+                <p> Para comenzar o continuar con tu trámite, ingresá tus credenciales: </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="container col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 text-center">    
+                <form action="{% url 'Login' %}" method="POST" id="loginform"> {% csrf_token %}
+                    <table>
+                        {{form_login.as_table}}
+                    </table>
+                    <input type="submit" value="INGRESAR">
+                </form>
+            </div>
+        </div>
     </section>
-
-    <div class="container">    
-        <form action="{% url 'Login' %}" method="POST"> {% csrf_token %}
-
-            <table>
-                {{form_login.as_table}}
-            </table>
-            <input type="submit" value="INGRESAR">
-
-        </form>
-    </div>
-
 {% endblock %}

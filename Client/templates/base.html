@@ -24,35 +24,35 @@
 
     <nav id="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">   
         <div class="container-fluid">
-          <a class="navbar-brand" href="#"> <img {% static 'src="../static/images/motorhome2.png"' %} alt="logo-platzi"></a>
+          <!-- <a class="navbar-brand" href="#"> <img {% static 'src="CertificationsApp/images/motorhome2.png"' %} alt="logo-platzi"></a>-->
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbar">
-            <ul class="navbar-nav ms-auto mb-20 mb-lg-0">
+            <ul class="navbar-nav mx-auto mb-20 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Login</a>
+                <a class="nav-link disabled {% if request.path == '/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">1)Ingreso</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Carga documentación</a>
+                <a class="nav-link disabled {% if request.path == '/formulario/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">2)Carga documentación</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Revisión documentación</a>
+                <a class="nav-link disabled {% if request.path == '/formulario-pendiente/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">3)Revisión documentación</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Pago</a>
+                <a class="nav-link disabled {% if request.path == '/pago/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">4)Pago</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Verificación pago</a>
+                <a class="nav-link disabled {% if request.path == '/pago-pendiente/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">5)Verificación pago</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Sacá turno</a>
+                <a class="nav-link disabled {% if request.path == '/turno-verificacion/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">6)Turno para verificacion</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Turno pendiente</a>
+                <a class="nav-link disabled {% if request.path == '/verificacion-pendiente/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">7)Verificacion pendiente</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Descargá documentación</a>
+                <a class="nav-link disabled {% if request.path == '/descarga-certificado/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">8)Descarga documentación</a>
               </li>
             </ul>
           </div>
@@ -75,6 +75,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 -->
 
-<script src="{% static '../Certificados/static/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'CertificationsApp/bootstrap/js/bootstrap.min.js' %}"></script>
 
 </html>
