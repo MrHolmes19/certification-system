@@ -37,13 +37,14 @@
             {% for input in form_doc %}
               {% if forloop.counter > 12 %}
                 <div class="col-12 col-md-6 col-xl-4 pt-3">
-                  <div class="card my-2 border-secondary d-none" style="width: 18rem;">
-                    <img class="card-img-top" src="{% static 'CertificationsApp/images/furgon.jpg' %}" alt="Card image cap">
+                  <div class="carta card my-2 border-secondary opacity-50 d-none" style="width: 18rem;">
+                    <img class="card-img-top" src="{% static 'CertificationsApp/images/'|add:input.label|add:'.jpg' %}" alt="Card image cap">
                     <div class="card-body">
                       <h5 class="card-title">{{input.label}}</h5>
-                      <p class="card-text">Descripcion de la foto que debe subir el usuario</p>
+                      <p class="card-text">{{input.help_text}}</p>
                       {{input}}
                     </div>
+                    <!--<div class="overlay"></div>-->
                   </div>
                 </div>
               {% endif %}

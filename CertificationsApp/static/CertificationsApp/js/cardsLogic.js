@@ -20,6 +20,7 @@ i = 1;
 
 imageInputs.forEach(input => {
     input.setAttribute('onchange','document.getElementById("image_' + i + '").src = window.URL.createObjectURL(this.files[0])');
+    //input.setAttribute('onchange','document.getElementById("image_' + i + '").style.backgroundColor = "yellow"');
     i++;
     
 });

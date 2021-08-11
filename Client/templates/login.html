@@ -10,7 +10,7 @@
                 <p> Para comenzar o continuar con tu trámite, ingresá tus credenciales: </p>
             </div>
         </div>
-
+<!--
         <div class="row">
             <div class="container col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 text-center">    
                 <form action="{% url 'Login' %}" method="POST" id="loginform"> {% csrf_token %}
@@ -21,5 +21,27 @@
                 </form>
             </div>
         </div>
+-->
+        <div class="row">
+            <div class="col col-sm-6 offset-sm-3 col-lg-4 offset-lg-4 py-2 px-4">   
+                <form action="{% url 'Login' %}" method="POST" id="loginform"> {% csrf_token %}
+                    <div class="row">
+                        {% for input in form_login %}
+                            <div class="form-group col-12 pb-2">
+                                <label>{{input.label}}</label>
+                                {{input}}
+                                <small class="form-text text-muted"></small>
+                            </div>
+                        {% endfor %}
+                        <div class="col d-grid gap-2">
+                            <button type="submit" class="btn btn-secondary">INGRESAR</button>
+                        </div> 
+                    </div>   
+                </form>
+            </div>
+        </div>
+
     </section>
+
+<script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script>  
 {% endblock %}
