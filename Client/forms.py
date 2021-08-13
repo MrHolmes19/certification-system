@@ -16,27 +16,29 @@ class FormDoc(forms.Form):
     name = forms.CharField(label="Nombre", required=True)
     surname = forms.CharField(label="Apellido", required=True)
     mail = forms.EmailField(label="Email", required=True)
-    phone = forms.CharField(label="Telefono", required=True)
-
+    phone = forms.CharField(label="Telefono", required=True, widget=forms.TextInput(
+        attrs={'placeholder': "Ej: 11-6582-5214"}))
     domain = forms.CharField(label="Patente", required=True)
-    brand = forms.CharField(label="Marca", required=True)
-    model = forms.CharField(label="Modelo", required=True)
+    brand = forms.CharField(label="Marca", required=True, widget=forms.TextInput(
+        attrs={'placeholder': "Ej: Ford"}))
+    model = forms.CharField(label="Modelo", required=True, widget=forms.TextInput(
+        attrs={'placeholder': "Ej: Transit"}))
     chassis_number = forms.CharField(label="Nº de chasis", required=True)
     engine_number = forms.CharField(label="Nº de motor", required=True)
-    original_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(), label="Vehiculo actual",
-                                           required=True)
+    original_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(), 
+        label="Vehiculo actual", required=True)
     # original_type2 = forms.CharField(label="Tipo actual (charfield)",
     #                                  required=True, widget=forms.Select(choices=typelist))
-    final_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(), label="Vehiculo a homologar",
-                                           required=True)
+    final_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(),
+        label="Vehiculo a homologar", required=True)
 
-    image1_uploaded = forms.ImageField(label="Foto Cedula")
-    image2_uploaded = forms.ImageField(label="Foto Frente")
-    image3_uploaded = forms.ImageField(label="Foto lateral 1")
-    image4_uploaded = forms.ImageField(label="Foto lateral 2")
-    image5_uploaded = forms.ImageField(label="Foto trasera")
-    image6_uploaded = forms.ImageField(label="Foto detalle", required=False)
-    image7_uploaded = forms.ImageField(label="Foto detalle 2", required=False)
+    image1_uploaded = forms.ImageField(label="Foto Cedula", help_text="Foto nitída del frente de su cedula verde")
+    image2_uploaded = forms.ImageField(label="Foto Frente", help_text="Foto de la parte posterior del vehiculo")
+    image3_uploaded = forms.ImageField(label="Foto Lado derecho", help_text="Foto del vehiculo del lado del acompañante")
+    image4_uploaded = forms.ImageField(label="Foto Lado izquierdo", help_text="Foto del vehiculo del lado del conductor")
+    image5_uploaded = forms.ImageField(label="Foto Trasera", help_text="Foto de la parte posterior del vehiculo")
+    image6_uploaded = forms.ImageField(label="Foto Detalle", required=False, help_text="Aqui insertar descripcion segun modificacion")
+    image7_uploaded = forms.ImageField(label="Foto Detalle 2", required=False, help_text="Aqui insertar descripcion segun modificacion")
 
 class formRegisterOperation(forms.ModelForm):
 

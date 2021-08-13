@@ -1,7 +1,5 @@
 from django.db import models
 
-from django.db import models
-
 class ModificationsType(models.Model):
     available_type = models.CharField(max_length=64)
     caption = models.CharField(max_length=256)
@@ -52,8 +50,6 @@ class Operation(models.Model):
     certificate_number = models.CharField(max_length=64)
     stage = models.CharField(max_length=64)
     registrated_at = models.DateTimeField(auto_now_add=True)
-    #images_uploaded = models.ForeignKey(images, on_delete=models.CASCADE)
-    #image1_uploaded = models.ImageField(upload_to="images") #Definir que ruta se usará
     image1_uploaded = models.ImageField(upload_to="images")
     image2_uploaded = models.ImageField(upload_to="images")
     image3_uploaded = models.ImageField(upload_to="images")

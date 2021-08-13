@@ -31,9 +31,7 @@ sino:
 def doc(request):
     form_doc = FormDoc()
     if request.method == "POST":
-        print("1:----------------------------------------------------------------------------------------------{}".format(request.FILES))
         form_doc = FormDoc(request.POST, request.FILES)
-        #print("2:{}".format(form_doc))
         if form_doc.is_valid():
             client_data = {
             'id_number': request.POST.get("id_number"),
@@ -55,6 +53,7 @@ def doc(request):
             }
             vehicle = Vehicle.objects.create(**vehicle_data)
 
+            '''
             operation_data = {
             'stage': 'doc_sent',
             'original_type': request.POST.get("original_type"),
@@ -62,6 +61,7 @@ def doc(request):
             'owner': request.POST.get("mail"),
             'id_vehicle': request.POST.get("phone"),
             }
+            '''
             operation = formRegisterOperation(request.POST, request.FILES)
             print('--------------')
             print('--------------')
