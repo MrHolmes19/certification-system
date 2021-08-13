@@ -41,7 +41,7 @@ var cards = document.querySelectorAll(".card");
 
 function showCards(){
     for(i=0; i<7; i++){
-        cards[i].setAttribute('class','d-none')
+        cards[i].setAttribute('class','carta card my-2 border-secondary opacity-50 d-none')
     }
     //cards.setAttribute('class','d-none')
     type_selected = finalType.value;
@@ -50,6 +50,7 @@ function showCards(){
             typeqt = parseInt(type[1]) + 4
             for(var i=0; i<=typeqt;i++){
                 cards[i].removeAttribute('class','d-none')
+                cards[i].setAttribute('class','carta card my-2 border-secondary')
             }
         }
     });
