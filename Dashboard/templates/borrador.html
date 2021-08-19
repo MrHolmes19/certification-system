@@ -1,0 +1,100 @@
+<!--Opcion con vinculos-->
+
+<div id="wrapper" class="d-flex align-items-start">
+    <!-- SIDE NAV -->
+    <div class="sidebar-wrapper">        
+        <div class="nav flex-column nav-pills me-3 bg-dark vh-100" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <u><a class="nav-link disabled text-center" href="#">Tablas</a></u>
+            <a class="nav-link active" id="v-pills-operation-tab" data-bs-toggle="pill" href="#v-pills-operation" role="tab" aria-controls="v-pills-operation" aria-selected="true">Operaciones</a>
+            <a class="nav-link" id="v-pills-client-tab" data-bs-toggle="pill" href="#v-pills-client" role="tab" aria-controls="v-pills-client" aria-selected="false">Clientes</a>
+            <a class="nav-link" id="v-pills-vehicle-tab" data-bs-toggle="pill" href="#v-pills-vehicle" role="tab" aria-controls="v-pills-vehicle" aria-selected="false">Vehiculos</a>
+            <u><a class="nav-link disabled text-center" href="#">Atajos</a></u>
+            <a class="nav-link" id="v-pills-openop-tab" data-bs-toggle="pill" href="#v-pills-openop" role="tab" aria-controls="v-pills-openop" aria-selected="false"> Operaciones abiertas</a>
+            <a class="nav-link" id="v-pills-penddoc-tab" data-bs-toggle="pill" href="#v-pills-penddoc" role="tab" aria-controls="v-pills-penddoc" aria-selected="false"> Pendientes de revision</a>
+            <a class="nav-link" id="v-pills-payconf-tab" data-bs-toggle="pill" href="#v-pills-payconf" role="tab" aria-controls="v-pills-payconf" aria-selected="false"> Pagos a confirmar</a>
+            <a class="nav-link" id="v-pills-pendverif-tab" data-bs-toggle="pill" href="#v-pills-pendverif" role="tab" aria-controls="v-pills-pendverif" aria-selected="false"> Pendientes de verificacion</a>
+            <a class="nav-link" id="v-pills-pendcert-tab" data-bs-toggle="pill" href="#v-pills-pendcert" role="tab" aria-controls="v-pills-pendcert" aria-selected="false"> Esperando certificado</a>
+            <u><a class="nav-link disabled text-center" href="#">Acciones</a></u>
+            <a class="nav-link" id="v-pills-search-tab" data-bs-toggle="pill" href="#v-pills-search" role="tab" aria-controls="v-pills-search" aria-selected="false">Buscador</a>
+            <a class="nav-link" id="v-pills-fee-tab" data-bs-toggle="pill" href="#v-pills-fee" role="tab" aria-controls="v-pills-fee" aria-selected="false">Modificar tarifas</a>
+            <a class="nav-link" id="v-pills-statistics-tab" data-bs-toggle="pill" href="#v-pills-statistics" role="tab" aria-controls="v-pills-statistics" aria-selected="false">Ver estadisticas</a>
+        </div>
+    </div>
+
+    <!-- PAGE CONTENT -->
+    <div class="page-content-wrapper"> 
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-operation" role="tabpanel" aria-labelledby="v-pills-operation-tab">
+                {% include "operation_table.html" %} 
+            </div>
+            <div class="tab-pane fade" id="v-pills-client" role="tabpanel" aria-labelledby="v-pills-client-tab">
+                {% include "client_table.html" %} 
+            </div>
+            <div class="tab-pane fade" id="v-pills-vehicle" role="tabpanel" aria-labelledby="v-pills-vehicle-tab">
+                {% include "client_table.html" %}            
+            </div>
+            <div class="tab-pane fade" id="v-pills-openop" role="tabpanel" aria-labelledby="v-pills-openop-tab">
+                {% include "client_table.html" %}            
+            </div>
+            <div class="tab-pane fade" id="v-pills-penddoc" role="tabpanel" aria-labelledby="v-pills-penddoc-tab">
+                {% include "client_table.html" %}            
+            </div>
+            <div class="tab-pane fade" id="v-pills-payconf" role="tabpanel" aria-labelledby="v-pills-payconf-tab">
+                {% include "client_table.html" %}            
+            </div>
+            <div class="tab-pane fade" id="v-pills-pendverif" role="tabpanel" aria-labelledby="v-pills-pendverif-tab">
+                {% include "client_table.html" %}            
+            </div>
+            <div class="tab-pane fade" id="v-pills-pendcert" role="tabpanel" aria-labelledby="v-pills-pendcert-tab">
+                {% include "client_table.html" %}            
+            </div>
+            <div class="tab-pane fade" id="v-pills-search" role="tabpanel" aria-labelledby="v-pills-search-tab">
+                {% include "client_table.html" %}            
+            </div>
+            <div class="tab-pane fade" id="v-pills-fee" role="tabpanel" aria-labelledby="v-pills-fee-tab">
+                {% include "client_table.html" %}            
+            </div>
+            <div class="tab-pane fade" id="v-pills-statistics" role="tabpanel" aria-labelledby="v-pills-statistics-tab">
+                {% include "client_table.html" %}            
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--Opcion con botones-->
+
+<div id="wrapper" class="d-flex align-items-start">
+    <!-- SIDE NAV -->
+    <div class="sidebar-wrapper">        
+        <div class="nav flex-column nav-pills me-3 bg-dark vh-100" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
+            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</button>
+            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</button>
+            <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
+            <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
+            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</button>
+            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</button>
+            <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
+        </div>
+    </div>
+    
+    <!-- PAGE CONTENT -->
+    <div class="page-content-wrapper"> 
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+              {% include "operation_table.html" %} 
+            </div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+              {% include "client_table.html" %} 
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">Aca va la tabla de vehiculos</div>
+            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">Aca foto en tanga </div>
+            <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">Aca va la tabla de operaciones</div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">Aca va la tabla de clientes</div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">Aca va la tabla de vehiculos</div>
+            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">Aca foto en tanga </div>
+        </div>
+    </div>
+</div>

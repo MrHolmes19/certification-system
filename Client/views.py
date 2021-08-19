@@ -69,10 +69,13 @@ def doc(request):
             
             if operation.is_valid():
 
-                operation = operation.save(commit=False)
+                operation = operation.save()
+                id = operation.id
+                zero_n = 5 - len(str(id))
+                operation.certificate_number = 'CERT-{}{}'.format(zero_n*'0',str(id))
                 operation.owner = client
                 operation.id_vehicle = vehicle
-                operation.stage = 'doc_sent'
+                operation.stage = 'Documentacion enviada'
                 operation.save()  
                 print("guardado con exito")              
             else:

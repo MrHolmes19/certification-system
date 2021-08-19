@@ -1,0 +1,22 @@
+
+.page-content-wrapper{
+    margin-left: 250px;
+    transition: 0.5s;
+    width:80vw;
+}
+
+.sidebar-wrapper{
+    width: 250px;
+    position: fixed;
+    margin-left: 0px;
+    transition: 0.5s;
+}
+
+.hide-nav{
+    margin-left: -250px;
+}
+
+.expand-cont{
+    margin-left: 0px;
+    width:100vw;
+}

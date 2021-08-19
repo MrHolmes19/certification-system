@@ -1,16 +1,16 @@
 from CertificationsApp.models import Client, Vehicle, Operation
 
 stage_levels={
-    "doc_sent": "formulario-pendiente",
-    "doc_rejected": "formulario",
-    "doc_aproved": "pago",
-    "payment_done": "pago-pendiente",
-    "payment_aproved": "turno-verificacion",
-    "appointment_confirmed": "verificacion-pendiente",
-    "verification_aproved": "certificado-pendiente",
-    "certificate_available": "download",
-    "certificate_expired": "fuckyou",
-    "operation_ended": "",
+    "Documentacion a revisar": "formulario-pendiente",
+    "Documentacion rechazada": "formulario",
+    "Pendiente de pago": "pago",
+    "Pago a revisar": "pago-pendiente",
+    "Turno pendiente": "turno-verificacion",
+    "Verificacion pendiente": "verificacion-pendiente",
+    "Esperando certificado": "certificado-pendiente",
+    "Certificado disponible": "download",
+    "Certificado expirado": "fuckyou",
+    "Operacion completada": "",
 }
 
 def loginRedirect(id_number_input, domain_input):

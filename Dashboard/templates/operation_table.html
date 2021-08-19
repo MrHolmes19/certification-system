@@ -1,0 +1,71 @@
+{% load static %}
+
+{% block content %}
+    <section id="dashboard">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="text-center">
+              <tr>
+                <th scope="col">Detalle</th>
+                <th scope="row">Nº de certificado</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Vehiculo</th>
+                <th scope="col">Patente</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Modificacion</th>
+                <th scope="col">Inicio de tramite</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for op in operations %}
+                <tr>
+                    <td class="text-center"><a href="{% url 'Dashboard:OperationDetail' op.id %}">
+                        <img src="https://img.icons8.com/emoji/48/000000/magnifying-glass-tilted-right-emoji.png"/></a></td>
+                    <td>{{op.certificate_number}}</td>
+                    <td>
+                        <a href="#" onclick="clientModal('{{op.id_vehicle.owner.name}}',
+                            '{{op.id_vehicle.owner.surname}}', '{{op.id_vehicle.owner.mail}}',
+                            '{{op.id_vehicle.owner.phone}}', '{{op.id_vehicle.owner.id_number}}')">
+                            {{op.id_vehicle.owner.name}} {{op.id_vehicle.owner.surname}}
+                        </a>
+                    </td>
+                    <td>{{op.id_vehicle.brand}} {{op.id_vehicle.model}}</td>
+                    <td>{{op.id_vehicle.domain}}</td>
+                    <td>{{op.stage}}</td>
+                    <td>{{op.original_type}}-->{{op.final_type}}</td>
+                    <td>{{op.registrated_at}}</td>
+                </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    
+    <div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="clientModalLabel">Detalle Cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            <div class="modal-body">
+                <h6>Nombre: <span id="name"></span></h6>
+                <h6>Apellido: <span id="surname"></span></h6>
+                <h6>DNI: <span id="id_number"></span></h6>
+                <h6>Email: <span id="email"></span></h6>
+                <h6>Telefono: <span id="phone"></span></h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+<script src="{% static 'CertificationsApp/bootstrap/js/bootstrap.min.js' %}"></script>
+
+<script src="{% static 'CertificationsApp/js/clientModal.js' %}"></script>  
+{% endblock %}

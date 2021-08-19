@@ -68,7 +68,7 @@ class Operation(models.Model):
     id_vehicle = models.ForeignKey(Vehicle, related_name='operations', on_delete=models.SET_NULL, null=True)
     original_type = models.ForeignKey(ModificationsType, related_name='original', on_delete=models.SET_NULL, null=True) #agregar null=True, 
     final_type = models.ForeignKey(ModificationsType, related_name='final', on_delete=models.SET_NULL, null=True) #agregar null=True,
-
+    #is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'operation'
