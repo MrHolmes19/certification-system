@@ -1,3 +1,4 @@
+/* sidebar effect */
 
 .page-content-wrapper{
     margin-left: 250px;
@@ -19,4 +20,38 @@
 .expand-cont{
     margin-left: 0px;
     width:100vw;
+}
+
+tbody{
+    font-size: 13px;
+    transition: 0.5s;
+}
+
+.expand-font{
+    font-size: 15px;
+    transition: 0.5s;
+}
+
+/* tables */
+
+table tbody tr td a img{
+    height:20px;
+}
+
+.table-hover thead tr:hover th, .table-hover tbody tr:hover td{
+    background-color: rgba(228, 64, 113, 0.356) !important;
+}
+
+#client-link{
+    text-decoration-line: none;
+}
+
+/* Search bar */
+
+#select2{
+    min-width:144px !important;
+}
+
+form{
+    height: 31px;
 }
