@@ -1,10 +1,12 @@
+from django.http.response import HttpResponseRedirect
 from Client.forms import FormLogin, FormDoc, formRegisterOperation
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.urls import reverse
 from CertificationsApp.models import Client, Vehicle, Operation
 from .utils import loginRedirect
 
-# Create your views here.
+
 def login(request):
     form_login = FormLogin()
     if request.method == "POST":
@@ -77,7 +79,9 @@ def doc(request):
                 operation.id_vehicle = vehicle
                 operation.stage = 'Documentacion enviada'
                 operation.save()  
-                print("guardado con exito")              
+                print("guardado con exito") 
+                return HttpResponseRedirect(reverse("Waiting_Doc"))
+                #return redirect("client-module:Waiting_Doc")
             else:
                 print(operation.errors)
 
@@ -85,7 +89,8 @@ def doc(request):
             #print("3:{}".format(form_doc.errors))
     return render(request,"doc.html",{'form_doc':form_doc})
 
-
+def waitingDoc(request):   
+    return render(request,"doc_check.html")
 
 
 """urlpatterns = [

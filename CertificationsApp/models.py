@@ -27,7 +27,7 @@ class Client(models.Model):
         verbose_name_plural = 'clients'
     
     def __str__(self):
-        return self.id_number
+        return str(self.id_number) #OJO acá lo cambié porque me saltaba error en el admin al cargar
 
 class Vehicle(models.Model):    
     domain = models.CharField(max_length=7)
@@ -55,19 +55,19 @@ class Operation(models.Model):
     image3_uploaded = models.ImageField(upload_to="images")
     image4_uploaded = models.ImageField(upload_to="images")
     image5_uploaded = models.ImageField(upload_to="images")
-    image6_uploaded = models.ImageField(upload_to="images", null=True)
-    image7_uploaded = models.ImageField(upload_to="images", null=True)
-    paid_at = models.DateTimeField(default=None, null=True) #Puede llegar a joder el None
-    paid_by = models.CharField(max_length=64, null=True)
-    doc_verified_at = models.DateTimeField(default=None, null=True)
-    onsite_verified_at = models.DateTimeField(default=None, null=True)
-    inform_created_at = models.DateTimeField(default=None, null=True)
-    certificate_uploaded_at = models.DateTimeField(default=None, null=True)
-    certificate_downloaded_at = models.DateTimeField(default=None, null=True)
+    image6_uploaded = models.ImageField(upload_to="images", blank=True, null=True)
+    image7_uploaded = models.ImageField(upload_to="images", blank=True, null=True)
+    paid_at = models.DateTimeField(default=None, blank=True, null=True) #Puede llegar a joder el None
+    paid_by = models.CharField(max_length=64, blank=True, null=True)
+    doc_verified_at = models.DateTimeField(default=None, blank=True, null=True)
+    onsite_verified_at = models.DateTimeField(default=None, blank=True, null=True)
+    inform_created_at = models.DateTimeField(default=None, blank=True, null=True)
+    certificate_uploaded_at = models.DateTimeField(default=None, blank=True, null=True)
+    certificate_downloaded_at = models.DateTimeField(default=None, blank=True, null=True)
     owner = models.ForeignKey(Client, related_name='operations', on_delete=models.SET_NULL, null=True)
     id_vehicle = models.ForeignKey(Vehicle, related_name='operations', on_delete=models.SET_NULL, null=True)
-    original_type = models.ForeignKey(ModificationsType, related_name='original', on_delete=models.SET_NULL, null=True) #agregar null=True, 
-    final_type = models.ForeignKey(ModificationsType, related_name='final', on_delete=models.SET_NULL, null=True) #agregar null=True,
+    original_type = models.ForeignKey(ModificationsType, related_name='original', on_delete=models.SET_NULL, null=True)
+    final_type = models.ForeignKey(ModificationsType, related_name='final', on_delete=models.SET_NULL, null=True)
     #is_active = models.BooleanField(default=True)
 
     class Meta:

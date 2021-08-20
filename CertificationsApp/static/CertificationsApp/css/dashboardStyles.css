@@ -46,6 +46,11 @@ table tbody tr td a img{
     text-decoration-line: none;
 }
 
+.page-content-wrapper{
+    height: 90vh;
+    overflow: scroll;
+}
+
 /* Search bar */
 
 #select2{
