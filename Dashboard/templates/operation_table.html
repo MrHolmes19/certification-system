@@ -1,76 +1,11 @@
+
 {% load static %}
 
-{% block content %}
-
-    <div class="container">
-        <div class="row my-3">
-            <div class="col-8 offset-2">
-                <h3 class="text-center"> Registro de operaciones</h3>
-            </div>
-            <div class="col-2 d-grid gap-2 d-flex justify-content-end">
-                <button class="btn-sm btn-dark" id="download"> DESCARGAR </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Search Bar -->
-    
-    <div id="search-bar" class="container-fluid mb-2">
-        <div class="row d-flex align-items-center">
-            <!-- show entries -->
-            <div class="col-3 d-flex justify-content-start">
-                <div class="gap-2 d-flex">
-                    <label>Mostrar</label>
-                    <select class="form-select form-select-sm">
-                        <option>10</option>
-                        <option>20</option>
-                        <option>30</option>
-                        <option>50</option>
-                    </select>
-                    <label>entradas</label>
-                </div>
-            </div>
-            <!-- filters -->
-            <div class="col-9 gap-2 d-flex justify-content-end align-items-center">
-                <div class="filter-group gap-2 d-flex">
-                    <label>Tabla</label>
-                    <select id="select1" class="form-select form-select-sm" onchange="giveSelection(this.value)">
-                        <option value="1">Operaciones</option>
-                        <option value="2">Clientes</option>
-                        <option value="3">Vehiculos</option>							
-                    </select>
-                </div>
-                <div class="filter-group gap-2 d-flex">
-                    <label>Campo</label>
-                    <select id="select2" class="form-select form-select-sm">
-                        <option data-option="1">N° Certificado</option>
-                        <option data-option="1">Nombre Cliente</option>
-                        <option data-option="1">Vehiculo</option>
-                        <option data-option="1">Patente</option>
-                        <option data-option="1">Estado</option>
-                        <option data-option="1">Tipo</option>
-                        <option data-option="1">Fecha</option>
-                        <option data-option="2">Nombre</option>
-                        <option data-option="2">Apellido</option>
-                        <option data-option="2">DNI</option>
-                        <option data-option="2">Mail</option>
-                        <option data-option="2">Telefono</option>
-                        <option data-option="3">Marca</option>
-                        <option data-option="3">Patente</option>
-                    </select>
-                </div>
-                <!-- search field -->
-                <form class="d-flex gap-2">
-                    <input class="form-control" type="search" placeholder="Palabra clave" aria-label="Search">
-                    <button class="btn btn-outline-success d-flex align-items-center" type="submit">Buscar</button>
-                </form>
-            </div>
-        </div>   
-    </div> 
+{% block content2 %}
 
     <!-- Table -->
 
-    <section id="dashboard">
+    <section id="operation-table">
       <div class="table-responsive mx-1">
         <table class="table table-sm table-hover table-bordered table-striped">
             <thead class="text-center align-middle bg-secondary bg-gradient bg-opacity-50">
@@ -89,7 +24,8 @@
                 {% for op in operations %}
                 <tr>
                     <td class="text-center"><a href="{% url 'Dashboard:OperationDetail' op.id %}">
-                        <img src="https://img.icons8.com/emoji/48/000000/magnifying-glass-tilted-right-emoji.png"></a></td>
+                        <img src="https://img.icons8.com/emoji/48/000000/magnifying-glass-tilted-right-emoji.png"></a>
+                    </td>
                     <td>{{op.certificate_number}}</td>
                     <td>
                         <a id="client-link" href="#" onclick="clientModal('{{op.id_vehicle.owner.name}}',
@@ -111,37 +47,6 @@
         </div>
     </section>
 
-    <!-- pagination -->
-    <div class="container-fluid">
-    
-    <div class="row">
-        <div class="col-sm-12 col-md-5 d-flex justify-content-start">
-            <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Mostrando 1 a 25 de 57 entradas
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-7 d-flex justify-content-end">
-            <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
-                <ul class="pagination">
-                    <li class="paginate_button page-item previous disabled" id="example_previous">
-                        <a href="#" aria-controls="example" data-dt-idx="0" tabindex="0" class="page-link">Anterior</a>
-                    </li>
-                    <li class="paginate_button page-item active">
-                        <a href="#" aria-controls="example" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                    </li>
-                    <li class="paginate_button page-item ">
-                        <a href="#" aria-controls="example" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-                    </li>
-                    <li class="paginate_button page-item next" id="example_next">
-                        <a href="#" aria-controls="example" data-dt-idx="4" tabindex="0" class="page-link">Siguiente</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    </div>
     <!-- Modal -->
     
     <div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="clientModalLabel" aria-hidden="true">

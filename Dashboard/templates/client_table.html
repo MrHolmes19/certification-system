@@ -1,29 +1,41 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+{% extends "dashboard.html" %}
+
+{% load static %}
+
+{% block content2 %}
+    
+    <!-- Table -->
+
+    <section id="client-table">
+      <div class="table-responsive mx-1">
+        <table class="table table-sm table-hover table-bordered table-striped">
+            <thead class="text-center align-middle bg-secondary bg-gradient bg-opacity-50">
+              <tr>
+                <th scope="col">DNI</th>
+                <th scope="row">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Mail</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Vehículo</th>
+              </tr>
+            </thead>
+            <tbody class="body">
+                {% for cli in clients %}
+                <tr>
+                    <td>{{cli.id_number}}</td>
+                    <td>{{cli.name}}</td>
+                    <td>{{cli.surname}}</td>
+                    <td>{{cli.mail}}</td>
+                    <td>{{cli.phone}}</td>
+                    <td>{{cli.vehicles}}</td>
+                </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+    </section>
+
+<script src="{% static 'CertificationsApp/bootstrap/js/bootstrap.min.js' %}"></script>
+
+{% endblock %}

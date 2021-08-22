@@ -11,6 +11,13 @@ def dashboard(request):
         
         return render(request,"dashboard.html",{'operations':operations})
 
+def dashboardClient(request):
+    if request.method == "GET":
+
+        clients = Client.objects.all()
+        
+        return render(request,"client_table.html",{'clients':clients})
+
 def operationDetail(request, pk):
     if request.method == "GET":
         
@@ -21,7 +28,8 @@ def operationDetail(request, pk):
 
         return render(request,"operationDetail.html",{'operation':operation, 'vehicle':vehicle, 'client':client})
 
-
+def borrador(request):
+    return render(request,"borrador2.html")
 
 
 #player = Player.objects.select_related('terminal').select_related('terminal__node').select_related(

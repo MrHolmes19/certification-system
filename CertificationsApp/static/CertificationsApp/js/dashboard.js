@@ -40,3 +40,36 @@ function giveSelection(selValue) {
 }
 
 giveSelection(sel1.value);
+
+/* syncronic searching */
+
+var search_field = document.querySelector("#search-field");
+var current_table = "operations";
+
+function currentTable(actual){
+  current_table = actual;
+}
+
+function search(value){
+  var rows =  document.querySelectorAll("tbody tr");
+  //rows.classList.add("visually-hidden");
+  
+  rows.forEach(row => {
+    row.classList.add("visually-hidden");
+    cols = Array.from(row.getElementsByTagName("td"));
+    cols.forEach(col => {
+        if(col.innerText.toLowerCase().indexOf(value.toLowerCase()) > -1){
+          col.parentElement.classList.remove("visually-hidden");
+      }
+    });
+  });
+
+  /*
+  for(i=0; i<7; i++){
+    for(j=0; i<7; i++){
+  }*/
+
+
+
+}
+
