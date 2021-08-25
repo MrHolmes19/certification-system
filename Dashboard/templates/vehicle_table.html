@@ -1,0 +1,41 @@
+{% extends "dashboard.html" %}
+
+{% load static %}
+
+{% block content2 %}
+    
+    <!-- Table -->
+
+    <section id="client-table">
+      <div class="table-responsive mx-1">
+        <table class="table table-sm table-hover table-bordered table-striped">
+            <thead class="text-center align-middle bg-secondary bg-gradient bg-opacity-50">
+              <tr>
+                <th scope="col">Patente</th>
+                <th scope="row">Marca</th>
+                <th scope="col">Modelo</th>
+                <th scope="col">Nº de chasiss</th>
+                <th scope="col">Nº de motor</th>
+                <th scope="col">Dueño</th>
+              </tr>
+            </thead>
+            <tbody class="body">
+                {% for veh in vehicles %}
+                <tr>
+                    <td>{{veh.domain}}</td>
+                    <td>{{veh.brand}}</td>
+                    <td>{{veh.model}}</td>
+                    <td>{{veh.chassis_number}}</td>
+                    <td>{{veh.engine_number}}</td>
+                    <td>{{veh.owner}}</td>
+                </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+    </section>
+
+<script src="{% static 'CertificationsApp/bootstrap/js/bootstrap.min.js' %}"></script>
+
+{% endblock %}

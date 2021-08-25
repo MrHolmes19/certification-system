@@ -9,7 +9,7 @@ def dashboard(request):
 
         operations = Operation.objects.select_related('id_vehicle').select_related('owner').all().order_by('-registrated_at')
         
-        return render(request,"dashboard.html",{'operations':operations})
+        return render(request,"operation_table.html",{'operations':operations})
 
 def dashboardClient(request):
     if request.method == "GET":
@@ -17,6 +17,13 @@ def dashboardClient(request):
         clients = Client.objects.all()
         
         return render(request,"client_table.html",{'clients':clients})
+
+def dashboardVehicles(request):
+    if request.method == "GET":
+
+        vehicles = Vehicle.objects.all()
+        
+        return render(request,"vehicle_table.html",{'vehicles':vehicles})
 
 def operationDetail(request, pk):
     if request.method == "GET":

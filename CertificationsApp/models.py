@@ -27,7 +27,7 @@ class Client(models.Model):
         verbose_name_plural = 'clients'
     
     def __str__(self):
-        return str(self.id_number) #OJO acá lo cambié porque me saltaba error en el admin al cargar
+        return "{} {}".format(self.name, self.surname) #OJO acá lo cambié porque me saltaba error en el admin al cargar
 
 class Vehicle(models.Model):    
     domain = models.CharField(max_length=7)
@@ -43,7 +43,7 @@ class Vehicle(models.Model):
         verbose_name_plural = 'vehicles'
     
     def __str__(self):
-        return self.domain
+        return str(self.domain)
 
 
 class Operation(models.Model):    

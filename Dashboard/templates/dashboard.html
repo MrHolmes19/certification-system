@@ -9,9 +9,9 @@
     <div class="sidebar-wrapper">        
         <div class="nav flex-column nav-pills me-3 bg-dark vh-100" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <u><a class="nav-link disabled text-center" href="#">Tablas</a></u>
-            <a class="nav-link active" id="v-pills-operation-tab" data-bs-toggle="pill" href="#v-pills-operation" role="tab" aria-controls="v-pills-operation" aria-selected="true" onchange="currentTable('operations')">Operaciones</a>
+            <a class="nav-link" id="v-pills-operation-tab" href="{% url 'Dashboard:Dashboard-operations' %}" role="tab" aria-controls="v-pills-operation" aria-selected="true" onchange="currentTable('operations')">Operaciones</a>
             <a class="nav-link" id="v-pills-client-tab" href="{% url 'Dashboard:Dashboard-clients' %}" role="tab" aria-controls="v-pills-client" aria-selected="false" onchange="currentTable('clients')">Clientes</a>
-            <a class="nav-link" id="v-pills-vehicle-tab" data-bs-toggle="pill" href="#v-pills-vehicle" role="tab" aria-controls="v-pills-vehicle" aria-selected="false" onchange="currentTable('vehicles')">Vehiculos</a>
+            <a class="nav-link" id="v-pills-vehicle-tab" href="{% url 'Dashboard:Dashboard-vehicles' %}" role="tab" aria-controls="v-pills-vehicle" aria-selected="false" onchange="currentTable('vehicles')">Vehiculos</a>
             <u><a class="nav-link disabled text-center" href="#">Filtros</a></u>
             <a class="nav-link" id="v-pills-openop-tab" data-bs-toggle="pill" href="#v-pills-openop" role="tab" aria-controls="v-pills-openop" aria-selected="false"> Operaciones abiertas</a>
             <a class="nav-link" id="v-pills-penddoc-tab" data-bs-toggle="pill" href="#v-pills-penddoc" role="tab" aria-controls="v-pills-penddoc" aria-selected="false"> Pendientes de revision</a>
@@ -67,80 +67,9 @@
                 </div>
             </div>   
         </div> 
+        <script src="{% static 'CertificationsApp/js/tabs.js' %}"></script>
 {% endblock %}
         
 {% block content2 %}
-        <!-- Table calls -->
-        <div class="tab-content" id="v-pills-tabContent">
-            <div class="tab-pane fade show active" id="v-pills-operation" role="tabpanel" aria-labelledby="v-pills-operation-tab">
-                {% include "operation_table.html" %} 
-            </div>
-            <div class="tab-pane fade" id="v-pills-client" role="tabpanel" aria-labelledby="v-pills-client-tab">
-            
-            </div>
-            <div class="tab-pane fade" id="v-pills-vehicle" role="tabpanel" aria-labelledby="v-pills-vehicle-tab">
-                          
-            </div>
-            <div class="tab-pane fade" id="v-pills-openop" role="tabpanel" aria-labelledby="v-pills-openop-tab">
-                {% include "client_table.html" %}            
-            </div>
-            <div class="tab-pane fade" id="v-pills-penddoc" role="tabpanel" aria-labelledby="v-pills-penddoc-tab">
-                {% include "client_table.html" %}            
-            </div>
-            <div class="tab-pane fade" id="v-pills-payconf" role="tabpanel" aria-labelledby="v-pills-payconf-tab">
-                {% include "client_table.html" %}            
-            </div>
-            <div class="tab-pane fade" id="v-pills-pendverif" role="tabpanel" aria-labelledby="v-pills-pendverif-tab">
-                {% include "client_table.html" %}            
-            </div>
-            <div class="tab-pane fade" id="v-pills-pendcert" role="tabpanel" aria-labelledby="v-pills-pendcert-tab">
-                {% include "client_table.html" %}            
-            </div>
-            <div class="tab-pane fade" id="v-pills-search" role="tabpanel" aria-labelledby="v-pills-search-tab">
-                           
-            </div>
-            <div class="tab-pane fade" id="v-pills-fee" role="tabpanel" aria-labelledby="v-pills-fee-tab">
-                         
-            </div>
-            <div class="tab-pane fade" id="v-pills-statistics" role="tabpanel" aria-labelledby="v-pills-statistics-tab">
-                           
-            </div>
-        </div>
+
 {% endblock %}        
-{% block content3 %}
-        <!-- pagination -->
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12 col-md-5 d-flex justify-content-start">
-                    <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Mostrando 1 a 25 de 57 entradas
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-7 d-flex justify-content-end">
-                    <div class="dataTables_paginate paging_simple_numbers" id="example_paginate">
-                        <ul class="pagination">
-                            <li class="paginate_button page-item previous disabled" id="example_previous">
-                                <a href="#" aria-controls="example" data-dt-idx="0" tabindex="0" class="page-link">Anterior</a>
-                            </li>
-                            <li class="paginate_button page-item active">
-                                <a href="#" aria-controls="example" data-dt-idx="1" tabindex="0" class="page-link">1</a>
-                            </li>
-                            <li class="paginate_button page-item ">
-                                <a href="#" aria-controls="example" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-                            </li>
-                            <li class="paginate_button page-item ">
-                                <a href="#" aria-controls="example" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-                            </li>
-                            <li class="paginate_button page-item next" id="example_next">
-                                <a href="#" aria-controls="example" data-dt-idx="4" tabindex="0" class="page-link">Siguiente</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- -->
-
-{% endblock %}
