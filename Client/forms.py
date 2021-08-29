@@ -1,5 +1,6 @@
 from django import forms
 from CertificationsApp.models import ModificationsType, Operation
+from django.forms.widgets import FileInput
 
 typelist = [
     ("tipo1", "tipo1"), ("tipo2", "tipo2"), ("tipo3", "tipo3")
@@ -32,13 +33,13 @@ class FormDoc(forms.Form):
     final_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(),
         label="Vehiculo a homologar", required=True)
 
-    image1_uploaded = forms.ImageField(label="Foto Cedula", help_text="Foto nitída del frente de su cedula verde")
-    image2_uploaded = forms.ImageField(label="Foto Frente", help_text="Foto de la parte posterior del vehiculo")
-    image3_uploaded = forms.ImageField(label="Foto Lado derecho", help_text="Foto del vehiculo del lado del acompañante")
-    image4_uploaded = forms.ImageField(label="Foto Lado izquierdo", help_text="Foto del vehiculo del lado del conductor")
-    image5_uploaded = forms.ImageField(label="Foto Trasera", help_text="Foto de la parte posterior del vehiculo")
-    image6_uploaded = forms.ImageField(label="Foto Detalle", required=False, help_text="Aqui insertar descripcion segun modificacion")
-    image7_uploaded = forms.ImageField(label="Foto Detalle 2", required=False, help_text="Aqui insertar descripcion segun modificacion")
+    image1_uploaded = forms.ImageField(label="Foto Cedula", help_text="Foto nitída del frente de su cedula verde", widget = FileInput)
+    image2_uploaded = forms.ImageField(label="Foto Frente", help_text="Foto de la parte posterior del vehiculo", widget = FileInput)
+    image3_uploaded = forms.ImageField(label="Foto Lado derecho", help_text="Foto del vehiculo del lado del acompañante", widget = FileInput)
+    image4_uploaded = forms.ImageField(label="Foto Lado izquierdo", help_text="Foto del vehiculo del lado del conductor", widget = FileInput)
+    image5_uploaded = forms.ImageField(label="Foto Trasera", help_text="Foto de la parte posterior del vehiculo", widget = FileInput)
+    image6_uploaded = forms.ImageField(label="Foto Detalle", required=False, help_text="Aqui insertar descripcion segun modificacion", widget = FileInput)
+    image7_uploaded = forms.ImageField(label="Foto Detalle 2", required=False, help_text="Aqui insertar descripcion segun modificacion", widget = FileInput)
 
 class formRegisterOperation(forms.ModelForm):
 
@@ -61,8 +62,3 @@ class formRegisterOperation(forms.ModelForm):
             'original_type',
             'final_type',
         )
-
-class imagenesPrueba(forms.Form):
-    image1_uploaded = forms.ImageField(label="prueba1")
-    image2_uploaded = forms.ImageField(label="Foto Frente")
-    image3_uploaded = forms.ImageField(label="Foto lateral 1")

@@ -11,8 +11,6 @@ class ModificationsType(models.Model):
     
     def __str__(self):
         return self.available_type
-
-
     
 class Client(models.Model):    
     id_number = models.IntegerField(unique=True)

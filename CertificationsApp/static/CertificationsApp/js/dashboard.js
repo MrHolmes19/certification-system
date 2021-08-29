@@ -41,9 +41,9 @@ function giveSelection(selValue) {
 
 giveSelection(sel1.value);
 
-/* syncronic searching */
+/* real-time searching */
 
-var search_field = document.querySelector("#search-field");
+var search_field = document.querySelector("#search-field"); //Borrar, no se usa
 var current_table = "operations";
 
 function currentTable(actual){
@@ -63,13 +63,5 @@ function search(value){
       }
     });
   });
-
-  /*
-  for(i=0; i<7; i++){
-    for(j=0; i<7; i++){
-  }*/
-
-
-
 }
 

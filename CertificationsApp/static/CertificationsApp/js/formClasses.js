@@ -1,3 +1,5 @@
+/* adding bootstrap tags to forms */
+
 // login form
 var inputs = document.querySelectorAll("input")
 var labels = document.querySelectorAll("label")

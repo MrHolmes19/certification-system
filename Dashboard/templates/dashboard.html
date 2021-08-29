@@ -13,15 +13,15 @@
             <a class="nav-link" id="v-pills-client-tab" href="{% url 'Dashboard:Dashboard-clients' %}" role="tab" aria-controls="v-pills-client" aria-selected="false" onchange="currentTable('clients')">Clientes</a>
             <a class="nav-link" id="v-pills-vehicle-tab" href="{% url 'Dashboard:Dashboard-vehicles' %}" role="tab" aria-controls="v-pills-vehicle" aria-selected="false" onchange="currentTable('vehicles')">Vehiculos</a>
             <u><a class="nav-link disabled text-center" href="#">Filtros</a></u>
-            <a class="nav-link" id="v-pills-openop-tab" data-bs-toggle="pill" href="#v-pills-openop" role="tab" aria-controls="v-pills-openop" aria-selected="false"> Operaciones abiertas</a>
-            <a class="nav-link" id="v-pills-penddoc-tab" data-bs-toggle="pill" href="#v-pills-penddoc" role="tab" aria-controls="v-pills-penddoc" aria-selected="false"> Pendientes de revision</a>
-            <a class="nav-link" id="v-pills-payconf-tab" data-bs-toggle="pill" href="#v-pills-payconf" role="tab" aria-controls="v-pills-payconf" aria-selected="false"> Pagos a confirmar</a>
-            <a class="nav-link" id="v-pills-pendverif-tab" data-bs-toggle="pill" href="#v-pills-pendverif" role="tab" aria-controls="v-pills-pendverif" aria-selected="false"> Pendientes de verificacion</a>
-            <a class="nav-link" id="v-pills-pendcert-tab" data-bs-toggle="pill" href="#v-pills-pendcert" role="tab" aria-controls="v-pills-pendcert" aria-selected="false"> Esperando certificado</a>
+            <a class="nav-link" id="v-pills-openop-tab" href="{% url 'Dashboard:Dashboard-operations' %}" role="tab" aria-controls="v-pills-openop" aria-selected="false"> Operaciones abiertas</a>
+            <a class="nav-link" id="v-pills-penddoc-tab" href="{% url 'Dashboard:Dashboard-operations' %}?stage=Documentacion enviada" role="tab" aria-controls="v-pills-penddoc" aria-selected="false"> Pendientes de revision</a>
+            <a class="nav-link" id="v-pills-payconf-tab" href="{% url 'Dashboard:Dashboard-operations' %}?stage=Pago a revisar" role="tab" aria-controls="v-pills-payconf" aria-selected="false"> Pagos a confirmar</a>
+            <a class="nav-link" id="v-pills-pendverif-tab" href="{% url 'Dashboard:Dashboard-operations' %}?stage=Verificacion pendiente" role="tab" aria-controls="v-pills-pendverif" aria-selected="false"> Pendientes de verificacion</a>
+            <a class="nav-link" id="v-pills-pendcert-tab" href="{% url 'Dashboard:Dashboard-operations' %}?stage=Esperando certificado" role="tab" aria-controls="v-pills-pendcert" aria-selected="false"> Esperando certificado</a>
             <u><a class="nav-link disabled text-center" href="#">Acciones</a></u>
-            <a class="nav-link" id="v-pills-search-tab" data-bs-toggle="pill" href="#v-pills-search" role="tab" aria-controls="v-pills-search" aria-selected="false">Buscador</a>
-            <a class="nav-link" id="v-pills-fee-tab" data-bs-toggle="pill" href="#v-pills-fee" role="tab" aria-controls="v-pills-fee" aria-selected="false">Modificar tarifas</a>
-            <a class="nav-link" id="v-pills-statistics-tab" data-bs-toggle="pill" href="#v-pills-statistics" role="tab" aria-controls="v-pills-statistics" aria-selected="false">Ver estadisticas</a>
+            <a class="nav-link" id="v-pills-search-tab" href="#v-pills-search" role="tab" aria-controls="v-pills-search" aria-selected="false">Buscador</a>
+            <a class="nav-link" id="v-pills-fee-tab" href="#v-pills-fee" role="tab" aria-controls="v-pills-fee" aria-selected="false">Modificar tarifas</a>
+            <a class="nav-link" id="v-pills-statistics-tab" href="#v-pills-statistics" role="tab" aria-controls="v-pills-statistics" aria-selected="false">Ver estadisticas</a>
         </div>
     </div>
 

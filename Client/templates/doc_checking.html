@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section id="pend-doc">
+    <div class="container my-2">
+        <div class="row">
+            <div class="col">
+                <h3 class="text-center mt-2 mb-5"> Enviaste el formulario con la documentación solicitada </h3>
+
+                <p> Nos tomaremos un momento para revisar que esté todo en orden, y te notificaremos por mail para continuar con el siguiente paso. <p>
+
+                <p> Mientras tanto, podes cerrar la página ya que tu información quedó guardada.<p> 
+
+                <div class="d-inline-flex gap-2 align-items-center">
+                    <small class="text-muted"> Aun no recibiste una notificación?</small> 
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#helpModal">Ayuda</button>   
+                </div>                        
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal HELP -->    
+
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel">CONTACTANOS</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            <div class="modal-body">
+                <p>La respuesta suele tardar un máximo de 24 hs en dias hábiles. Si ya pasó ese lapso, comunicate con nosotros:</p>
+                <p><strong>Correo:</strong> hermanaGaby@mail.com</p>
+                <p><strong>Telefono:</strong> 11552244</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script src="{% static 'CertificationsApp/js/helpModal.js' %}"></script>  
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section id="pend-doc">
+    <div class="container my-2">
+        <div class="row">
+            <div class="col">
+                <h3 class="text-center mt-2 mb-5"> Tu documentación fue aprobada </h3>
+
+                <p> Para continuar, elige un método de pago <p>
+
+                <div class="d-inline-flex gap-2 align-items-center">
+                    <small class="text-muted"> Aun no recibiste una notificación?</small> 
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#helpModal">Ayuda</button>   
+                </div>                        
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+{% endblock %}

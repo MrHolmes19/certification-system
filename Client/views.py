@@ -12,26 +12,19 @@ def login(request):
     if request.method == "POST":
         form_login = FormLogin(request.POST)
         if form_login.is_valid():
-            id_number_input = request.POST.get("id_number")
-            domain_input = request.POST.get("domain")
+            id_number_input = request.POST.get("id_number").strip()
+            domain_input = request.POST.get("domain").strip()
 
             targetPage = loginRedirect(id_number_input, domain_input)
 
-            return redirect("/" + targetPage + "/?id_number_client,domain_client")  # Chequear
+            return redirect("/" + targetPage + "/")
 
     return render(request,"login.html",{'form_login':form_login})
-'''
-si el usuario existe:  (busqueda en la tabla Client con id number y en tabla Vehicle domain --> devuelve id_operacion)
- si id_operation = stage 10:
-    traeme etapa del tramite   (traer stage de la tabla Operation con ese id)
-        reenvia a (pagina=etapa del tramite con un diccionario)
-sino:
-    Guardar datos
-    Reenviar al formDoc
-'''
+
 
 def doc(request):
-    form_doc = FormDoc()
+    login_data = request.GET
+    form_doc = FormDoc(initial={'id_number':login_data.get('dni'),'domain':login_data.get('patente')})
     if request.method == "POST":
         form_doc = FormDoc(request.POST, request.FILES)
         if form_doc.is_valid():
@@ -55,19 +48,7 @@ def doc(request):
             }
             vehicle = Vehicle.objects.create(**vehicle_data)
 
-            '''
-            operation_data = {
-            'stage': 'doc_sent',
-            'original_type': request.POST.get("original_type"),
-            'final_type': request.POST.get("final_type"),
-            'owner': request.POST.get("mail"),
-            'id_vehicle': request.POST.get("phone"),
-            }
-            '''
             operation = formRegisterOperation(request.POST, request.FILES)
-            print('--------------')
-            print('--------------')
-            print('--------------')
             
             if operation.is_valid():
 
@@ -79,7 +60,6 @@ def doc(request):
                 operation.id_vehicle = vehicle
                 operation.stage = 'Documentacion enviada'
                 operation.save()  
-                print("guardado con exito") 
                 return HttpResponseRedirect(reverse("Waiting_Doc"))
                 #return redirect("client-module:Waiting_Doc")
             else:
@@ -90,17 +70,28 @@ def doc(request):
     return render(request,"doc.html",{'form_doc':form_doc})
 
 def waitingDoc(request):   
-    return render(request,"doc_check.html")
+    return render(request,"doc_checking.html")
 
+def payment(request):   
+    return render(request,"payment.html")
 
-"""urlpatterns = [
-    path('/', views.login, name="Login"),
-    path('formulario/', views.form, name="Form"),
-    path('formulario-pendiente/', views.aproveTime, name="Aprove_form"),
-    path('pago/', views.payment, name="Payment"),
-    path('pago-pendiente/', views.paymentTime, name="Aprove_payment"),
-    path('turno-verificacion/', views.appointment, name="Appointment"),
-    path('verificacion-pendiente/', views.verificationTime, name="Aprove_verification"),
-    path('descarga-certificado/', views.download, name="Download"),
-]
-"""
+def waitingPayment(request):   
+    return render(request,"payment_checking.html")
+
+def appointment(request):   
+    return render(request,"appointment.html")
+
+def appointmentSuccessful(request):
+    event_start_time = request.GET.get('event_start_time')
+    event_date = event_start_time.split("T")[0]
+    event_time = event_start_time.split("T")[1][0:5]    
+    return render(request,"appointment_success.html", {'date':event_date,'time':event_time})
+
+def waitingVerification(request):   
+    return render(request,"verification_inprocess.html")
+
+def waitingCertificate(request):   
+    return render(request,"cert_inprocess.html")
+
+def download(request):   
+    return render(request,"download.html")

@@ -3,63 +3,141 @@
 {% load static %}
 
 {% block content1 %}
-    <section id="operationDetail">
-      
-      <div class="accordion" id="Detail">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingClient">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              <img src="https://img.icons8.com/nolan/64/client-management.png"/> <h5>Cliente</h5>
-            </button>
-          </h2>
-          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <div class="row">
-                <div class="col-4"><h6>Nombre: <strong>{{client.name}}</strong></h6></div>
-                <div class="col-4"><h6>Apellido: <strong>{{client.surname}}</strong></h6></div>
-                <div class="col-4"><h6>DNI: <strong>{{client.id_number}}</strong></h6></div>
-                <div class="col-4"><h6>Email: <strong>{{client.mail}}</strong></h6></div>
-                <div class="col-4"><h6>Telefono: <strong>{{client.phone}}</strong></h6></div>
-              </div> 
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingVehicle">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-              <img src="https://img.icons8.com/nolan/64/truck.png"/> <h5>Vehiculo</h5> 
-            </button>
-          </h2>
-          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
- 
-              <div class="row">
-                <div class="col-4"><h6>Patente: <strong>{{vehicle.domain}}</strong></h6></div>
-                <div class="col-4"><h6>Marca: <strong>{{vehicle.brand}}</strong></h6></div>
-                <div class="col-4"><h6>Modelo: <strong>{{vehicle.model}}</strong></h6></div>
-                <div class="col-4"><h6>Nº de Chasis <strong>{{vehicle.chassis_number}}</strong></h6></div>
-                <div class="col-4"><h6>Nº de Motor <strong>{{vehicle.engine_number}}</strong></h6></div>
+  <section id="operationDetail">
+    
+    <div class="accordion" id="Detail">
+
+      <!-- DOCUMENTATION UPLOADED  -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingClient">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <img src="https://img.icons8.com/nolan/64/client-management.png"/> <h5>Documentación cargada</h5>
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <!-- form -->
+            <div class="row">
+              <div class="col col-md-10 offset-md-1 col-lg-10 offset-lg-1 pt-2 pb-4">
+                <form action="{% url 'Dashboard:OperationDetail' pk=operation.id %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                
+                  <!-- text fields -->
+                  <div class="row">
+                    {% for input in form_doc %}
+                      {% if forloop.counter < 13 %} 
+                        <div class="form-group col-12 col-md-4 pb-2">
+                          <label>{{input.label}}</label>
+                          {{input}}
+                          <small class="form-text text-muted"></small>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+
+                  <!-- images uploaded -->
+                  <div class="row">
+                    {% for input in form_doc %}
+                      {% if forloop.counter > 12 and input.value != "" %}
+                        <div class="col-12 col-md-6 col-xl-4 pt-3">
+                          <div class="carta card my-2 border-secondary opacity-50" style="width: 18rem;">
+                            <img class="card-img-top" src="{{input.value.url}}" alt="Card image cap">
+                            <div class="card-body">
+                              <h5 class="card-title">{{input.label}}</h5>
+                              {{input}}
+                            </div>
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+
+                  <!-- approvation choice  -->
+                  <div class="row">
+                    <div class="col d-grid gap-2">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="choice" id="flexRadioDefault1" value="approved" required>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Aprobar documentación
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="choice" id="flexRadioDefault2" value="rejected" required>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          Rechazar documentación
+                        </label>
+                      </div>
+                    </div> 
+                  </div> 
+
+                  <!-- send button  -->
+                  <div class="row">
+                    <div class="col d-flex gap-2">
+                      <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                      <a href="#" class="btn btn-warning">Volver</a>
+                    </div> 
+                  </div> 
+
+                   <!-- Borrar a la mierda  -->
+                  <div class="row">
+                    <div class="col d-grid gap-2">
+                    <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    </ul>
+                    </div> 
+                  </div> 
+
+                </form>
+                <br><br> <!-- To cheat bootstrap error-->
               </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingOperation">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-              <img src="https://img.icons8.com/nolan/64/moleskine.png"/> <h5>Informe</h5>
-            </button>
-          </h2>
-          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <div class="row">
-                <div class="col-4"><h6>Nº: <strong>{{operation.certificate_number}}</strong></h6></div>
-                <div class="col-4"><h6>Estado: <strong>{{operation.stage}}</strong></h6></div>
-                <div class="col-4"><h6>Modificacion: <strong>{{operation.original_type}}-->{{operation.final_type}}</strong></h6></div>
-          </div> 
+            </div>              
           </div>
         </div>
       </div>
+      
+      <!-- PAYMENT  -->
+      <!-- 
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingVehicle">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+            <img src="https://img.icons8.com/nolan/64/truck.png"/> <h5>Vehiculo</h5> 
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
 
-    </section>
+            <div class="row">
+              <div class="col-4"><h6>Patente: <strong>{{vehicle.domain}}</strong></h6></div>
+              <div class="col-4"><h6>Marca: <strong>{{vehicle.brand}}</strong></h6></div>
+              <div class="col-4"><h6>Modelo: <strong>{{vehicle.model}}</strong></h6></div>
+              <div class="col-4"><h6>Nº de Chasis <strong>{{vehicle.chassis_number}}</strong></h6></div>
+              <div class="col-4"><h6>Nº de Motor <strong>{{vehicle.engine_number}}</strong></h6></div>
+            </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOperation">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            <img src="https://img.icons8.com/nolan/64/moleskine.png"/> <h5>Informe</h5>
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <div class="row">
+              <div class="col-4"><h6>Nº: <strong>{{operation.certificate_number}}</strong></h6></div>
+              <div class="col-4"><h6>Estado: <strong>{{operation.stage}}</strong></h6></div>
+              <div class="col-4"><h6>Modificacion: <strong>{{operation.original_type}}->{{operation.final_type}}</strong></h6></div>
+            </div> 
+          </div>
+        </div>        
+      </div>
+       -->
+    </div>
+
+  </section>
 
 <script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script>  
 {% endblock %}

@@ -8,5 +8,4 @@ urlpatterns = [
     path('Clientes', views.dashboardClient, name="Dashboard-clients"),
     path('Vehiculos', views.dashboardVehicles, name="Dashboard-vehicles"),
     path('detalle/<int:pk>', views.operationDetail, name='OperationDetail'),
-    path('borrador', views.borrador, name='borrador'),
 ]
