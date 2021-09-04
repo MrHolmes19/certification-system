@@ -2,19 +2,19 @@ from CertificationsApp.models import Client, Vehicle, Operation
 
 # Stages of an operation (Harcoded --> Check against Client/urls.py)
 stage_levels={
-    "Documentacion a revisar": "formulario-pendiente",
-    "Documentacion rechazada": "formulario",
-    "Pendiente de pago": "pago",
-    "Pago a revisar": "pago-pendiente",
-    "Turno pendiente": "turno-verificacion",
-    "Verificacion pendiente": "verificacion-pendiente",
-    "Esperando certificado": "certificado-pendiente",
-    "Certificado disponible": "descarga-certificado",
-    "Certificado expirado": "fuckyou",
+    "Documentacion a revisar": "formulario-pendiente/",
+    "Documentacion rechazada": "formulario/",
+    "Pendiente de pago": "pago/",
+    "Pago a revisar": "pago-en-proceso/",
+    "Turno pendiente": "turno-verificacion/",
+    "Verificacion pendiente": "verificacion-pendiente/",
+    "Esperando certificado": "certificado-en-proceso/",
+    "Certificado disponible": "descarga-certificado/",
+    "Certificado expirado": "fuckyou/",
     "Operacion completada": "",
 }
 
-# Redirect depending on current stage 
+# Redirect from login depending on current stage of user
 
 def loginRedirect(id_number_input, domain_input):
     client = Client.objects.filter(id_number=id_number_input).first()
@@ -34,7 +34,7 @@ def loginRedirect(id_number_input, domain_input):
                 # Check if this vehicle has active operations
                 if x.stage != "Operacion completada":
                     stage = x.stage
-                    return stage_levels[stage] # Chequear
+                    return stage_levels[stage] + str(x.id)
                 else:
                     return "formulario/?dni="+id_number_input+"&patente="+domain_input
         else:

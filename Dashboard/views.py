@@ -42,12 +42,12 @@ def operationDetail(request, pk):
         vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
         client = Client.objects.get(pk=vehicle.owner.id)
 
-        # convert model to dict
+        # converting model to dict
         operation_dict = model_to_dict(operation)
         vehicle_dict = model_to_dict(vehicle)
         client_dict = model_to_dict(client)
 
-        #id differentiation
+        # id differentiation
         operation_dict['operation_id'] = operation_dict['id']
         del operation_dict['id']
         vehicle_dict['vehicle_id'] = vehicle_dict['id']
@@ -55,7 +55,7 @@ def operationDetail(request, pk):
         client_dict['client_id'] = client_dict['id']
         del client_dict['id']
 
-        # form creation from dict
+        # creating form from dict
         global_dict = operation_dict|vehicle_dict|client_dict
         form = FormDoc(initial = global_dict)
 

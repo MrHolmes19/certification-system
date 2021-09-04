@@ -25,12 +25,18 @@ imageInputs.forEach(input => {
     
 });
 
-// setting preview images when uploading
+// setting preview images when uploading (hardcoded)
 
 typesInfo = [
-["1", "0", [], []],
-["2", "2", ["Equipo de frio", "Caja con equipo"], ["Debe verse la unidad exterior","Debe verse la unidad interior"]],
-["3", "1", ["Asientos"], ["Debe verse los cinturones"]],
+["1", "0", ["Cerramiento"], ["Debe verse el interior de la cabina"]], //Furgon
+["2", "1", ["Caja aislada"], ["Debe verse la cabinada con material aislante"]],  //Furgon termico
+["3", "1", ["Asientos"], ["Debe verse los cinturones"]],  //Furgon con asientos
+["4", "0", [], []],  //Cabina simple
+["5", "1", ["Vidros"], ["Deben verse los vidrios"]],  //Furgon vidriado
+["6", "2", ["Asientos","Vidros"], ["Debe verse los cinturones","Deben verse los vidrios"]],  //Furgon vidriado con asientos
+["7", "2", ["Asientos","interior"], ["Debe verse los cinturones","debe mostrarse el interior"]],  //Casa rodante motorizada
+["8", "2", ["Equipo de frio", "Caja con equipo"], ["Debe verse la unidad exterior","Debe verse la unidad interior"]],  //Furgon termico con equipo de frio
+["9", "2", ["Enganche mecanico", "Conexion electrica"], ["Debe verse el dispositivo de enganche mecanico","Debe verse el dispositivo de conexion electrica"]],  //Trailer
 ];
 
 var finalType =  document.querySelector("#id_final_type");
@@ -49,6 +55,7 @@ function showCards(){
         if(type_selected == type[0]){
             typeqt = parseInt(type[1]) + 4
             for(var i=0; i<=typeqt;i++){
+                //CAMBIAR!! Usar .classList.add("d-none")
                 cards[i].removeAttribute('class','d-none')
                 cards[i].setAttribute('class','carta card my-2 border-secondary')
             }

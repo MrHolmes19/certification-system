@@ -4,23 +4,42 @@
 
 {% block content %}
 
-<section id="pend-doc">
+<section id="payment">
     <div class="container my-2">
         <div class="row">
             <div class="col">
                 <h3 class="text-center mt-2 mb-5"> Tu documentación fue aprobada </h3>
 
-                <p> Para continuar, elige un método de pago <p>
-
-                <div class="d-inline-flex gap-2 align-items-center">
-                    <small class="text-muted"> Aun no recibiste una notificación?</small> 
-                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#helpModal">Ayuda</button>   
-                </div>                        
+                <p> Para continuar, elige un método de pago: <p>
+                <!--
+                <div class="mercadopago-button"> </div>
+                -->
+                <a href="{{ url }}" name="MP-Checkout" class="btn btn-info" style="width: 100%;">Pagar</a>                    
+                  
             </div>
         </div>
     </div>
 
 </section>
 
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+
+<script>
+// Adding SDK's credentials
+    const mp = new MercadoPago('TEST-31d847df-1c3f-4c64-a910-1a07f24d3a9b', {
+        locale: 'es-AR'
+    });
+
+    // Initializing checkput
+    mp.checkout({
+        preference: {
+            id: '3332094717111517'
+        },
+        render: {
+            container: '.mercadopago-button', // className where pay button will be shown
+            label: 'Pagar', // Button's Label (optional)
+        }
+});
+</script>
 
 {% endblock %}

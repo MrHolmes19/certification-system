@@ -2,24 +2,19 @@ from django import forms
 from CertificationsApp.models import ModificationsType, Operation
 from django.forms.widgets import FileInput
 
-typelist = [
-    ("tipo1", "tipo1"), ("tipo2", "tipo2"), ("tipo3", "tipo3")
-]
-
-
 class FormLogin(forms.Form):
     id_number = forms.CharField(label="DNI", required=True)
     domain = forms.CharField(label="Patente", required=True)
 
 
 class FormDoc(forms.Form):
-    id_number = forms.CharField(label="DNI", required=True)
+    id_number = forms.CharField(label="DNI", required=True, widget=forms.TextInput(attrs={'readonly':'readonly'}))
     name = forms.CharField(label="Nombre", required=True)
     surname = forms.CharField(label="Apellido", required=True)
     mail = forms.EmailField(label="Email", required=True)
     phone = forms.CharField(label="Telefono", required=True, widget=forms.TextInput(
         attrs={'placeholder': "Ej: 11-6582-5214"}))
-    domain = forms.CharField(label="Patente", required=True)
+    domain = forms.CharField(label="Patente", required=True, widget=forms.TextInput(attrs={'readonly':'readonly'}))
     brand = forms.CharField(label="Marca", required=True, widget=forms.TextInput(
         attrs={'placeholder': "Ej: Ford"}))
     model = forms.CharField(label="Modelo", required=True, widget=forms.TextInput(
@@ -28,8 +23,6 @@ class FormDoc(forms.Form):
     engine_number = forms.CharField(label="Nº de motor", required=True)
     original_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(), 
         label="Vehiculo actual", required=True)
-    # original_type2 = forms.CharField(label="Tipo actual (charfield)",
-    #                                  required=True, widget=forms.Select(choices=typelist))
     final_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(),
         label="Vehiculo a homologar", required=True)
 
