@@ -7,6 +7,7 @@ from django.forms.models import model_to_dict
 from pprint import pprint
 from django.urls import reverse
 from Client.forms import FormDoc
+from .utils import emailNotification
 from Dashboard.forms import FormDocUpdate
 
 # Create your views here.
@@ -95,16 +96,36 @@ def operationDetail(request, pk):
                 operation.stage = 'Pendiente de pago'
             else:
                 operation.stage = 'Documentacion rechazada'
+
             
+            rejected_images = request.POST.get("rejectedImages")
+            rejected_images = rejected_images.split("-")
+
+            rejected_imgs = {}
+            for image in set(rejected_images):
+                if image is not "":
+                    rejected_imgs[image] = "volver_a_subir.jpeg"
+
             operationForm = formUpdateOperation(request.POST, request.FILES, instance = operation)
             if operationForm.is_valid():
+                operation.__dict__.update(**rejected_imgs)
                 operation.save()  
-                print("guardado con exito") 
+
+                if request.POST.get("choice") == "approved":
+                    result = emailNotification(
+                        "Tu documentacion fue Aprobada",
+                        "Hola {} {}, entrá al siguiente link para continuar con el trámite /n: http://localhost:8000/pago/{}".format(client.name, client.surname, operation.id),
+                        client.mail
+                        )
+                else:
+                    operation.stage = 'Documentacion rechazada'
+
                 return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
             else:
-                print(operation.errors)
+                print(operationForm.errors)
         else:
             print(form_doc_update.errors)
+
 
     return render(request,"doc.html",{'form_doc':form_doc_update})
 

@@ -1,4 +1,5 @@
 from CertificationsApp.models import Client, Vehicle, Operation
+from django.core.mail import EmailMessage
 
 # Stages of an operation (Harcoded --> Check against Client/urls.py)
 stage_levels={
@@ -41,3 +42,15 @@ def loginRedirect(id_number_input, domain_input):
             return "formulario/?dni="+id_number_input+"&patente="+domain_input
     else:
         return "formulario/?dni="+id_number_input+"&patente="+domain_input
+
+
+def emailNotification(title, body):
+    
+    email = EmailMessage(title, body, ["certificaciones.larroca@gmail.com"])
+    try:
+        email.send()
+        return "mail succefully sended"
+    except:
+        return "error sending mail"
+
+

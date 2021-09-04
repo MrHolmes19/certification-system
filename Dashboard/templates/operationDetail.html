@@ -44,6 +44,7 @@
                             <div class="card-body">
                               <h5 class="card-title">{{input.label}}</h5>
                               {{input}}
+                              <a href="#!" class="btn btn-danger" onclick="rejectImage({{forloop.counter}})"> Rechazar Foto </a>
                             </div>
                           </div>
                         </div>
@@ -68,7 +69,7 @@
                       </div>
                     </div> 
                   </div> 
-
+                  <input type="hidden" name="rejectedImages" id="rejectedImages">
                   <!-- send button  -->
                   <div class="row">
                     <div class="col d-flex gap-2">
@@ -96,6 +97,8 @@
           </div>
         </div>
       </div>
+      <script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script>
+      <script src="{% static 'CertificationsApp/js/operationDetail.js' %}"></script>
       
       <!-- PAYMENT  -->
       <!-- 
