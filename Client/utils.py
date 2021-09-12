@@ -1,3 +1,4 @@
+from Certificados import settings
 from CertificationsApp.models import Client, Vehicle, Operation
 from django.core.mail import EmailMessage
 
@@ -44,9 +45,9 @@ def loginRedirect(id_number_input, domain_input):
         return "formulario/?dni="+id_number_input+"&patente="+domain_input
 
 
-def emailNotification(title, body):
+def emailNotificationToAdmin(title, body):
     
-    email = EmailMessage(title, body, ["certificaciones.larroca@gmail.com"])
+    email = EmailMessage(subject=title, body=body, to=[settings.EMAIL_HOST_USER])
     try:
         email.send()
         return "mail succefully sended"

@@ -15,8 +15,8 @@ class ModificationsTypeAdmin(admin.ModelAdmin):
     search_fields = ("available_type","caption", "fee")
 
 class OperationAdmin(admin.ModelAdmin):
-    list_display = ("certificate_number","stage", "owner", "id_vehicle", "original_type","final_type","registrated_at", "certificate_downloaded_at")
-    search_fields = ("certificate_number", "owner__name","id_vehicle__domain", "original_type__available_type")
+    list_display = ("certificate_number","stage", "owner", "id_vehicle", "original_type","final_type","registrated_at", "certificate_downloaded_at", "is_active")
+    search_fields = ("certificate_number", "owner__name","id_vehicle__domain", "original_type__available_type", "is_active")
     list_filter = ("stage",)
     date_hierarchy = "registrated_at"
 

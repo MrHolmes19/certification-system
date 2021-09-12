@@ -7,8 +7,10 @@ from django.forms.models import model_to_dict
 from pprint import pprint
 from django.urls import reverse
 from Client.forms import FormDoc
-from .utils import emailNotification
+from .utils import emailNotificationToClient, save_doc
+from Dashboard.utils import generate_form
 from Dashboard.forms import FormDocUpdate
+
 
 # Create your views here.
 def dashboard(request):
@@ -39,58 +41,15 @@ def dashboardVehicles(request):
 def operationDetail(request, pk):
     if request.method == "GET":
         
-        operation = Operation.objects.get(pk=pk)
-        vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
-        client = Client.objects.get(pk=vehicle.owner.id)
-
-        # converting model to dict
-        operation_dict = model_to_dict(operation)
-        vehicle_dict = model_to_dict(vehicle)
-        client_dict = model_to_dict(client)
-
-        # id differentiation
-        operation_dict['operation_id'] = operation_dict['id']
-        del operation_dict['id']
-        vehicle_dict['vehicle_id'] = vehicle_dict['id']
-        del vehicle_dict['id']
-        client_dict['client_id'] = client_dict['id']
-        del client_dict['id']
-
-        # creating form from dict
-        global_dict = operation_dict|vehicle_dict|client_dict
-        form = FormDoc(initial = global_dict)
+        form, operation = generate_form(pk)
 
         return render(request,"operationDetail.html",{'form_doc':form, 'operation':operation})
 
     if request.method == "POST":
         form_doc_update = FormDocUpdate(request.POST, request.FILES)
         if form_doc_update.is_valid():
-            operation = Operation.objects.get(pk=pk)
-            vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
-            client = Client.objects.get(pk=vehicle.owner.id)
             
-            client_data = {
-            'id_number': request.POST.get("id_number"),
-            'name': request.POST.get("name"),
-            'surname': request.POST.get("surname"),
-            'mail': request.POST.get("mail"),
-            'phone': request.POST.get("phone"),
-            }
-            client.__dict__.update(**client_data)
-            client.save()
-
-            vehicle_data = {
-            'domain': request.POST.get("domain"),
-            'brand': request.POST.get("brand"),
-            'model': request.POST.get("model"),
-            'last_type': request.POST.get("last_type"),
-            'chassis_number': request.POST.get("chassis_number"),
-            'engine_number': request.POST.get("engine_number"),
-            'owner': client,
-            }
-            vehicle.__dict__.update(**vehicle_data)
-            vehicle.save()
-            #vehicle.objects.update(**vehicle_data)  
+            operation, client = save_doc(pk, request)
 
             if request.POST.get("choice") == "approved":
                 operation.stage = 'Pendiente de pago'
@@ -103,7 +62,7 @@ def operationDetail(request, pk):
 
             rejected_imgs = {}
             for image in set(rejected_images):
-                if image is not "":
+                if image is not "": #esto tira warning
                     rejected_imgs[image] = "volver_a_subir.jpeg"
 
             operationForm = formUpdateOperation(request.POST, request.FILES, instance = operation)
@@ -112,13 +71,21 @@ def operationDetail(request, pk):
                 operation.save()  
 
                 if request.POST.get("choice") == "approved":
-                    result = emailNotification(
+                    operation.stage = 'Pendiente de pago'
+                    result = emailNotificationToClient(
                         "Tu documentacion fue Aprobada",
-                        "Hola {} {}, entrá al siguiente link para continuar con el trámite /n: http://localhost:8000/pago/{}".format(client.name, client.surname, operation.id),
+                        "Hola {} {}, entrá al siguiente link para continuar con el trámite \n: http://localhost:8000/pago/{}".format(client.name, client.surname, operation.id),
                         client.mail
                         )
+                    print("email: ", result)
                 else:
                     operation.stage = 'Documentacion rechazada'
+                    result = emailNotificationToClient(
+                    "Tu documentacion fue Rechazada",
+                    "Hola {} {}, entrá al siguiente link para continuar con el trámite \n: http://localhost:8000/formulario/{}".format(client.name, client.surname, operation.id),
+                    client.mail
+                    )
+                    print("email: ", result)
 
                 return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
             else:
@@ -130,5 +97,5 @@ def operationDetail(request, pk):
     return render(request,"doc.html",{'form_doc':form_doc_update})
 
 
-#player = Player.objects.select_related('terminal').select_related('terminal__node').select_related(
-#    'terminal__node__channel').get(pk=player_id, operator=operator)
+
+

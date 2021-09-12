@@ -36,18 +36,18 @@ buttons.forEach(button => {
     
 // });
 
+btn_aprove = document.getElementById('flexRadioDefault1')
+btn_reject = document.getElementById('flexRadioDefault2')
+
 function rejectImage(i){
     i = i-12
     console.log(i)
     document.getElementById("image_" + i).src = "../../static/CertificationsApp/images/volver_a_subir.jpeg"
     previous_value = rejectedImages_input.value
     rejectedImages_input.value += "-image"+i+"_uploaded"
+    btn_aprove.setAttribute("disabled", true)
+    btn_reject.click()
 }
-
-
-
-
-
 
 
 

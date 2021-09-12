@@ -47,7 +47,13 @@ var cards = document.querySelectorAll(".card");
 
 function showCards(){
     for(i=0; i<7; i++){
-        cards[i].setAttribute('class','carta card my-2 border-secondary opacity-50 d-none')
+        console.log(i)
+        try{
+            cards[i].setAttribute('class','carta card my-2 border-secondary opacity-50 d-none')
+        }
+        catch{
+            console.log("error")
+        }
     }
     //cards.setAttribute('class','d-none')
     type_selected = finalType.value;
@@ -62,3 +68,46 @@ function showCards(){
         }
     });
 };
+
+
+showCards()
+
+//block all inputs except those how need to be updated
+var current_url = window.location.pathname
+
+path_length = current_url.length
+console.log(path_length)
+
+
+//encontrar otra forma de hacer esto
+if(path_length > 12){
+    
+} else {
+    alert("is not a number")
+}
+
+text_inputs = document.querySelectorAll('input')
+selects = document.querySelectorAll('select')
+
+function block_inputs(){
+    text_inputs.forEach(input => {
+        input.setAttribute("disabled", true)
+    });
+    selects.forEach(input => {
+        input.setAttribute("disabled", true)
+    });
+
+    cards.forEach(card => {
+        card_src = card.querySelector('img').src
+        card_src = card_src.split("/")
+        card_src = card_src[card_src.length-1]
+
+        if(card_src == "volver_a_subir.jpeg"){
+            input = card.querySelector('input')
+            input.removeAttribute("disabled")
+        }
+    });
+}
+
+
+block_inputs()

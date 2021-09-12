@@ -1,9 +1,11 @@
+from Dashboard.forms import FormDocUpdate, formUpdateOperation
 from django.http.response import HttpResponseRedirect
 from Client.forms import FormLogin, FormDoc, formRegisterOperation
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from CertificationsApp.models import Client, ModificationsType, Vehicle, Operation
-from .utils import loginRedirect
+from .utils import emailNotificationToAdmin, loginRedirect
+from Dashboard.utils import generate_form, save_doc
 from django.core.mail import EmailMessage
 import mercadopago
 from pprint import pprint
@@ -83,6 +85,39 @@ def doc(request):
         #else:
             #print("3:{}".format(form_doc.errors))
     return render(request,"doc.html",{'form_doc':form_doc})
+
+#------------------- doc_checking -> formulario-pendiente ----------------#
+def rejectedDoc(request, pk):
+    if request.method == "GET":
+        
+        form, operation = generate_form(pk)
+
+        return render(request,"doc.html",{'form_doc':form, 'operation':operation})
+
+    if request.method == "POST":
+
+        form_doc_update = FormDocUpdate(request.POST, request.FILES)
+        if form_doc_update.is_valid():
+            
+            operation, client = save_doc(pk, request)
+
+            operationForm = formUpdateOperation(request.POST, request.FILES, instance = operation)
+            if operationForm.is_valid():
+                operation.save()  
+
+                operation.stage = 'Documentacion enviada'
+                result = emailNotificationToAdmin(
+                    "Documentacion Actualizada",
+                    "El cliente: '{} {}' acaba de modificar la documentación para certificar un '{}'".format(client.name, client.surname, operation.final_type)
+                    )
+                print("client email: ", result)
+
+
+                return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+            else:
+                print(operationForm.errors)
+        else:
+            print(form_doc_update.errors)
 
 #------------------- doc_checking -> formulario-pendiente ----------------#
 def waitingDoc(request):   

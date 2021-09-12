@@ -8,6 +8,7 @@ from . import views
 urlpatterns = [
     path('', views.login, name="Login"),
     path('formulario/', views.doc, name="Doc"),
+    path('formulario/<int:pk>', views.rejectedDoc, name="Rejected_Doc"),
     path('formulario-pendiente/', views.waitingDoc, name="Waiting_Doc"),
     path('pago/<int:pk>', views.payment, name="Payment"),
     path('pago-en-proceso/', views.waitingPayment, name="Waiting_payment"),

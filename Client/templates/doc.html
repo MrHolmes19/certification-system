@@ -17,8 +17,13 @@
     <!-- form -->
     <div class="row">
       <div class="col col-md-10 offset-md-1 col-lg-10 offset-lg-1 pt-2 pb-4">
-        <form action="{% url 'Doc' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
-        
+        <form 
+            {% if operation.id != None %}
+              action="{% url 'Rejected_Doc' operation.id %}" 
+            {% else %}
+              action="{% url 'Doc' %}" 
+            {% endif %}
+            method="POST" enctype="multipart/form-data"> {% csrf_token %}
           <!-- text fields -->
           <div class="row">
             {% for input in form_doc %}
@@ -38,7 +43,13 @@
               {% if forloop.counter > 12 %}
                 <div class="col-12 col-md-6 col-xl-4 pt-3">
                   <div class="carta card my-2 border-secondary opacity-50 d-none" style="width: 18rem;">
-                    <img class="card-img-top" src="{% static 'CertificationsApp/images/'|add:input.label|add:'.jpg' %}" alt="Card image cap">
+                    <img class="card-img-top" 
+                    {% if operation.id != None and input.value != "" %}
+                      src="{{input.value.url}}" 
+                    {% else %}
+                      src="{% static 'CertificationsApp/images/'|add:input.label|add:'.jpg' %}" 
+                    {% endif %}
+                    alt="Card image cap">
                     <div class="card-body">
                       <h5 class="card-title">{{input.label}}</h5>
                       <p class="card-text">{{input.help_text}}</p>
