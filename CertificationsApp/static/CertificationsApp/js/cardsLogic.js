@@ -80,10 +80,10 @@ console.log(path_length)
 
 
 //encontrar otra forma de hacer esto
-if(path_length > 12){
-    
+if(path_length > 12 && path_length < 20){
+    block_inputs()
 } else {
-    alert("is not a number")
+    console.log("inputs not blocked")
 }
 
 text_inputs = document.querySelectorAll('input')
@@ -110,4 +110,3 @@ function block_inputs(){
 }
 
 
-block_inputs()

@@ -97,5 +97,33 @@ def operationDetail(request, pk):
     return render(request,"doc.html",{'form_doc':form_doc_update})
 
 
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+
+from weasyprint import HTML
 
 
+def operationDetailPDF(request, pk):
+
+    operation = Operation.objects.get(pk=pk)
+    vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
+    client = Client.objects.get(pk=vehicle.owner.id)
+
+    html = render_to_string("pdf_template.html", {
+        "operation": operation,
+        "vehicle": vehicle,
+        "client": client
+    })
+    # return render(request, "pdf_template.html", {
+    #     "operation": operation,
+    #     "vehicle": vehicle,
+    #     "client": client
+    # })
+
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = "inline; report.pdf"
+
+    HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response)
+
+    return response

@@ -69,3 +69,4 @@ def save_doc(pk, request):
     vehicle.__dict__.update(**vehicle_data)
     vehicle.save()
     return operation, client
+
