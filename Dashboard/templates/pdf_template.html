@@ -9,14 +9,16 @@
 </head>
 
 <body>
-    <div class="container">
+
         <div class="header">
             <p>Buenos Aires 15 de septiembre de 2021</p>
             <p><strong>CERTIFICADO Nº:</strong> {{operation.certificate_number}}</p>
         </div>
+
         <div class="title">
             <h3>Certificado de cambio de tipo</h3>
         </div>
+        <hr>
         <div class="data">
             <p>Dominio: {{vehicle.domain}}</p>
             <p>Marca: {{vehicle.brand}}</p>
@@ -26,6 +28,7 @@
             <p>Motor: {{vehicle.engine_number}}</p>
             <p>Titular: {{client.name}} {{client.surname}} DOC: D.N.I.: {{client.id_number}}</p>
         </div>
+
         <div class="images">
             <div class="img"><img src="{{operation.image2_uploaded.url}}" alt=""></div>
             <div class="img"><img src="{{operation.image3_uploaded.url}}" alt=""></div>
@@ -33,6 +36,7 @@
             <div class="img"><img src="{{operation.image5_uploaded.url}}" alt=""></div>
             <div class="img"><img src="{{operation.image6_uploaded.url}}" alt=""></div>
         </div>
+
         <div class="description">
             <p>DESCRIPCION: Agregado de vidrios laterales y asientos con cinturon de seguridad
                 y apoya cabeza. "Furgon" pasa a ser "Furgon Vidriado con Asientos"
@@ -45,18 +49,24 @@
             </p>
             <p>Vehiculo apto para circular por la via publica</p>
         </div>
+
         <div class="firma">
             <img src="{% static 'CertificationsApp/images/firma.png' %}" alt="">
         </div>
-    </div>
+
 </body>
 
 <style>
-    .container {
-        border: 1px solid black;
-        height: 100vh;
-        border-radius: 10px;
-        padding-bottom: 120px;
+@page {
+    size: A4;
+    margin: 0.1in 0.1in 0.1in 0.1in;
+    }
+    body{
+        margin: 0;
+        padding: 0;
+        //border: 1px solid black;
+        border-radius: 5px;
+        min-height: 1095px
     }
     .header{
         text-align: right;
@@ -80,12 +90,12 @@
         margin-bottom: 30px;
     }
     .img{
-        box-shadow: 0px 2px 5px gray;
+        border: 1px solid black;
         padding: 4px;
     }
     .img img{
-        height: 100px;
-        width: 100px;
+        height: 142px;
+        width: 145px;
         border-radius: 5px;
     }
     .description{
