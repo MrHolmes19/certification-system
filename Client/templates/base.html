@@ -9,7 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- styles CSS-->
-    <script src="{% static 'CertificationsApp/css/clientStyles.css' %}" rel="stylesheet"></script>
+  
+    <link href="{% static 'CertificationsApp/css/clientStyles.css' %}" rel="stylesheet">
 
     <!-- Bootstrap CSS-->
  
@@ -34,28 +35,19 @@
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav mx-auto mb-20 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link disabled {% if request.path == '/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">1)Ingreso</a>
+                <a class="nav-link disabled {% if request.path == '/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">1) Ingreso</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled {% if request.path == '/formulario/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">2)Carga documentación</a>
+                <a class="nav-link disabled {% if request.path|slice:':12' == '/formulario/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">2) Completar formulario</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled {% if request.path == '/formulario-pendiente/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">3)Revisión documentación</a>
+                <a class="nav-link disabled {% if request.path|slice:':6' == '/pago/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">3) Pagar el servicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled {% if request.path == '/pago/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">4)Pago</a>
+                <a class="nav-link disabled {% if request.path|slice:':20' == '/turno-verificacion/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">4) Verificación in situ</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled {% if request.path == '/pago-pendiente/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">5)Verificación pago</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled {% if request.path == '/turno-verificacion/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">6)Turno para verificacion</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled {% if request.path == '/verificacion-pendiente/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">7)Verificacion pendiente</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled {% if request.path == '/descarga-certificado/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">8)Descarga documentación</a>
+                <a class="nav-link disabled {% if request.path|slice:':22' == '/descarga-certificado/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">5) Descargar certificado</a>
               </li>
             </ul>
           </div>

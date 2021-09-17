@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<section id="pend-doc">
+    <div class="container my-2">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1 pt-2 pb-4">
+                <h2 class="text-center mt-2 mb-5"> Descarga de certificados </h2>
+
+                <p> <strong> ¡ Felicitaciones ! </strong> <p>
+
+                <p> El tramite se realizó exitosamente. Descargá los siguientes archivos para presentar ante el DNRPA. <p>
+
+                <div id="inform" class="container my-3">
+                    <div class="d-inline-flex gap-2 align-items-center">
+                    <strong> Informe técnico: </strong> 
+                    <a href="#" name="" class="btn btn-success">Descargar</a>   
+                    </div> 
+                </div> 
+                
+                <div id="inform" class="container mb-2">
+                    <div class="d-inline-flex gap-2 align-items-center">
+                    <strong> Certificado COPYME: </strong>
+                    <a href="#" name="" class="btn btn-success">Descargar</a>   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

@@ -8,4 +8,6 @@ urlpatterns = [
     path('Clientes', views.dashboardClient, name="Dashboard-clients"),
     path('Vehiculos', views.dashboardVehicles, name="Dashboard-vehicles"),
     path('detalle/<int:pk>', views.operationDetail, name='OperationDetail'),
+    path('detalle/<int:pk>/<str:estado>', views.acceptPayment, name='Accept-payment'), #Cambiar
+    path('detalle/<int:pk>/<str:estado>', views.rejectPayment, name='Reject-payment'), #Cambiar
 ]

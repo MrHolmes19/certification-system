@@ -1,3 +1,4 @@
+from datetime import datetime
 from Dashboard.forms import formUpdateOperation
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -93,9 +94,27 @@ def operationDetail(request, pk):
         else:
             print(form_doc_update.errors)
 
-
     return render(request,"doc.html",{'form_doc':form_doc_update})
 
 
+def acceptPayment(request, pk, estado):
+
+    if request.method == "POST":
+        operation = Operation.objects.get(pk=pk)
+        operation.stage = "Turno pendiente"
+        operation.paid_at = datetime.now()
+        operation.save()
+        print("Entre a accept Payment")
+        return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+    
+    
+def rejectPayment(request, pk, estado):
+
+    if request.method == "POST":
+        operation = Operation.objects.get(pk=pk)
+        operation.stage = "Pago pendiente"
+        operation.save()
+        print("Entre a reject Payment")
+        return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))  
 
 

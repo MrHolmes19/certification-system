@@ -4,6 +4,47 @@
 
 {% block content %}
 
-Pagaste exitosamente!
+<section id="pend-doc">
+    <div class="container my-2">
+        <div class="row">
+            <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1 pt-2 pb-4">
+                <h2 class="text-center mt-2 mb-5"> Pago en proceso de validación </h2>
+
+                <p> Nos notificaste sobre un pago via transferencia bancaria. Cuando se procese el pago, te notificaremos para que sigas con el trámite. <p>
+                <br>
+                <p> Si cometiste un error, hace click <a href="http://127.0.0.1:8000/pago/19">Aquí</a> para volver a la página de pago. <p>
+                <br><br>               
+                <div class="d-inline-flex gap-2 align-items-center">
+                    <small class="text-muted"> Aun no recibiste una notificación?</small> 
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#helpModal">Ayuda</button>   
+                </div>                        
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal HELP -->    
+
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="helpModalLabel">CONTACTANOS</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            <div class="modal-body">
+                <p>La respuesta suele tardar un máximo de 24 hs en dias hábiles. Si ya pasó ese lapso, comunicate con nosotros:</p>
+                <p><strong>Correo:</strong> hermanaGaby@mail.com</p>
+                <p><strong>Telefono:</strong> 11552244</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script src="{% static 'CertificationsApp/js/helpModal.js' %}"></script>  
 
 {% endblock %}

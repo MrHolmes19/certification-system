@@ -5,25 +5,25 @@
 {% block content %}
 
 <section id="doc-forms">
-  <div class="container">
+  <div class="container mb-5">
     <!-- Description -->
     <div class="row">
       <div class="col text-center my-2">
         <h2> Completá el siguiente formulario </h2>
-        <p> Todos los campos deben ser completados correctamente. Con esta información elaboraremos el informe técnico </p>
+        <p> Todos los campos deben ser completados correctamente. Con esta información elaboraremos el informe técnico. </p>
       </div>
     </div>
 
     <!-- form -->
     <div class="row">
       <div class="col col-md-10 offset-md-1 col-lg-10 offset-lg-1 pt-2 pb-4">
-        <form 
+        <form action="
             {% if operation.id != None %}
-              action="{% url 'Rejected_Doc' operation.id %}" 
+              {% url 'Rejected_Doc' operation.id %} 
             {% else %}
-              action="{% url 'Doc' %}" 
+              {% url 'Doc' %} 
             {% endif %}
-            method="POST" enctype="multipart/form-data"> {% csrf_token %}
+            " method="POST" enctype="multipart/form-data"> {% csrf_token %}
           <!-- text fields -->
           <div class="row">
             {% for input in form_doc %}
@@ -38,24 +38,27 @@
           </div>
 
           <!-- images uploading fields -->
-          <div class="row">
+          <div id="cards" class="row">
             {% for input in form_doc %}
               {% if forloop.counter > 12 %}
                 <div class="col-12 col-md-6 col-xl-4 pt-3">
-                  <div class="carta card my-2 border-secondary opacity-50 d-none" style="width: 18rem;">
-                    <img class="card-img-top" 
-                    {% if operation.id != None and input.value != "" %}
-                      src="{{input.value.url}}" 
-                    {% else %}
-                      src="{% static 'CertificationsApp/images/'|add:input.label|add:'.jpg' %}" 
-                    {% endif %}
-                    alt="Card image cap">
+                  <div class="card my-2 border-secondary d-none" style="width: 18rem;">
+                    <div class="container">
+                      <img class="card-img-top" 
+                        {% if operation.id != None and input.value != "" %}
+                          src="{{input.value.url}}" 
+                        {% else %}
+                          src="{% static 'CertificationsApp/images/'|add:input.label|add:'.jpg' %}" 
+                        {% endif %}
+                        alt="Card image cap">
+                        <label id="label1">Cargar Imagen</label>
+                      <div class="overlay"></div>
+                    </div>
                     <div class="card-body">
                       <h5 class="card-title">{{input.label}}</h5>
                       <p class="card-text">{{input.help_text}}</p>
                       {{input}}
                     </div>
-                    <!--<div class="overlay"></div>-->
                   </div>
                 </div>
               {% endif %}
@@ -67,7 +70,6 @@
             <div class="col d-grid gap-2">
               <button type="submit" class="btn btn-primary">Enviar documentacion</button>
             </div>  
-
           </div>          
         </form>
       </div>
@@ -77,4 +79,5 @@
 
 <script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script>
 <script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script>
+
 {% endblock %}

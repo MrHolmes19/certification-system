@@ -143,3 +143,7 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'certificaciones.larroca@gmail.com'
 EMAIL_HOST_PASSWORD = 'larroca123'
+
+# Contact Data
+
+ADMIN_PHONE = 1111111 

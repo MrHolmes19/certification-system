@@ -1,4 +1,3 @@
-//var cards = document.getElementsByClassName("card")
 
 // giving id to cards
 
@@ -12,44 +11,47 @@ images.forEach(image => {
     
 });
 
-// setting preview images when uploading
+// giving id to input labels
 
-var imageInputs = document.querySelectorAll(".card input");
+
+var inputLabels = document.querySelectorAll(".card .container label");
 
 i = 1;
 
-imageInputs.forEach(input => {
-    input.setAttribute('onchange','document.getElementById("image_' + i + '").src = window.URL.createObjectURL(this.files[0])');
-    //input.setAttribute('onchange','document.getElementById("image_' + i + '").style.backgroundColor = "yellow"');
+inputLabels.forEach(inputLabel => {
+    inputLabel.setAttribute('id','label_' + i);
     i++;
     
 });
 
-// setting preview images when uploading (hardcoded)
+
+// List of types for cards descriptions (hardcoded)
 
 typesInfo = [
-["1", "0", ["Cerramiento"], ["Debe verse el interior de la cabina"]], //Furgon
-["2", "1", ["Caja aislada"], ["Debe verse la cabinada con material aislante"]],  //Furgon termico
-["3", "1", ["Asientos"], ["Debe verse los cinturones"]],  //Furgon con asientos
-["4", "0", [], []],  //Cabina simple
-["5", "1", ["Vidros"], ["Deben verse los vidrios"]],  //Furgon vidriado
-["6", "2", ["Asientos","Vidros"], ["Debe verse los cinturones","Deben verse los vidrios"]],  //Furgon vidriado con asientos
-["7", "2", ["Asientos","interior"], ["Debe verse los cinturones","debe mostrarse el interior"]],  //Casa rodante motorizada
-["8", "2", ["Equipo de frio", "Caja con equipo"], ["Debe verse la unidad exterior","Debe verse la unidad interior"]],  //Furgon termico con equipo de frio
-["9", "2", ["Enganche mecanico", "Conexion electrica"], ["Debe verse el dispositivo de enganche mecanico","Debe verse el dispositivo de conexion electrica"]],  //Trailer
-];
+    ["1", "0", ["Cerramiento"], ["Debe verse el interior de la cabina"]], //Furgon
+    ["2", "1", ["Caja aislada"], ["Debe verse la cabinada con material aislante"]],  //Furgon termico
+    ["3", "1", ["Asientos"], ["Debe verse los cinturones"]],  //Furgon con asientos
+    ["4", "0", [], []],  //Cabina simple
+    ["5", "1", ["Vidros"], ["Deben verse los vidrios"]],  //Furgon vidriado
+    ["6", "2", ["Asientos","Vidros"], ["Debe verse los cinturones","Deben verse los vidrios"]],  //Furgon vidriado con asientos
+    ["7", "2", ["Asientos","interior"], ["Debe verse los cinturones","debe mostrarse el interior"]],  //Casa rodante motorizada
+    ["8", "2", ["Equipo de frio", "Caja con equipo"], ["Debe verse la unidad exterior","Debe verse la unidad interior"]],  //Furgon termico con equipo de frio
+    ["9", "2", ["Enganche mecanico", "Conexion electrica"], ["Debe verse el dispositivo de enganche mecanico","Debe verse el dispositivo de conexion electrica"]],  //Trailer
+    ];
+    
+// Showing cards depending on client type selection OR when the client comes back after rejected
 
 var finalType =  document.querySelector("#id_final_type");
 
 finalType.addEventListener("change", function() {showCards()});
 
 var cards = document.querySelectorAll(".card");
+var inputLabels = document.querySelectorAll(".card .container label");
 
 function showCards(){
     for(i=0; i<7; i++){
-        console.log(i)
         try{
-            cards[i].setAttribute('class','carta card my-2 border-secondary opacity-50 d-none')
+            cards[i].setAttribute('class','card my-2 border-secondary d-none')
         }
         catch{
             console.log("error")
@@ -61,30 +63,94 @@ function showCards(){
         if(type_selected == type[0]){
             typeqt = parseInt(type[1]) + 4
             for(var i=0; i<=typeqt;i++){
-                //CAMBIAR!! Usar .classList.add("d-none")
-                cards[i].removeAttribute('class','d-none')
-                cards[i].setAttribute('class','carta card my-2 border-secondary')
+                cards[i].classList.remove('d-none')
+                cards[i].setAttribute('class','card my-2 border-secondary')
+                inputLabels[i].setAttribute('for','id_image'+ (i+1) +'_uploaded') //Meter condicional en funcion de la URL
             }
         }
     });
 };
 
-
 showCards()
+    
+
+// setting preview images when uploading
+
+var imageInputs = document.querySelectorAll(".card input");
+var inputLabels = document.querySelectorAll(".card .container label");
+
+function hiddeLabel(i){
+    document.getElementById('label_' + i).classList.add("inactive");
+}
+
+function showPreview(i){
+    document.getElementById('image_' + i).src = window.URL.createObjectURL(files[0]);
+}
+
+function allInOne(i){
+    hiddeLabel(i);
+    showPreview(i);
+}
+
+// imageInputs[2].addEventListener("onchange",hiddeLabel(2),false);
+
+imageInputs[1].addEventListener("onChange", ()=>{
+    inputLabel[0].classList.add("inactive")
+    alert("si señor")
+});
+
+
+i = 1;
+/*
+imageInputs.forEach(input => {
+    input.addEventListener("onchange", ()=>{
+        document.getElementById("image_' + i + '").src = window.URL.createObjectURL(this.files[0]);
+        document.getElementById("label_' + i + '").classList.add("inactive");
+    });
+    i++;
+});
+*/
+
+/*
+imageInputs.forEach(input => {
+    input.setAttribute(
+        'onchange',
+        'document.getElementById("image_' + i + '").src = window.URL.createObjectURL(this.files[0])',
+        'document.getElementById("label_' + i + '").classList.add("inactive")'
+    );
+    
+    //input.setAttribute('onchange',this.hiddeLabel(i), this.showPreview(i));
+    //input.setAttribute('onchange',function() {hiddeLabel(i),showPreview(i)});
+    input.setAttribute('onchange',(function() {allInOne(i)})());
+    i++;  
+});
+*/
+
+/*
+// setting preview images when uploading
+
+var imageInputs = document.querySelectorAll(".card input");
+
+i = 1;
+imageInputs.forEach(input => {
+    input.setAttribute('onchange','document.getElementById("image_' + i + '").src = window.URL.createObjectURL(this.files[0])');
+    i++;  
+});
+
+
+// Changing format when uploading
+
+var imageInputs2 = document.querySelectorAll(".card input");
+
+i = 1;
+imageInputs2.forEach(input => {
+    input.setAttribute('onchange','document.getElementById("label_' +i+ '").classList.add("inactive")'); 
+    i++;  
+});
+*/
+
 
 //block all inputs except those how need to be updated
-var current_url = window.location.pathname
-
-path_length = current_url.length
-console.log(path_length)
-
-
-//encontrar otra forma de hacer esto
-if(path_length > 12){
-    
-} else {
-    alert("is not a number")
-}
 
 text_inputs = document.querySelectorAll('input')
 selects = document.querySelectorAll('select')
@@ -109,5 +175,15 @@ function block_inputs(){
     });
 }
 
+var current_url = window.location.pathname
 
-block_inputs()
+path_length = current_url.length
+//console.log(path_length)
+
+
+//encontrar otra forma de hacer esto
+if(path_length > 12 && path_length < 15){
+    block_inputs()  
+} else {
+    //alert("is not a number")
+}

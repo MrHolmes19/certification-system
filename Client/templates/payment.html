@@ -5,17 +5,40 @@
 {% block content %}
 
 <section id="payment">
-    <div class="container my-2">
+    <div class="container mt-2 mb-5">
         <div class="row">
-            <div class="col">
-                <h3 class="text-center mt-2 mb-5"> Tu documentación fue aprobada </h3>
+            <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1 pt-2 pb-4">
+                <h3 class="text-center mt-2 mb-5"> Pago del servicio </h3>
 
-                <p> Para continuar, elige un método de pago: <p>
+                <p> <strong> ¡ Tu documentación fue aprobada ! </strong> <p>
+
+                <p> Para continuar, debés abonar el servicio. <p>
+
+                <p> Haciendo click en el siguiente botón, serás redireccionado a MercadoPago, donde podrás elegir entre las siguientes opciones de pago:<p>
+                <ul>
+                    <li>Dinero disponible en tu cuenta de Mercado Pago</li>
+                    <li>Tarjeta de debito</li>
+                    <li>Tarjeta de credito</li>
+                    <li>Efectivo con Rapipago o Pago Fácil</li>
+                </ul>
+
                 <!--
                 <div class="mercadopago-button"> </div>
                 -->
-                <a href="{{ url }}" name="MP-Checkout" class="btn btn-info" style="width: 100%;">Pagar</a>                    
-                  
+                <a href="{{ url }}" name="MP-Checkout" class="btn btn-success" style="width: 50%;">Pagar</a>                    
+                <br><br><br>
+
+                <p> Si preferis realizar una transferencia bancaria, nuestros datos son:<p>
+                <div id="bank-data" class="my-2">
+                <small><small>
+                        CBU: 0150000035498765654 <br>
+                    ALIAS: CAJON.ROPA.ALADIN <br>
+                    CUENTA: 16050/32
+                </small></small>
+                </div> 
+                <p> Hacé click en el siguiente botón para notificarnos cuando el pago se haya efectuado:<p>
+                <a href="#" class="btn btn-secondary" role="button">Notificar Pago realizado</a>   
+
             </div>
         </div>
     </div>

@@ -14,7 +14,7 @@ urlpatterns = [
     path('pago-en-proceso/', views.waitingPayment, name="Waiting_payment"),
     path('turno-verificacion/<int:pk>', views.appointment, name="Appointment"),
     path('turno-verificacion-ok/', views.appointmentSuccessful, name="AppointmentSuccessful"),
-    path('verificacion-pendiente/', views.waitingVerification, name="WaitingVerification"),
-    path('certificado-en-proceso/', views.waitingCertificate, name="WaitingCertificate"),
+    path('verificacion-pendiente/<int:pk>', views.waitingVerification, name="WaitingVerification"),
+    path('certificado-en-proceso/<int:pk>', views.waitingCertificate, name="WaitingCertificate"),
     path('descarga-certificado/<int:pk>', views.download, name="Download"),
 ]

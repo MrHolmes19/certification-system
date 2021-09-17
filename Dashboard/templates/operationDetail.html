@@ -101,22 +101,36 @@
       <script src="{% static 'CertificationsApp/js/operationDetail.js' %}"></script>
       
       <!-- PAYMENT  -->
-      <!-- 
+       
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingVehicle">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-            <img src="https://img.icons8.com/nolan/64/truck.png"/> <h5>Vehiculo</h5> 
+            <img src="https://img.icons8.com/nolan/64/truck.png"/> <h5>Estado de pago</h5> 
           </button>
         </h2>
         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
           <div class="accordion-body">
 
             <div class="row">
-              <div class="col-4"><h6>Patente: <strong>{{vehicle.domain}}</strong></h6></div>
+              <div class="col-4"><h6>Estado del pago:</h6> 
+                <strong>
+                  {% if not operation.paid_at and not operation.paid_by%}
+                    Pago Pendiente
+                  {% elif operation.paid_by == "Transferencia Bancaria" %}
+                    {% if not operation.paid_at %}
+                      Pago por transferencia bancaria a VERIFICAR
+                      <a href="{% url 'Dashboard:Accept-payment' pk=operation.id 'pagoaprobado'%}" class="btn btn-success">CONFIRMAR PAGO</a>
+                      <a href="{% url 'Dashboard:Reject-payment' pk=operation.id 'pagorechazado'%}" class="btn btn-danger">RECHAZAR PAGO</a>
+                    {% else %}
+                      Pago efectuado el {{operation.paid_at}} Mediante Transferencia Bancaria
+                    {% endif %}
+                  {% else %}
+                    Pago efectuado el {{operation.paid_at}} Mediante Mercado Pago via {{operation.paid_by}}
+                  {% endif %}
+                </strong>
+              </div>
+
               <div class="col-4"><h6>Marca: <strong>{{vehicle.brand}}</strong></h6></div>
-              <div class="col-4"><h6>Modelo: <strong>{{vehicle.model}}</strong></h6></div>
-              <div class="col-4"><h6>Nº de Chasis <strong>{{vehicle.chassis_number}}</strong></h6></div>
-              <div class="col-4"><h6>Nº de Motor <strong>{{vehicle.engine_number}}</strong></h6></div>
             </div>
         </div>
       </div>
@@ -124,7 +138,7 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingOperation">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-            <img src="https://img.icons8.com/nolan/64/moleskine.png"/> <h5>Informe</h5>
+            <img src="https://img.icons8.com/nolan/64/moleskine.png"/> <h5>Generación de informe</h5>
           </button>
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -137,7 +151,7 @@
           </div>
         </div>        
       </div>
-       -->
+    
     </div>
 
   </section>
