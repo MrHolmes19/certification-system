@@ -118,3 +118,30 @@ def rejectPayment(request, pk, estado):
         return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))  
 
 
+def checkPayment(request):
+
+
+    if request.method == "POST":
+        pk = request.POST.get("op_id")
+        approved = request.POST.get("approved")
+        operation = Operation.objects.get(pk=pk)
+
+        if approved == 'true':
+            operation.stage = "Turno pendiente"
+            operation.paid_at = datetime.now()
+            operation.save()
+
+            return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+
+        if approved == 'false':
+            operation = Operation.objects.get(pk=pk)
+            vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
+            client = Client.objects.get(pk=vehicle.owner.id)
+
+            title = request.POST.get("title")
+            body = request.POST.get("body")
+            operation.stage = "Pendiente de pago"
+            operation.save()
+            result = emailNotificationToClient(title,body,client.mail)
+
+            return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))

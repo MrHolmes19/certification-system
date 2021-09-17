@@ -97,8 +97,7 @@
           </div>
         </div>
       </div>
-      <script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script>
-      <script src="{% static 'CertificationsApp/js/operationDetail.js' %}"></script>
+
       
       <!-- PAYMENT  -->
        
@@ -119,8 +118,13 @@
                   {% elif operation.paid_by == "Transferencia Bancaria" %}
                     {% if not operation.paid_at %}
                       Pago por transferencia bancaria a VERIFICAR
-                      <a href="{% url 'Dashboard:Accept-payment' pk=operation.id 'pagoaprobado'%}" class="btn btn-success">CONFIRMAR PAGO</a>
-                      <a href="{% url 'Dashboard:Reject-payment' pk=operation.id 'pagorechazado'%}" class="btn btn-danger">RECHAZAR PAGO</a>
+                      <form action="{% url 'Dashboard:Check-payment' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="op_id" value="{{operation.id}}">
+                        <input type="hidden" name="approved" value="true">
+                      <button type="submit" class="btn btn-success">CONFIRMAR PAGO</button>
+                    </form>
+                      <a href="#" class="btn btn-danger" onclick="messageModal()">RECHAZAR PAGO</a>
                     {% else %}
                       Pago efectuado el {{operation.paid_at}} Mediante Transferencia Bancaria
                     {% endif %}
@@ -155,6 +159,39 @@
     </div>
 
   </section>
+ 
+  <div class="modal fade" id="MessageModal" tabindex="-1" aria-labelledby="MessageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="MessageModalLabel">Detalle Cliente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+        <form action="{% url 'Dashboard:Check-payment' %}" method="POST">
+          {% csrf_token %}
+        <div class="modal-body">
 
-<script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script>  
+            <input type="hidden" name="op_id" value="{{operation.id}}">
+            <input type="hidden" name="approved" value="false">
+            <input type="text" name="title">
+            <textarea name="body" cols="30" rows="10"></textarea>
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-secondary">Cerrar</button>
+        </div>
+      </form>
+        </div>
+    </div>
+  </div>
+  <script src="{% static 'CertificationsApp/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script>
+  <script src="{% static 'CertificationsApp/js/operationDetail.js' %}"></script>
+  <script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script> 
+
 {% endblock %}
+
+
+
+
+

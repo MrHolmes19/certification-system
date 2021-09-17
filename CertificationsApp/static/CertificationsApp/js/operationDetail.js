@@ -49,5 +49,21 @@ function rejectImage(i){
     btn_reject.click()
 }
 
+var div_modal = document.getElementById('MessageModal')
+var modal = new bootstrap.Modal(div_modal, {
+    keyboard: false
+  })
 
+var Mname = document.getElementById('name')
+var Msurname = document.getElementById('surname')
+var Mid_number = document.getElementById('id_number')
+var Memail = document.getElementById('email')
+var Mphone = document.getElementById('phone')
+
+// name, surname, mail, phone, id_number
+function messageModal(){
+    
+    modal.toggle()
+
+}
 
