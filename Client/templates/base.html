@@ -38,16 +38,16 @@
                 <a class="nav-link disabled {% if request.path == '/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">1) Ingreso</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled {% if request.path|slice:':12' == '/formulario/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">2) Completar formulario</a>
+                <a class="nav-link disabled {% if request.path|slice:':11' == '/formulario' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">2) Completar formulario</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled {% if request.path|slice:':6' == '/pago/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">3) Pagar el servicio</a>
+                <a class="nav-link disabled {% if request.path|slice:':5' == '/pago' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">3) Pagar el servicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled {% if request.path|slice:':20' == '/turno-verificacion/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">4) Verificación in situ</a>
+                <a class="nav-link disabled {% if request.path|slice:':19' == '/turno-verificacion' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">4) Verificación in situ</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled {% if request.path|slice:':22' == '/descarga-certificado/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">5) Descargar certificado</a>
+                <a class="nav-link disabled {% if request.path|slice:':21' == '/descarga-certificado' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">5) Descargar certificado</a>
               </li>
             </ul>
           </div>

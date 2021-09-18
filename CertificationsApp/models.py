@@ -57,6 +57,7 @@ class Operation(models.Model):
     image7_uploaded = models.ImageField(upload_to="images", blank=True, null=True)
     paid_at = models.DateTimeField(default=None, blank=True, null=True) #Puede llegar a joder el None
     paid_by = models.CharField(max_length=64, blank=True, null=True)
+    paid_amount = models.IntegerField(default=0)
     doc_verified_at = models.DateTimeField(default=None, blank=True, null=True)
     onsite_verified_at = models.DateTimeField(default=None, blank=True, null=True)
     inform_created_at = models.DateTimeField(default=None, blank=True, null=True)

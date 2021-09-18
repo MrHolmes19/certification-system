@@ -12,6 +12,7 @@ urlpatterns = [
     path('formulario-pendiente/', views.waitingDoc, name="Waiting_Doc"),
     path('pago/<int:pk>', views.payment, name="Payment"),
     path('pago-en-proceso/', views.waitingPayment, name="Waiting_payment"),
+    path('pago-fallido/', views.paymentFail, name="Payment_fail"),
     path('turno-verificacion/<int:pk>', views.appointment, name="Appointment"),
     path('turno-verificacion-ok/', views.appointmentSuccessful, name="AppointmentSuccessful"),
     path('verificacion-pendiente/<int:pk>', views.waitingVerification, name="WaitingVerification"),

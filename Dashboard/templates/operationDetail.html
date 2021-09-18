@@ -129,12 +129,10 @@
                       Pago efectuado el {{operation.paid_at}} Mediante Transferencia Bancaria
                     {% endif %}
                   {% else %}
-                    Pago efectuado el {{operation.paid_at}} Mediante Mercado Pago via {{operation.paid_by}}
+                    Pago efectuado el {{operation.paid_at}} Mediante Mercado Pago via {{operation.paid_by}} por un total de ${{operation.paid_amount}}
                   {% endif %}
                 </strong>
               </div>
-
-              <div class="col-4"><h6>Marca: <strong>{{vehicle.brand}}</strong></h6></div>
             </div>
         </div>
       </div>
@@ -174,17 +172,18 @@
             <input type="hidden" name="op_id" value="{{operation.id}}">
             <input type="hidden" name="approved" value="false">
             <input type="text" name="title">
+            <input type="number" name="amount" value=0  min=0 max={{operation.final_type.fee}} required="true">
             <textarea name="body" cols="30" rows="10"></textarea>
 
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-secondary">Cerrar</button>
+            <button type="submit" class="btn btn-danger">Rechazar</button>
         </div>
       </form>
         </div>
     </div>
   </div>
-  <script src="{% static 'CertificationsApp/bootstrap/js/bootstrap.min.js' %}"></script>
+
   <script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script>
   <script src="{% static 'CertificationsApp/js/operationDetail.js' %}"></script>
   <script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script> 

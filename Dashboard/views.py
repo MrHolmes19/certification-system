@@ -103,6 +103,7 @@ def acceptPayment(request, pk, estado):
         operation = Operation.objects.get(pk=pk)
         operation.stage = "Turno pendiente"
         operation.paid_at = datetime.now()
+
         operation.save()
         print("Entre a accept Payment")
         return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
@@ -129,6 +130,8 @@ def checkPayment(request):
         if approved == 'true':
             operation.stage = "Turno pendiente"
             operation.paid_at = datetime.now()
+            operation.paid_amount = operation.final_type.fee
+            print(operation.final_type.fee)
             operation.save()
 
             return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
@@ -140,7 +143,10 @@ def checkPayment(request):
 
             title = request.POST.get("title")
             body = request.POST.get("body")
-            operation.stage = "Pendiente de pago"
+            amount = request.POST.get("amount")
+            operation.paid_amount = amount
+            #operation.stage = "Pendiente de pago"
+            #operation.paid_by = None
             operation.save()
             result = emailNotificationToClient(title,body,client.mail)
 

@@ -13,16 +13,47 @@
                 <p> <strong>¡ Tu pago fue registrado exitosamente !</strong> </p>
                 <br>
                 <p> Para continuar, debés traernos tu vehiculo modificado para realizar la verificación visual.<p>
-                <p> El siguiente botón te redireccionará al sistema de turnos.<p>
+                <form action="{% url 'Appointment' pk=operation.id %}" method="POST">
+                    {% csrf_token %}
+
+                    <input type="date" name="day" id="day">
+                    <table>
+                        <th>Horario</th>
+                        {% for i in '012345'|make_list %}
+                        <tr>
+
+                        <td> {{ forloop.counter |add:7}}:00 <input type="radio" name="schedule" id="radio_{{ forloop.counter |add:7}}:00" value="{{ forloop.counter |add:7}}:00"></td>
+                        <td> {{ forloop.counter |add:7}}:20 <input type="radio" name="schedule" id="radio_{{ forloop.counter |add:7}}:20" value="{{ forloop.counter |add:7}}:20"></td>
+                        <td> {{ forloop.counter |add:7}}:40 <input type="radio" name="schedule" id="radio_{{ forloop.counter |add:7}}:40" value="{{ forloop.counter |add:7}}:40"></td>
+
+                        </tr>
+                        {% endfor %}
+                    </table>
+                        <button type="submit">Reservar</button>
+                </form>
+
+                </table>
+             {% comment %}    <p> El siguiente botón te redireccionará al sistema de turnos.<p>
                 <br>
-                {% comment %} <div class="d-inline-flex gap-2 align-items-center">
+                <div class="d-inline-flex gap-2 align-items-center">
                     <small class="text-muted"> Reservá un turno: </small> 
                     <a href="https://calendly.com/certificaciones-larroca/verificacion-fisica" class="btn btn-success" role="button">Sacar Turno</a>   
-                </div>    {% endcomment %} 
-                <a href="https://calendly.com/certificaciones-larroca/verificacion-fisica" class="btn btn-success" role="button">Sacar Turno</a>                       
+                </div>    
+                <a href="https://calendly.com/certificaciones-larroca/verificacion-fisica" class="btn btn-success" role="button">Sacar Turno</a>     {% endcomment %}                    
             </div>
         </div>
     </div>
+
+    <script>
+        const picker = document.getElementById('day');
+        picker.addEventListener('input', function(e){
+        var day = new Date(this.value).getUTCDay();
+        if([6,0].includes(day)){
+            e.preventDefault();
+            this.value = '';
+        }
+        });
+    </script>
 
 </section>
 
