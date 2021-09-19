@@ -1,4 +1,5 @@
 from Dashboard.forms import FormDocUpdate, formUpdateOperation
+from django.core.serializers.json import DjangoJSONEncoder
 from django.http.response import HttpResponseRedirect
 from Client.forms import FormLogin, FormDoc, formRegisterOperation
 from django.shortcuts import render, redirect
@@ -9,8 +10,21 @@ from Dashboard.utils import generate_form, save_doc
 from django.core.mail import EmailMessage
 import mercadopago
 from pprint import pprint
+import json
 from datetime import datetime
+import pytz
+from django.utils import timezone
 
+
+def convert_to_localtime(utctime):
+    try:
+        fmt = '%Y-%m-%dT%H:%M'
+        utc = utctime.replace(tzinfo=pytz.UTC)
+        localtz = utc.astimezone(timezone.get_current_timezone())
+    except:
+        return None
+
+    return localtz.strftime(fmt)
 #------------------- login ------------------#
 def login(request):
     form_login = FormLogin()
@@ -201,7 +215,7 @@ def appointment(request, pk):
         schedule = request.POST.get("schedule")
 
         appointment = day + " " + schedule
-
+        print(appointment)
         operation.onsite_verified_at = datetime.strptime(appointment, '%Y-%m-%d %H:%M')
 
         operation.save()
@@ -209,8 +223,16 @@ def appointment(request, pk):
         print(appointment)
         return render(request,"appointment.html", {"operation":operation})
 
-    operation = Operation.objects.get(pk=pk)    
-    return render(request,"appointment.html", {"operation":operation})
+
+    operation = Operation.objects.get(pk=pk)
+    appointments = Operation.objects.all().values_list('onsite_verified_at', flat=True)
+    appointments_list = []
+    for i in appointments:
+        x = convert_to_localtime(i)
+        appointments_list.append(x)
+    appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder) 
+    print(appointments_list)
+    return render(request,"appointment.html", {"operation":operation, "appointments_list": appointments_list})
 
 #------------------- appointment_success -> turno-verificacion-ok ----------------#
 def appointmentSuccessful(request):
