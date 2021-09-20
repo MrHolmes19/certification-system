@@ -12,19 +12,11 @@ import mercadopago
 from pprint import pprint
 import json
 from datetime import datetime
-import pytz
-from django.utils import timezone
+from .utils import convert_to_localtime
 
 
-def convert_to_localtime(utctime):
-    try:
-        fmt = '%Y-%m-%dT%H:%M'
-        utc = utctime.replace(tzinfo=pytz.UTC)
-        localtz = utc.astimezone(timezone.get_current_timezone())
-    except:
-        return None
 
-    return localtz.strftime(fmt)
+
 #------------------- login ------------------#
 def login(request):
     form_login = FormLogin()

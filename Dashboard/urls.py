@@ -11,4 +11,5 @@ urlpatterns = [
     path('detalle/<int:pk>/<str:estado>', views.acceptPayment, name='Accept-payment'), #Cambiar
     path('detalle/<int:pk>/<str:estado>', views.rejectPayment, name='Reject-payment'), #Cambiar
     path('detalle/validar-pago', views.checkPayment, name='Check-payment'),
+    path('turnos', views.appoinments, name='Appoinments'),
 ]

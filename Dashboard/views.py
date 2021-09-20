@@ -9,9 +9,11 @@ from pprint import pprint
 from django.urls import reverse
 from Client.forms import FormDoc
 from .utils import emailNotificationToClient, save_doc
+from Client.utils import convert_to_localtime
 from Dashboard.utils import generate_form
 from Dashboard.forms import FormDocUpdate
-
+import json
+from django.core.serializers.json import DjangoJSONEncoder
 
 # Create your views here.
 def dashboard(request):
@@ -151,3 +153,22 @@ def checkPayment(request):
             result = emailNotificationToClient(title,body,client.mail)
 
             return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+
+def appoinments(request):
+
+    appointments = Operation.objects.all().values_list('onsite_verified_at', flat=True)
+    appointments_list = []
+    for i in appointments:
+        x = convert_to_localtime(i)
+        appointments_list.append(x)
+    appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder)
+    appointments = Operation.objects.all().filter(onsite_verified_at__isnull=False, stage="Verificacion pendiente").order_by("onsite_verified_at")  #.values_list('onsite_verified_at', flat=True)
+
+    for i in appointments:
+        i.onsite_verified_at = convert_to_localtime(i.onsite_verified_at).replace("T", " ")
+
+    #appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder) 
+    print(appointments)
+    return render(request,"appointments.html", {"operations": appointments, "appointments_list": appointments_list})
+
+
