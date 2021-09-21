@@ -5,24 +5,130 @@
 {% block content %}
 
 <section id="pend-doc">
-    <div class="container my-2">
+    <div class="container mb-2 my-2">
         <div class="row">
             <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1 pt-2 pb-4">
                 <h2 class="text-center mt-2 mb-5"> Sacá turno para la verificación fisica </h2>
 
-                <p> <strong>¡ Tu pago fue registrado exitosamente !</strong> </p>
+                <div class="container">
+                    <p> <strong>¡ Tu pago fue registrado exitosamente !</strong> </p>
+
+                    <p> Para continuar, debés traer tu vehículo a nuestro taller para realizar la verificación visual de las modificaciones.<p>
+
+                    <p> Te brindamos nuestra agenda disponible, para que saques un turno:<p>
+                
+                    <form action="{% url 'Appointment' pk=operation.id %}" method="POST">
+                        {% csrf_token %}
+
+                        <h6>Elegí la fecha:</h6>
+                        <input type="date" name="day" id="day" class="my-3">
+
+                        <h6>Elegí un horario:</h6>
+                        <table class="table text-center radio-table">
+                            <th scope="col" colspan="3"> Horario disponibles</th>
+                            {% for i in '012345'|make_list %}
+                            <tr>
+
+                            <td scope="row"> <input type="radio" class="" name="schedule" id="radio_{{ forloop.counter |add:7}}:00" value="{{ forloop.counter |add:7}}:00" disabled> <label for="radio_{{ forloop.counter |add:7}}:00"> {{ forloop.counter |add:7}}:00  </label></td>
+                            <td scope="row"> <input type="radio" class="" name="schedule" id="radio_{{ forloop.counter |add:7}}:20" value="{{ forloop.counter |add:7}}:20" disabled> <label for="radio_{{ forloop.counter |add:7}}:20"> {{ forloop.counter |add:7}}:20  </label></td>
+                            <td scope="row"> <input type="radio" class="" name="schedule" id="radio_{{ forloop.counter |add:7}}:40" value="{{ forloop.counter |add:7}}:40" disabled> <label for="radio_{{ forloop.counter |add:7}}:40"> {{ forloop.counter |add:7}}:40  </label></td>
+
+                            </tr>
+                            {% endfor %}
+                        </table>
+                        <button type="submit" class="btn btn-primary">Reservar</button>
+                    </form>
+                </div>
+             {% comment %}    <p> El siguiente botón te redireccionará al sistema de turnos.<p>
                 <br>
-                <p> Para continuar, debés traernos tu vehiculo modificado para realizar la verificación visual.<p>
-                <p> El siguiente botón te redireccionará al sistema de turnos.<p>
-                <br>
-                {% comment %} <div class="d-inline-flex gap-2 align-items-center">
+                <div class="d-inline-flex gap-2 align-items-center">
                     <small class="text-muted"> Reservá un turno: </small> 
                     <a href="https://calendly.com/certificaciones-larroca/verificacion-fisica" class="btn btn-success" role="button">Sacar Turno</a>   
-                </div>    {% endcomment %} 
-                <a href="https://calendly.com/certificaciones-larroca/verificacion-fisica" class="btn btn-success" role="button">Sacar Turno</a>                       
+                </div>    
+                <a href="https://calendly.com/certificaciones-larroca/verificacion-fisica" class="btn btn-success" role="button">Sacar Turno</a>     {% endcomment %}                    
             </div>
         </div>
     </div>
+
+    <script>
+        const mylist = JSON.parse("{{appointments_list}}".replace(/&quot;/g,'"'));
+        for(i = 0; i < mylist.length; i++){
+            console.log(mylist[i])
+        };
+        //console.log({{appointments_list}})
+
+        const picker = document.getElementById('day');
+        picker.addEventListener('input', function(e){
+        var day = new Date(this.value).getUTCDay();
+        if([6,0].includes(day)){
+            e.preventDefault();
+            this.value = '';
+        }
+        });
+
+        day_input = document.getElementById('day')
+
+        day_input.addEventListener('change', (event) => {
+    
+            
+            block_radios(day_input.value)
+
+    });
+
+    function block_radios(day_value){
+        all_radios = document.getElementsByName("schedule");
+
+        all_radios.forEach(element => {
+            element.removeAttribute("disabled");
+        });
+        if(day_value == ""){
+            all_radios.forEach(element => {
+            element.setAttribute("disabled", "true");
+        });
+        }
+
+        console.log(day_input.value)
+
+        for(i = 0; i < mylist.length; i++){
+            try{
+                element_day = mylist[i].split("T")[0];
+                element_time = mylist[i].split("T")[1];
+                if(element_day == day_input.value){
+                    
+                    time = element_time.substr(0, 5);
+                    console.log("entro al if "+time);
+                    if(time.charAt(0) == "0"){
+                        time = time.substr(1, time.length)
+                    }
+                    let radio_id = "radio_" + time;
+                    document.getElementById(radio_id).setAttribute("disabled", "true");
+                    
+            }
+            }
+            catch{
+                a = 0;
+            }
+
+        };
+    }
+
+    // set min date = today
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+    var yyyy = today.getFullYear();
+    if(dd<10){
+    dd='0'+dd
+    } 
+    if(mm<10){
+    mm='0'+mm
+    } 
+
+    today = yyyy+'-'+mm+'-'+dd;
+    day_input.setAttribute("min", today);
+    </script>
+
+{% comment %} <script src="{% static 'CertificationsApp/js/scheduler.js' %}"></script> {% endcomment %}
 
 </section>
 

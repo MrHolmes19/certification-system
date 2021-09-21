@@ -7,12 +7,10 @@ i = 1;
 
 images.forEach(image => {
     image.setAttribute('id','image_' + i);
-    i++;
-    
+    i++;   
 });
 
 // giving id to input labels
-
 
 var inputLabels = document.querySelectorAll(".card .container label");
 
@@ -20,8 +18,18 @@ i = 1;
 
 inputLabels.forEach(inputLabel => {
     inputLabel.setAttribute('id','label_' + i);
-    i++;
-    
+    i++; 
+});
+
+// giving id to card's overlay
+
+var overlays = document.querySelectorAll(".card .container .overlay");
+
+i = 1;
+
+overlays.forEach(overlay => {
+    overlay.setAttribute('id','overlay_' + i);
+    i++; 
 });
 
 
@@ -77,8 +85,27 @@ showCards()
 // setting preview images when uploading
 
 var imageInputs = document.querySelectorAll(".card input");
-var inputLabels = document.querySelectorAll(".card .container label");
 
+i = 1;
+imageInputs.forEach(input => {
+    input.setAttribute('onchange','document.getElementById("image_' + i + '").src = window.URL.createObjectURL(this.files[0])');
+    i++;  
+});
+
+// Changing format when uploading
+
+var labelInputs = document.querySelectorAll(".card .container label");
+
+i = 1;
+labelInputs.forEach(label => {
+    label.setAttribute('onclick','document.getElementById("label_' + i + '").classList.add("inactive")');
+    i++;  
+});
+
+
+// INTENTO 1 - FUNCIONES POR SEPARADO (SUPUESTAMENTE DEBERIA ANDAR) 
+
+/*
 function hiddeLabel(i){
     document.getElementById('label_' + i).classList.add("inactive");
 }
@@ -92,26 +119,6 @@ function allInOne(i){
     showPreview(i);
 }
 
-// imageInputs[2].addEventListener("onchange",hiddeLabel(2),false);
-
-imageInputs[1].addEventListener("onChange", ()=>{
-    inputLabel[0].classList.add("inactive")
-    alert("si señor")
-});
-
-
-i = 1;
-/*
-imageInputs.forEach(input => {
-    input.addEventListener("onchange", ()=>{
-        document.getElementById("image_' + i + '").src = window.URL.createObjectURL(this.files[0]);
-        document.getElementById("label_' + i + '").classList.add("inactive");
-    });
-    i++;
-});
-*/
-
-/*
 imageInputs.forEach(input => {
     input.setAttribute(
         'onchange',
@@ -124,31 +131,26 @@ imageInputs.forEach(input => {
     input.setAttribute('onchange',(function() {allInOne(i)})());
     i++;  
 });
-*/
+
+
+// INTENTO 2 - Con un EventListener pasandole parametros via funciones
 
 /*
-// setting preview images when uploading
+var alcambio = function(){
+    document.getElementById("label_"+ i).classList.add("inactive");
+    document.getElementById("overlay_" + i).classList.add("inactive2");
+}
 
-var imageInputs = document.querySelectorAll(".card input");
-
-i = 1;
-imageInputs.forEach(input => {
-    input.setAttribute('onchange','document.getElementById("image_' + i + '").src = window.URL.createObjectURL(this.files[0])');
-    i++;  
-});
-
-
-// Changing format when uploading
-
-var imageInputs2 = document.querySelectorAll(".card input");
+var labelInputs = document.querySelectorAll(".card .container label");
 
 i = 1;
-imageInputs2.forEach(input => {
-    input.setAttribute('onchange','document.getElementById("label_' +i+ '").classList.add("inactive")'); 
-    i++;  
+
+labelInputs.forEach(label => {
+    label.addEventListener("click", alcambio(i));
+    i++;
 });
+
 */
-
 
 //block all inputs except those how need to be updated
 

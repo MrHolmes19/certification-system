@@ -57,6 +57,70 @@ table tbody tr td a img{
     min-width:144px !important;
 }
 
+/*
 form{
     height: 31px;
+}
+*/
+
+/* ---- Operation Details - cards -----*/
+
+
+/*Setting height of images to standarize cards*/
+
+.card img{
+    height: 179px !important;
+}
+
+/*Overlay for images*/
+
+.card .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:relative;
+    margin:0 !important;
+    padding:0 !important;
+}
+
+.overlay{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: 0.6s ease all;
+}
+
+/* Changing original input format (Believe me. It was afwul)*/
+
+.card-body input{
+    display: none;
+}
+
+.card .container label{
+    position: absolute;
+    z-index: 100;
+}
+
+label[for="id_image1_uploaded"],
+label[for="id_image2_uploaded"],
+label[for="id_image3_uploaded"],
+label[for="id_image4_uploaded"],
+label[for="id_image5_uploaded"],
+label[for="id_image6_uploaded"],
+label[for="id_image7_uploaded"]{
+    cursor: pointer;
+    height:100%;
+    width:100%;
+    transition: 0.5s ease all;
+}
+
+label[for="id_image1_uploaded"]:hover ~ .overlay,
+label[for="id_image2_uploaded"]:hover ~ .overlay,
+label[for="id_image3_uploaded"]:hover ~ .overlay,
+label[for="id_image4_uploaded"]:hover ~ .overlay,
+label[for="id_image5_uploaded"]:hover ~ .overlay,
+label[for="id_image6_uploaded"]:hover ~ .overlay,
+label[for="id_image7_uploaded"]:hover ~ .overlay{
+    background-color: rgb(0,0,0);
+    opacity: .7;
 }

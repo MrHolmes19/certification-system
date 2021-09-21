@@ -1,6 +1,8 @@
 from Certificados import settings
 from CertificationsApp.models import Client, Vehicle, Operation
 from django.core.mail import EmailMessage
+import pytz
+from django.utils import timezone
 
 # Stages of an operation (Harcoded --> Check against Client/urls.py)
 stage_levels={
@@ -55,3 +57,12 @@ def emailNotificationToAdmin(title, body):
         return "error sending mail"
 
 
+def convert_to_localtime(utctime):
+    try:
+        fmt = '%Y-%m-%dT%H:%M'
+        utc = utctime.replace(tzinfo=pytz.UTC)
+        localtz = utc.astimezone(timezone.get_current_timezone())
+    except:
+        return None
+
+    return localtz.strftime(fmt)

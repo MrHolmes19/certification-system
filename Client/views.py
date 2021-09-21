@@ -1,4 +1,5 @@
 from Dashboard.forms import FormDocUpdate, formUpdateOperation
+from django.core.serializers.json import DjangoJSONEncoder
 from django.http.response import HttpResponseRedirect
 from Client.forms import FormLogin, FormDoc, formRegisterOperation
 from django.shortcuts import render, redirect
@@ -9,7 +10,12 @@ from Dashboard.utils import generate_form, save_doc
 from django.core.mail import EmailMessage
 import mercadopago
 from pprint import pprint
+import json
 from datetime import datetime
+from .utils import convert_to_localtime
+
+
+
 
 #------------------- login ------------------#
 def login(request):
@@ -129,7 +135,7 @@ def payment(request, pk):
 
         operation = Operation.objects.get(pk=pk)
         type = ModificationsType.objects.get(pk=operation.final_type.id)
-        fee = type.fee
+        fee = type.fee - operation.paid_amount
 
         # Adding MP credentials
         sdk = mercadopago.SDK("TEST-3332094717111517-083117-50ddb3f26d4594433d667165a99ad80b-25704844")
@@ -150,14 +156,29 @@ def payment(request, pk):
                 "failure": "http://127.0.0.1:8000/pago-fallido",
                 "pending": "http://127.0.0.1:8000/pago-en-proceso"
             },
-            "auto_return": "approved"            
+            "auto_return": "approved",
+            "payment_methods": {
+                "excluded_payment_types": [
+            {
+                "id": "atm"
+            },
+            {
+                "id": "ticket"
+            }
+        ],            
         }
+    }
 
         preference_response = sdk.preference().create(preference_data)
         url_mp = preference_response["response"]["init_point"]
-        return render(request,"payment.html",{'url':url_mp})
+        return render(request,"payment.html",{'url':url_mp, "fee": fee})
 
     return render(request,"payment.html")
+
+#------------------- payment_fail -> pago-fallido ----------------#
+def paymentFail(request):   
+    return render(request,"payment_failed.html")
+
 
 #------------------- payment_checking -> pago-pendiente ----------------#
 def waitingPayment(request):   
@@ -177,7 +198,33 @@ def appointment(request, pk):
         operation.stage = new_stage
         operation.save()
 
-    return render(request,"appointment.html")
+        return render(request,"appointment.html", {"operation":operation})
+
+    if request.method == "POST":
+        
+        operation = Operation.objects.get(pk=pk)
+        day = request.POST.get("day")
+        schedule = request.POST.get("schedule")
+
+        appointment = day + " " + schedule
+        print(appointment)
+        operation.onsite_verified_at = datetime.strptime(appointment, '%Y-%m-%d %H:%M')
+
+        operation.save()
+
+        print(appointment)
+        return render(request,"appointment.html", {"operation":operation})
+
+
+    operation = Operation.objects.get(pk=pk)
+    appointments = Operation.objects.all().values_list('onsite_verified_at', flat=True)
+    appointments_list = []
+    for i in appointments:
+        x = convert_to_localtime(i)
+        appointments_list.append(x)
+    appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder) 
+    print(appointments_list)
+    return render(request,"appointment.html", {"operation":operation, "appointments_list": appointments_list})
 
 #------------------- appointment_success -> turno-verificacion-ok ----------------#
 def appointmentSuccessful(request):

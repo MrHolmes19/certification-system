@@ -10,6 +10,8 @@ var payconf_tab = document.getElementById('v-pills-payconf-tab')
 var pendverif_tab = document.getElementById('v-pills-pendverif-tab')
 var pendcert_tab = document.getElementById('v-pills-pendcert-tab')
 
+var appointments_tab = document.getElementById('v-pills-appointments-tab')
+
 if(path == '/administrador/'){
 
     if(args == '?stage=Documentacion%20enviada'){
@@ -32,4 +34,7 @@ if(path == '/administrador/Clientes'){
 }
 if(path == '/administrador/Vehiculos'){
     vehicles_tab.classList.add('active')
+}
+if(path == '/administrador/turnos'){
+    appointments_tab.classList.add('active')
 }
