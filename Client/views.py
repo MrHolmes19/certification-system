@@ -4,7 +4,7 @@ from django.http.response import HttpResponseRedirect
 from Client.forms import FormLogin, FormDoc, formRegisterOperation
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from CertificationsApp.models import Client, ModificationsType, Vehicle, Operation
+from CertificationsApp.models import Client, ModificationsType, Schedule, Vehicle, Operation
 from .utils import emailNotificationToAdmin, loginRedirect
 from Dashboard.utils import generate_form, save_doc
 from django.core.mail import EmailMessage
@@ -212,7 +212,6 @@ def appointment(request, pk):
 
         operation.save()
 
-        print(appointment)
         return render(request,"appointment.html", {"operation":operation})
 
 
@@ -222,6 +221,12 @@ def appointment(request, pk):
     for i in appointments:
         x = convert_to_localtime(i)
         appointments_list.append(x)
+
+    admin_appointments = Schedule.objects.all().values_list('appointment', flat=True)
+    for i in admin_appointments:
+        x = convert_to_localtime(i)
+        appointments_list.append(x)
+
     appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder) 
     print(appointments_list)
     return render(request,"appointment.html", {"operation":operation, "appointments_list": appointments_list})
