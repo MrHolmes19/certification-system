@@ -1,9 +1,9 @@
 from datetime import datetime
-from Dashboard.forms import formUpdateOperation
+from Dashboard.forms import formUpdateOperation, FormDocUpdate, formCertificate
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from CertificationsApp.models import Client, Vehicle, Operation
+from CertificationsApp.models import Client, ModificationsType, Vehicle, Operation
 from django.forms.models import model_to_dict
 from pprint import pprint
 from django.urls import reverse
@@ -11,7 +11,6 @@ from Client.forms import FormDoc
 from .utils import emailNotificationToClient, save_doc
 from Client.utils import convert_to_localtime
 from Dashboard.utils import generate_form
-from Dashboard.forms import FormDocUpdate
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 
@@ -45,8 +44,9 @@ def operationDetail(request, pk):
     if request.method == "GET":
         
         form, operation = generate_form(pk)
+        #certificateForm = formCertificate()
 
-        return render(request,"operationDetail.html",{'form_doc':form, 'operation':operation})
+        return render(request,"operationDetail.html",{'form_doc':form, 'operation':operation}) #, 'form_cert':certificateForm
 
     if request.method == "POST":
         form_doc_update = FormDocUpdate(request.POST, request.FILES)
@@ -59,13 +59,11 @@ def operationDetail(request, pk):
             else:
                 operation.stage = 'Documentacion rechazada'
 
-            
             rejected_images = request.POST.get("rejectedImages")
             rejected_images = rejected_images.split("-")
-
             rejected_imgs = {}
             for image in set(rejected_images):
-                if image is not "": #esto tira warning
+                if image != "": #Se cambio el "is not" ya que tiraba warning
                     rejected_imgs[image] = "volver_a_subir.jpeg"
 
             operationForm = formUpdateOperation(request.POST, request.FILES, instance = operation)
@@ -77,7 +75,8 @@ def operationDetail(request, pk):
                     operation.stage = 'Pendiente de pago'
                     result = emailNotificationToClient(
                         "Tu documentacion fue Aprobada",
-                        "Hola {} {}, entrá al siguiente link para continuar con el trámite \n: http://localhost:8000/pago/{}".format(client.name, client.surname, operation.id),
+                        "Hola {} {}, entrá al siguiente link para continuar con el trámite\
+                            \n: http://localhost:8000/pago/{}".format(client.name, client.surname, operation.id),
                         client.mail
                         )
                     print("email: ", result)
@@ -85,7 +84,8 @@ def operationDetail(request, pk):
                     operation.stage = 'Documentacion rechazada'
                     result = emailNotificationToClient(
                     "Tu documentacion fue Rechazada",
-                    "Hola {} {}, entrá al siguiente link para continuar con el trámite \n: http://localhost:8000/formulario/{}".format(client.name, client.surname, operation.id),
+                    "Hola {} {}, entrá al siguiente link para continuar con el trámite\
+                        \n: http://localhost:8000/formulario/{}".format(client.name, client.surname, operation.id),
                     client.mail
                     )
                     print("email: ", result)
@@ -98,7 +98,7 @@ def operationDetail(request, pk):
 
     return render(request,"doc.html",{'form_doc':form_doc_update})
 
-
+'''
 def acceptPayment(request, pk, estado):
 
     if request.method == "POST":
@@ -119,10 +119,9 @@ def rejectPayment(request, pk, estado):
         operation.save()
         print("Entre a reject Payment")
         return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))  
-
+'''
 
 def checkPayment(request):
-
 
     if request.method == "POST":
         pk = request.POST.get("op_id")
@@ -136,7 +135,7 @@ def checkPayment(request):
             print(operation.final_type.fee)
             operation.save()
 
-            return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+            return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations")) #No conviene dejar uno solo?
 
         if approved == 'false':
             operation = Operation.objects.get(pk=pk)
@@ -147,12 +146,11 @@ def checkPayment(request):
             body = request.POST.get("body")
             amount = request.POST.get("amount")
             operation.paid_amount = amount
-            #operation.stage = "Pendiente de pago"
-            #operation.paid_by = None
             operation.save()
             result = emailNotificationToClient(title,body,client.mail)
 
             return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+
 
 def appoinments(request):
 
@@ -172,3 +170,51 @@ def appoinments(request):
     return render(request,"appointments.html", {"operations": appointments, "appointments_list": appointments_list})
 
 
+def fees(request):
+
+    if request.method == "GET": 
+        fees = ModificationsType.objects.all()
+        return render(request,"fees.html",{'fees':fees})
+    
+    if request.method == "POST":
+        if request.POST.get("action") == "update":
+            updatedFee = request.POST.get("updatedFee")
+            selected_type = request.POST.get("type")
+            type = ModificationsType.objects.filter(available_type = selected_type).first()
+            type.fee = updatedFee
+            type.save()
+
+        elif request.POST.get("action") == "updateAll":
+            updatedFee = request.POST.get("updatedFee")
+            types = ModificationsType.objects.all()
+            for type in types:
+                type.fee = updatedFee
+                type.save()
+    return HttpResponseRedirect(reverse("Dashboard:Fees"))
+
+
+def certificate(request):
+    
+    if request.method == "POST":
+        pk = request.POST.get("op_id")
+        operation = Operation.objects.get(pk=pk)
+        client = Client.objects.filter(id = operation.owner_id).first()
+
+        file = request.FILES['certificateInput']
+        operation.certificate = file
+        operation.stage = "Certificado disponible"
+        operation.certificate_uploaded_at = datetime.now()
+        operation.save()
+ 
+        result = emailNotificationToClient(
+            "Certificado disponible",
+            "Hola {} {}, Has finalizado el trámite exitosamente! \
+                \n Descargá el certificado del COPIME ingresando con tus credenciales aquí: \
+                \n http://localhost:8000/descarga-certificado/{}".format(client.name, client.surname, operation.id),
+            client.mail
+            )
+        print("email: ", result)
+
+        return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+      
+    #return render(request,"doc.html",{'form_doc':form_doc_update})

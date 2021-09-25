@@ -26,6 +26,7 @@ menu_btn.addEventListener("click", ()=>{
 
 /* search bar selects*/
 
+/*
 var sel1 = document.querySelector('#select1');
 var sel2 = document.querySelector('#select2');
 var options2 = sel2.querySelectorAll('option');
@@ -40,6 +41,7 @@ function giveSelection(selValue) {
 }
 
 giveSelection(sel1.value);
+*/
 
 /* real-time searching */
 

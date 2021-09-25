@@ -46,3 +46,7 @@ class FormDocUpdate(forms.Form):
         label="Vehiculo actual", required=True)
     final_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(),
         label="Vehiculo a homologar", required=True)
+
+
+class formCertificate(forms.ModelForm):
+    certificate = forms.FileField(required=False)

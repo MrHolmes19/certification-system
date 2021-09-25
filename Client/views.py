@@ -13,8 +13,9 @@ from pprint import pprint
 import json
 from datetime import datetime
 from .utils import convert_to_localtime
-
-
+import os
+from django.conf import settings
+from django.http import HttpResponse, Http404
 
 
 #------------------- login ------------------#
@@ -159,16 +160,15 @@ def payment(request, pk):
             "auto_return": "approved",
             "payment_methods": {
                 "excluded_payment_types": [
-            {
-                "id": "atm"
-            },
-            {
-                "id": "ticket"
-            }
-        ],            
+                {
+                    "id": "atm"
+                },
+                {
+                    "id": "ticket"
+                }
+            ],            
         }
     }
-
         preference_response = sdk.preference().create(preference_data)
         url_mp = preference_response["response"]["init_point"]
         return render(request,"payment.html",{'url':url_mp, "fee": fee})
@@ -215,7 +215,6 @@ def appointment(request, pk):
         print(appointment)
         return render(request,"appointment.html", {"operation":operation})
 
-
     operation = Operation.objects.get(pk=pk)
     appointments = Operation.objects.all().values_list('onsite_verified_at', flat=True)
     appointments_list = []
@@ -250,5 +249,18 @@ def waitingCertificate(request):
     return render(request,"cert_inprocess.html")
 
 #------------------- download -> descarga-certificado ----------------#
+'''
+def download(request, pk, path):   
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404
+
+    return render(request,"download.html")
+'''
 def download(request, pk):   
+
     return render(request,"download.html")

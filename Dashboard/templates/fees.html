@@ -1,0 +1,84 @@
+{% extends "dashboard.html" %}
+
+{% load static %}
+
+{% block content2 %}
+
+    <!-- Table -->
+
+    <section id="fees">
+      <div class="table-responsive mx-1">
+        <table class="table table-sm table-hover table-bordered table-striped">
+            <thead class="text-center align-middle bg-secondary bg-gradient bg-opacity-50">
+              <tr>
+                <th scope="row">Tipo de modificación</th>
+                <th scope="row">Tarifa</th>
+                <th scope="col">Modificacion</th>
+              </tr>
+            </thead>
+            <tbody class="body">
+                {% for fee in fees %}
+                <tr>
+                    <td>{{fee.available_type}}</td>
+                    <td>$ {{fee.fee}}.-</td>
+                    <td>
+                        <a href="#" id="fee-link" onclick="feeModal('{{fee.available_type}}','{{fee.fee}}')">
+                            Actualizar
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    
+    <div class="modal fade" id="feeModal" tabindex="-1" aria-labelledby="feeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="feeModalLabel">Actualizar Tarifa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            
+                <form action="{% url 'Dashboard:Fees' %}" method="POST">
+                {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="mb-3 row">
+                            <label for="currentFee" class="col-sm-4 col-form-label">Tarifa vigente:</label>
+                            <div class="col-sm-8">
+                                <input type="text" readonly class="form-control-plaintext" id="currentFee" value=0>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="feeUpdated" class="col-sm-4 col-form-label">Tarifa actualizada:</label>
+                            <div class="col-sm-8">
+                                <input type="number" name="updatedFee" class="form-control" id="feeUpdated">
+                            </div>
+                        </div>
+                        <input type="hidden" id="selected_type" name="type" value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" name="action" value="update">Guardar cambios</button>
+                        <button type="submit" class="btn btn-danger" name="action" value="updateAll">Aplicar a todo</button>
+                    </div>
+                </form>
+
+                {% comment %} <div class="modal-body">
+                    <h6>Tarifa vigente: <span id="name"></span></h6>
+                    <h6>Tarifa atualizada: <span id="surname"></span></h6>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div> {% endcomment %}
+
+            </div>
+        </div>
+    </div>
+
+<script src="{% static 'CertificationsApp/js/feeModal.js' %}"></script>  
+
+{% endblock %}

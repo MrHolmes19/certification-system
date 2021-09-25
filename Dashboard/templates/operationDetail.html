@@ -10,12 +10,12 @@
       <!-- DOCUMENTATION UPLOADED  -->
 
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingClient">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <h2 class="accordion-header" id="doc-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
             <img src="https://img.icons8.com/nolan/64/client-management.png"/> <h5>Documentación cargada</h5>
           </button>
         </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <!-- form -->
             <div class="row">
@@ -93,12 +93,12 @@
       <!-- PAYMENT  -->
        
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingVehicle">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+        <h2 class="accordion-header" id="payment-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <img src="https://img.icons8.com/nolan/64/truck.png"/> <h5>Estado de pago</h5> 
           </button>
         </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
           <div class="accordion-body">
 
             <div class="row">
@@ -113,8 +113,8 @@
                         {% csrf_token %}
                         <input type="hidden" name="op_id" value="{{operation.id}}">
                         <input type="hidden" name="approved" value="true">
-                      <button type="submit" class="btn btn-success">CONFIRMAR PAGO</button>
-                    </form>
+                        <button type="submit" class="btn btn-success">CONFIRMAR PAGO</button>
+                      </form>
                       <a href="#" class="btn btn-danger" onclick="messageModal()">RECHAZAR PAGO</a>
                     {% else %}
                       Pago efectuado el {{operation.paid_at}} Mediante Transferencia Bancaria
@@ -128,13 +128,17 @@
         </div>
       </div>
 
+      <!-- APPOINTMENT SCHEDULE  -->
+
+
+      <!-- INFORM  -->
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOperation">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+        <h2 class="accordion-header" id="inform-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
             <img src="https://img.icons8.com/nolan/64/moleskine.png"/> <h5>Generación de informe</h5>
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <div class="row">
               <div class="col-4"><h6>Nº: <strong>{{operation.certificate_number}}</strong></h6></div>
@@ -144,32 +148,62 @@
           </div>
         </div>        
       </div>
-    
-    </div>
+
+      <!-- CERTIFICATE  -->
+
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="certificate-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+            <img src="https://img.icons8.com/nolan/64/moleskine.png"/> <h5>Certificado</h5>
+          </button>
+        </h2>
+        <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <div class="row">
+              <div class="col col-md-8 offset-md-2 col-lg-8 offset-lg-2 pt-2 pb-4">
+                <form action="{% url 'Dashboard:Certificate' %}" method="POST" enctype="multipart/form-data"> 
+                  {% csrf_token %}
+                  <div class="mb-3">
+                    <label for="formFile" class="form-label"> Cargar certificado</label>
+                    <input class="form-control" type="file" name="certificateInput" id="formFile">
+                  </div>
+                  <div class="col d-flex justify-content-around">
+                    <a href="{% url 'Dashboard:Dashboard-operations' %}" class="btn btn-warning">Cancelar</a>
+                    <input type="hidden" name="op_id" value="{{operation.id}}">
+                    <button type="submit" class="btn btn-success">Guardar cambios</button>
+                  </div>  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>        
+      </div>
+
+    </div>   <!-- End Accordion -->
 
   </section>
  
+  <!-- MODAL PAYMENT -->
   <div class="modal fade" id="MessageModal" tabindex="-1" aria-labelledby="MessageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="MessageModalLabel">Detalle Cliente</h5>
+                <h5 class="modal-title" id="MessageModalLabel">PAGO POR TRANSFERENCIA</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="{% url 'Dashboard:Check-payment' %}" method="POST">
               {% csrf_token %}
-            <div class="modal-body">
-            <input type="hidden" name="op_id" value="{{operation.id}}">
-            <input type="hidden" name="approved" value="false">
-            <input type="text" name="title">
-            <input type="number" name="amount" value=0  min=0 max={{operation.final_type.fee}} required="true">
-            <textarea name="body" cols="30" rows="10"></textarea>
-
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-danger">Rechazar</button>
-        </div>
-      </form>
+              <div class="modal-body">
+                <input type="hidden" name="op_id" value="{{operation.id}}">
+                <input type="hidden" name="approved" value="false">
+                <input type="text" name="title">
+                <input type="number" name="amount" value=0  min=0 max={{operation.final_type.fee}} required="true">
+                <textarea name="body" cols="30" rows="10"></textarea>
+              </div>
+              <div class="modal-footer">
+                  <button type="submit" class="btn btn-danger">Rechazar</button>
+              </div>
+            </form>
         </div>
     </div>
   </div>
@@ -177,15 +211,5 @@
   <script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script>
   <script src="{% static 'CertificationsApp/js/operationDetail.js' %}"></script>
   <script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script> 
-<<<<<<< HEAD
 
 {% endblock %}
-=======
-
-{% endblock %}
-
-
-
-
-
->>>>>>> cc7ed28f08c89ba6fa052c86eaf165ec24590351

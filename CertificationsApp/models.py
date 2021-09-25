@@ -17,7 +17,6 @@ class Client(models.Model):
     name = models.CharField(max_length=64)
     surname = models.CharField(max_length=64)
     mail = models.EmailField(max_length=64, unique=True)
-    #phone = models.PhoneNumberField(null=False, blank=False, unique=True)
     phone = models.IntegerField(blank=False, unique=True)
 
     class Meta:
@@ -61,6 +60,7 @@ class Operation(models.Model):
     doc_verified_at = models.DateTimeField(default=None, blank=True, null=True)
     onsite_verified_at = models.DateTimeField(default=None, blank=True, null=True)
     inform_created_at = models.DateTimeField(default=None, blank=True, null=True)
+    certificate = models.FileField(upload_to="files", blank=True, null=True)
     certificate_uploaded_at = models.DateTimeField(default=None, blank=True, null=True)
     certificate_downloaded_at = models.DateTimeField(default=None, blank=True, null=True)
     owner = models.ForeignKey(Client, related_name='operations', on_delete=models.SET_NULL, null=True)
