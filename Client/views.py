@@ -113,6 +113,7 @@ def rejectedDoc(request, pk):
                 operation.save()  
 
                 operation.stage = 'Documentacion enviada'
+
                 result = emailNotificationToAdmin(
                     "Documentacion Actualizada",
                     "El cliente: '{} {}' acaba de modificar la documentación para certificar un '{}'".format(client.name, client.surname, operation.final_type)
@@ -171,7 +172,7 @@ def payment(request, pk):
     }
         preference_response = sdk.preference().create(preference_data)
         url_mp = preference_response["response"]["init_point"]
-        return render(request,"payment.html",{'url':url_mp, "fee": fee})
+        return render(request,"payment.html",{'url':url_mp, "fee": fee, "operation_id": operation.pk})
 
     return render(request,"payment.html")
 
@@ -181,7 +182,20 @@ def paymentFail(request):
 
 
 #------------------- payment_checking -> pago-pendiente ----------------#
-def waitingPayment(request):   
+def waitingPayment(request, pk):
+
+    operation = Operation.objects.get(pk=pk)
+    vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
+    client = Client.objects.get(pk=vehicle.owner.id)
+
+    operation.paid_by = "Transferencia Bancaria"
+    operation.save()
+
+    result = emailNotificationToAdmin(
+        "Pago Efectuado",
+        "El cliente: '{} {}' notifica que realizo una tranferencia correspondiente al informe {}".format(client.name, client.surname, operation.certificate_number)
+        )
+    
     return render(request,"payment_checking.html")
 
 #------------------- appointment -> turno-verificacion ----------------#
@@ -193,12 +207,14 @@ def appointment(request, pk):
         new_stage = 'Turno pendiente'
         
         operation = Operation.objects.get(pk=pk)
+        amount = operation.final_type.fee
+        print(amount)
+        operation.paid_amount = amount
         operation.paid_at = payment_date
         operation.paid_by = payment_type
         operation.stage = new_stage
         operation.save()
 
-        return render(request,"appointment.html", {"operation":operation})
 
     if request.method == "POST":
         
@@ -209,10 +225,12 @@ def appointment(request, pk):
         appointment = day + " " + schedule
         print(appointment)
         operation.onsite_verified_at = datetime.strptime(appointment, '%Y-%m-%d %H:%M')
-
+        operation.stage = "Verificacion pendiente"
         operation.save()
 
-        return render(request,"appointment.html", {"operation":operation})
+
+
+        return render(request,"verification_inprocess.html", {"date":day, "time":schedule})
 
     operation = Operation.objects.get(pk=pk)
     appointments = Operation.objects.all().values_list('onsite_verified_at', flat=True)
@@ -250,8 +268,8 @@ def waitingVerification(request):
     return render(request,"verification_inprocess.html")
 
 #------------------- cert_inprocess -> certificado-en-proceso ----------------#
-def waitingCertificate(request):   
-    return render(request,"cert_inprocess.html")
+def waitingCertificate(request, pk):   
+    return render(request,"download_inprocess.html")
 
 #------------------- download -> descarga-certificado ----------------#
 '''

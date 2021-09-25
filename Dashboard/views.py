@@ -153,6 +153,8 @@ def checkPayment(request):
 
             return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
 
+
+
 def appointments(request):
 
     if request.method == "POST":
