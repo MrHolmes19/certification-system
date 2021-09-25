@@ -110,10 +110,6 @@
     <script>
     const mylist = JSON.parse("{{appointments_list}}".replace(/&quot;/g,'"'));
     const myBlocklist = JSON.parse("{{block_list}}".replace(/&quot;/g,'"'));
-    for(i = 0; i < mylist.length; i++){
-        console.log(mylist[i])
-    };
-    //console.log({{appointments_list}})
 
     const picker = document.getElementById('day');
     picker.addEventListener('input', function(e){
@@ -159,7 +155,7 @@
                 if(time.charAt(0) == "0"){
                     time = time.substr(1, time.length)
                 }
-                let radio_id = "radio_" + time;
+                let radio_id = "check_" + time;
                 document.getElementById(radio_id).setAttribute("disabled", "true");
                 
         }
@@ -171,8 +167,8 @@
     };
         for(i = 0; i < myBlocklist.length; i++){
         try{
-            element_day = mylist[i].split("T")[0];
-            element_time = mylist[i].split("T")[1];
+            element_day = myBlocklist[i].split("T")[0];
+            element_time = myBlocklist[i].split("T")[1];
             if(element_day == day_input.value){
                 
                 time = element_time.substr(0, 5);

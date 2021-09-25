@@ -198,12 +198,12 @@ def appointments(request):
     appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder)
     block_list = json.dumps(list(block_list), cls=DjangoJSONEncoder)
     appointments = Operation.objects.all().filter(onsite_verified_at__isnull=False, stage="Verificacion pendiente").order_by("onsite_verified_at")  #.values_list('onsite_verified_at', flat=True)
-
+    print("appo_list: ", appointments_list)
+    print("block_list: ", block_list)
     for i in appointments:
         i.onsite_verified_at = convert_to_localtime(i.onsite_verified_at).replace("T", " ")
 
-    #appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder) 
-    print(appointments)
+
     return render(request,"appointments.html", {"operations": appointments, "appointments_list": appointments_list, "block_list": block_list})
 
 
