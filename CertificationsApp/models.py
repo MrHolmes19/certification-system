@@ -75,3 +75,15 @@ class Operation(models.Model):
     
     def __str__(self):
         return self.certificate_number
+
+
+class Schedule(models.Model):
+
+    appointment = models.DateTimeField(unique=True)
+
+    class Meta:
+        verbose_name = 'schedule'
+        verbose_name_plural = 'schedule'
+    
+    def __str__(self):
+        return str(self.appointment)

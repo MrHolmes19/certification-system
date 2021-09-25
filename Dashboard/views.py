@@ -3,7 +3,7 @@ from Dashboard.forms import formUpdateOperation, FormDocUpdate, formCertificate
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from CertificationsApp.models import Client, ModificationsType, Vehicle, Operation
+from CertificationsApp.models import Client, ModificationsType, Vehicle, Operation, Schedule
 from django.forms.models import model_to_dict
 from pprint import pprint
 from django.urls import reverse
@@ -151,23 +151,55 @@ def checkPayment(request):
 
             return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
 
+def appointments(request):
 
-def appoinments(request):
+    if request.method == "POST":
+        
+        appoinments = request.POST.getlist("schedule")
+        day = request.POST.get("day")
+
+        max_time = datetime.strptime(day +  " 23:59", '%Y-%m-%d %H:%M')
+        print(max_time)
+        min_time = datetime.strptime(day +  " 00:00", '%Y-%m-%d %H:%M')
+        print(min_time)
+
+        day_schedules = Schedule.objects.filter(appointment__lte=max_time, appointment__gte=min_time)
+
+        for sch in day_schedules:
+            sch.delete()
+
+        print(len(appoinments))
+
+        for appo in appoinments:
+            appointment = day + " " + appo
+
+            appointment = datetime.strptime(appointment, '%Y-%m-%d %H:%M')
+
+            sch = Schedule.objects.create(appointment=appointment)
+
+        return HttpResponseRedirect(reverse("Dashboard:Appointments"))
 
     appointments = Operation.objects.all().values_list('onsite_verified_at', flat=True)
     appointments_list = []
     for i in appointments:
         x = convert_to_localtime(i)
         appointments_list.append(x)
-    appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder)
-    appointments = Operation.objects.all().filter(onsite_verified_at__isnull=False, stage="Verificacion pendiente").order_by("onsite_verified_at")  #.values_list('onsite_verified_at', flat=True)
 
+    block_list = []
+    admin_appointments = Schedule.objects.all().values_list('appointment', flat=True)
+    for i in admin_appointments:
+        x = convert_to_localtime(i)
+        block_list.append(x)
+    
+    appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder)
+    block_list = json.dumps(list(block_list), cls=DjangoJSONEncoder)
+    appointments = Operation.objects.all().filter(onsite_verified_at__isnull=False, stage="Verificacion pendiente").order_by("onsite_verified_at")  #.values_list('onsite_verified_at', flat=True)
+    print("appo_list: ", appointments_list)
+    print("block_list: ", block_list)
     for i in appointments:
         i.onsite_verified_at = convert_to_localtime(i.onsite_verified_at).replace("T", " ")
 
-    #appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder) 
-    print(appointments)
-    return render(request,"appointments.html", {"operations": appointments, "appointments_list": appointments_list})
+    return render(request,"appointments.html", {"operations": appointments, "appointments_list": appointments_list, "block_list": block_list})
 
 
 def fees(request):
