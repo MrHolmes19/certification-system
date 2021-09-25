@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+        <div class="header">
+            <p>Buenos Aires 15 de septiembre de 2021</p>
+            <p><strong>CERTIFICADO Nº:</strong> {{operation.certificate_number}}</p>
+        </div>
+
+        <div class="title">
+            <h3>Certificado de cambio de tipo</h3>
+        </div>
+        <hr>
+        <div class="data">
+            <p>Dominio: {{vehicle.domain}}</p>
+            <p>Marca: {{vehicle.brand}}</p>
+            <p>Modelo: {{vehicle.model}}</p>
+            <p>Tipo: {{operation.final_type}}</p>
+            <p>Chasis Nº: {{vehicle.chassis_number}}</p>
+            <p>Motor: {{vehicle.engine_number}}</p>
+            <p>Titular: {{client.name}} {{client.surname}} DOC: D.N.I.: {{client.id_number}}</p>
+        </div>
+
+        <div class="images">
+            <div class="img"><img src="{{operation.image2_uploaded.url}}" alt=""></div>
+            <div class="img"><img src="{{operation.image3_uploaded.url}}" alt=""></div>
+            <div class="img"><img src="{{operation.image4_uploaded.url}}" alt=""></div>
+            <div class="img"><img src="{{operation.image5_uploaded.url}}" alt=""></div>
+            <div class="img"><img src="{{operation.image6_uploaded.url}}" alt=""></div>
+        </div>
+
+        <div class="description">
+            <p>DESCRIPCION: Agregado de vidrios laterales y asientos con cinturon de seguridad
+                y apoya cabeza. "Furgon" pasa a ser "Furgon Vidriado con Asientos"
+            </p>
+            <p>La modificacion cumple con los requisitos de seguridad activa y pasiva segun lo
+                estipulado en la Ley 24449 y su decreto reglamentario 779/95.
+            </p>
+            <p>el presente certificado tiene una validez de 90 dias corridos a partir de la
+                fecha de emision
+            </p>
+            <p>Vehiculo apto para circular por la via publica</p>
+        </div>
+
+        <div class="firma">
+            <img src="{% static 'CertificationsApp/images/firma.png' %}" alt="">
+        </div>
+
+</body>
+
+<style>
+@page {
+    size: A4;
+    margin: 0.1in 0.1in 0.1in 0.1in;
+    }
+    body{
+        margin: 0;
+        padding: 0;
+        //border: 1px solid black;
+        border-radius: 5px;
+        min-height: 1095px
+    }
+    .header{
+        text-align: right;
+        margin-right: 15px;
+        font-size: 12px;
+    }
+    .title{
+        text-align: center;
+        text-decoration: underline;
+        margin-bottom: 20px;
+    }
+    .data{
+        text-align: left;
+        margin-left: 25px;
+        font-size: 12px;
+    }
+    .images{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin-bottom: 30px;
+    }
+    .img{
+        border: 1px solid black;
+        padding: 4px;
+    }
+    .img img{
+        height: 142px;
+        width: 145px;
+        border-radius: 5px;
+    }
+    .description{
+        text-align: left;
+        margin-left: 25px;
+        font-size: 12px;
+    }
+    .firma{
+        text-align: right;
+        margin-right: 15px;
+    }
+    .firma img{
+        height: 140px;
+        border-radius: 5px;
+    }
+
+</style>
+
+</html>
