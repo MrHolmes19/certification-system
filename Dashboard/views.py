@@ -155,7 +155,7 @@ def appointments(request):
 
     if request.method == "POST":
         
-        appoinments = request.POST.getlist("schedule")
+        appointments = request.POST.getlist("schedule")
         day = request.POST.get("day")
 
         max_time = datetime.strptime(day +  " 23:59", '%Y-%m-%d %H:%M')
@@ -168,9 +168,9 @@ def appointments(request):
         for sch in day_schedules:
             sch.delete()
 
-        print(len(appoinments))
+        print(len(appointments))
 
-        for appo in appoinments:
+        for appo in appointments:
             appointment = day + " " + appo
 
             appointment = datetime.strptime(appointment, '%Y-%m-%d %H:%M')

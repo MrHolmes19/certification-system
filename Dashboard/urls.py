@@ -12,6 +12,6 @@ urlpatterns = [
     #path('detalle/<int:pk>/<str:estado>', views.rejectPayment, name='Reject-payment'),
     path('detalle/validar-pago', views.checkPayment, name='Check-payment'),
     path('detalle/certificado', views.certificate, name='Certificate'),
-    path('turnos', views.appointments, name='Appoinments'),
+    path('turnos', views.appointments, name='Appointments'),
     path('tarifas', views.fees, name='Fees'),
 ]
