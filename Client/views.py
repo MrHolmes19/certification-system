@@ -1,3 +1,4 @@
+from Certificados.settings import BASE_DIR
 from Dashboard.forms import FormDocUpdate, formUpdateOperation
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http.response import HttpResponseRedirect
@@ -16,6 +17,9 @@ from .utils import convert_to_localtime
 import os
 from django.conf import settings
 from django.http import HttpResponse, Http404
+import mimetypes
+from django.template.loader import render_to_string
+from weasyprint import HTML
 
 
 #------------------- login ------------------#
@@ -284,6 +288,56 @@ def download(request, pk, path):
 
     return render(request,"download.html")
 '''
-def download(request, pk):   
+def download(request, pk):  
 
-    return render(request,"download.html")
+    operation = Operation.objects.get(pk=pk)
+
+    return render(request,"download.html", {"operation" : operation})
+
+
+
+def download_certificate(request, pk):  
+
+    operation = Operation.objects.get(pk=pk)
+
+    filename = "{} - {}".format(operation.certificate_number, vehicle.domain)
+
+    filepath = str(settings.MEDIA_ROOT) + "/" + str(filename)
+
+    path = open(filepath, 'rb')
+    mime_type, _ = mimetypes.guess_type(filepath)
+    response = HttpResponse(path, content_type=mime_type)
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+
+    return response
+
+def download_inform(request, pk):  
+
+    operation = Operation.objects.get(pk=pk)
+    vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
+    client = Client.objects.get(pk=vehicle.owner.id)
+
+    description = operation.inform_description
+
+    desc_list = description.split(".")
+
+    j = 0
+    for i in desc_list:
+        desc_list[j] = i + "."
+        j += 1
+
+    print(desc_list)
+    html = render_to_string("pdf_template.html", {
+        "operation": operation,
+        "description": desc_list,
+        "vehicle": vehicle,
+        "client": client
+    })
+
+    filename = "Informe-{}".format(vehicle.domain)
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = "attachment; filename=%s" % filename
+
+    HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response)
+
+    return response

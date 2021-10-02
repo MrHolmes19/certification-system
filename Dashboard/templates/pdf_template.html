@@ -30,15 +30,25 @@
         </div>
 
         <div class="images">
-            <div class="img"><img src="{{operation.image2_uploaded.url}}" alt=""></div>
-            <div class="img"><img src="{{operation.image3_uploaded.url}}" alt=""></div>
-            <div class="img"><img src="{{operation.image4_uploaded.url}}" alt=""></div>
-            <div class="img"><img src="{{operation.image5_uploaded.url}}" alt=""></div>
-            <div class="img"><img src="{{operation.image6_uploaded.url}}" alt=""></div>
+            <div class="row"></div> 
+                <div class="img"><img src="{{operation.image3_uploaded.url}}" alt=""></div>
+                <div class="img"><img src="{{operation.image4_uploaded.url}}" alt=""></div>
+                <div class="img"><img src="{{operation.image5_uploaded.url}}" alt=""></div>
+                <div class="img"><img src="{{operation.image6_uploaded.url}}" alt=""></div>
+                {% if operation.image7_uploaded %}
+                <div class="img"><img src="{{operation.image7_uploaded.url}}" alt=""></div>
+                {% endif %}
+                {% if operation.image8_uploaded %}
+                <div class="img"><img src="{{operation.image8_uploaded.url}}" alt=""></div>
+                {% endif %}
         </div>
-
+    
         <div class="description">
-            <p>DESCRIPCION: Agregado de vidrios laterales y asientos con cinturon de seguridad
+            {% for paragraph in description %}
+                <p>{{paragraph}}</p>
+            {% endfor %}
+
+            {% comment %} <p>DESCRIPCION: Agregado de vidrios laterales y asientos con cinturon de seguridad
                 y apoya cabeza. "Furgon" pasa a ser "Furgon Vidriado con Asientos"
             </p>
             <p>La modificacion cumple con los requisitos de seguridad activa y pasiva segun lo
@@ -47,7 +57,7 @@
             <p>el presente certificado tiene una validez de 90 dias corridos a partir de la
                 fecha de emision
             </p>
-            <p>Vehiculo apto para circular por la via publica</p>
+            <p>Vehiculo apto para circular por la via publica</p> {% endcomment %}
         </div>
 
         <div class="firma">
@@ -64,7 +74,6 @@
     body{
         margin: 0;
         padding: 0;
-        //border: 1px solid black;
         border-radius: 5px;
         min-height: 1095px
     }

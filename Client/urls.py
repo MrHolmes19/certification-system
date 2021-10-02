@@ -18,4 +18,6 @@ urlpatterns = [
     path('verificacion-pendiente/<int:pk>', views.waitingVerification, name="WaitingVerification"),
     path('certificado-en-proceso/<int:pk>', views.waitingCertificate, name="WaitingCertificate"),
     path('descarga-certificado/<int:pk>', views.download, name="Download"),
+    path('certificate-file/<int:pk>', views.download_certificate, name="DownloadCertificate"),
+    path('inform-file/<int:pk>', views.download_inform, name="DownloadInform"),
 ]

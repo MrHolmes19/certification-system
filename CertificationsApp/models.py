@@ -59,6 +59,7 @@ class Operation(models.Model):
     paid_amount = models.IntegerField(default=0)
     doc_verified_at = models.DateTimeField(default=None, blank=True, null=True)
     onsite_verified_at = models.DateTimeField(default=None, blank=True, null=True)
+    inform_description = models.TextField(default=None, blank=True, null=True)
     inform_created_at = models.DateTimeField(default=None, blank=True, null=True)
     certificate = models.FileField(upload_to="files", blank=True, null=True)
     certificate_uploaded_at = models.DateTimeField(default=None, blank=True, null=True)

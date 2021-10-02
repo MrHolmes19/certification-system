@@ -15,6 +15,8 @@ import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.template.loader import render_to_string
 from weasyprint import HTML
+from django.conf import settings
+
 
 # Create your views here.
 def dashboard(request):
@@ -137,8 +139,6 @@ def checkPayment(request):
             print(operation.final_type.fee)
             operation.save()
 
-            return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations")) #No conviene dejar uno solo?
-
         if approved == 'false':
             operation = Operation.objects.get(pk=pk)
             vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
@@ -151,7 +151,50 @@ def checkPayment(request):
             operation.save()
             result = emailNotificationToClient(title,body,client.mail)
 
-            return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+        return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+
+def checkVerification(request):
+
+    if request.method == "POST":
+        pk = request.POST.get("op_id")
+        operation = Operation.objects.get(pk=pk)
+        vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
+        client = Client.objects.get(pk=vehicle.owner.id)
+        action = request.POST.get("action")
+
+
+        if action == 'cancel':
+            operation.stage = "Turno pendiente"
+            appointment = operation.onsite_verified_at
+            operation.onsite_verified_at = None
+
+            sch = Schedule.objects.create(appointment=appointment)
+
+            operation.save()
+
+            title = "Turno cancelado - volvé a reservar"
+            body = "Lo sentimos, Cancelamos tu turno por razones de fuerza mayor volve a sacarlo visitando este link: {}/turno-verificacion/{}".format(settings.SITE_DOMAIN, pk)
+
+            result = emailNotificationToClient(title,body,client.mail)
+
+        if action == 'reject':
+            operation.stage = "Turno pendiente"
+
+            operation.onsite_verified_at = None
+
+            operation.save()
+
+            title = "Inspeccion visual rechazada - volvé a reservar"
+            body = "Rechazamos tu vehiculo, volve a sacar turno para una nueva verificacion, visitando este link: {}/turno-verificacion/{}".format(settings.SITE_DOMAIN, pk)
+
+            result = emailNotificationToClient(title,body,client.mail)
+
+        if action == 'aprove':
+            operation.stage = "Esperando certificado"
+
+            operation.save()
+
+    return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
 
 
 
@@ -260,20 +303,32 @@ def certificate(request):
 
 def operationDetailPDF(request, pk):
 
+
     operation = Operation.objects.get(pk=pk)
     vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
     client = Client.objects.get(pk=vehicle.owner.id)
 
+    if request.method == 'POST':
+        description = request.POST.get("description")
+        operation.inform_description = description
+        operation.save()
+    else:
+        description = operation.inform_description
+
+    desc_list = description.split(".")
+
+    j = 0
+    for i in desc_list:
+        desc_list[j] = i + "."
+        j += 1
+
+    print(desc_list)
     html = render_to_string("pdf_template.html", {
         "operation": operation,
+        "description": desc_list,
         "vehicle": vehicle,
         "client": client
     })
-    # return render(request, "pdf_template.html", {
-    #     "operation": operation,
-    #     "vehicle": vehicle,
-    #     "client": client
-    # })
 
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = "inline; report.pdf"

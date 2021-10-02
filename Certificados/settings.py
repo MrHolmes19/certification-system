@@ -142,7 +142,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'certificaciones.larroca@gmail.com'
-EMAIL_HOST_PASSWORD = 'larroca123'
+EMAIL_HOST_PASSWORD = 'larroca321'
+
+SITE_DOMAIN = 'www.certificacioneslarroca.com'
 
 # Contact Data
 

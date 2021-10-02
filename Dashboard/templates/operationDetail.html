@@ -146,14 +146,21 @@
               {% elif operation.stage == "Verificacion pendiente" %}
                <h6><strong>Estado: Pendiente de verificacion </strong></h6>
                <h6><strong>Turno concertado para el: {{operation.onsite_verified_at}} </strong></h6>
-                <form action="{% url 'Dashboard:Fees' %}" method="POST">
+                <form action="{% url 'Dashboard:Check-verification' %}" method="POST">
                   {% csrf_token %}
-
+                    <input type="hidden" name="op_id" value="{{operation.id}}">
                     <div class="container">
-                        <button type="submit" class="btn btn-success" name="action" value="update">Aprobar</button>
-                        <button type="submit" class="btn btn-danger" name="action" value="updateAll">Rechazar</button>
+                        <button type="submit" class="btn btn-warning" name="action" value="cancel">Cancelar Turno</button>
+                        <button type="submit" class="btn btn-success" name="action" value="aprove">Aprobar</button>
+                        <button type="submit" class="btn btn-danger" name="action" value="reject">Rechazar</button>
                     </div>
                 </form>
+              {% elif operation.stage == "Verificacion pendiente" %}
+                <h6><strong>Estado: Inspeccion Rechazada - Turno pendiente </strong></h6>
+                <h6><strong>Primera visita: {{operation.onsite_verified_at}} </strong></h6>
+              {% else %}
+               <h6><strong>Estado: Aprobado </strong></h6>
+               <h6><strong>Verifico el dia: {{operation.onsite_verified_at}} </strong></h6>
               {% endif %}
 
             </div> 
@@ -173,7 +180,33 @@
             <div class="row">
               <div class="col-4"><h6>Nº: <strong>{{operation.certificate_number}}</strong></h6></div>
               <div class="col-4"><h6>Estado: <strong>{{operation.stage}}</strong></h6></div>
-              <div class="col-4"><h6>Modificacion: <strong>{{operation.original_type}}->{{operation.final_type}}</strong></h6></div>
+              <div class="container-fluid">
+                <form action="{% url 'Dashboard:Operation-pdf' pk=operation.id %}" method="POST">
+                  {% csrf_token %}
+                    <input type="hidden" name="op_id" value="{{operation.id}}">
+                    <label for="description-text">Descripcion</label>
+                    <textarea name="description" id="description-text" cols="80" rows="10">
+
+                    {% if not operation.inform_description %}
+                    DESCRIPCION: Se ha verificado las adaptaciones pertinentes para el cambio de tipo, de: {{operation.original_type}}
+                    a: {{operation.final_type}}.
+                    
+                    La modificacion cumple con los requisitos de seguridad activa y pasiva segun lo
+                    estipulado en la Ley 24449 y su decreto reglamentario 779/95.
+                    
+                    el presente certificado tiene una validez de 90 dias corridos a partir de la
+                    fecha de emision.
+                    
+                    Vehiculo apto para circular por la via publica.
+                    {% else %}
+                    {{operation.inform_description}}
+                    {% endif %}
+                    </textarea>
+                    <div class="container">
+                        <button type="submit" class="btn btn-success" name="render">Crear certificado</button>
+                    </div>
+                </form>
+              </div>
             </div> 
           </div>
         </div>        
