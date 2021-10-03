@@ -303,7 +303,6 @@ def certificate(request):
 
 def operationDetailPDF(request, pk):
 
-
     operation = Operation.objects.get(pk=pk)
     vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
     client = Client.objects.get(pk=vehicle.owner.id)

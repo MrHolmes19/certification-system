@@ -154,8 +154,9 @@ labelInputs.forEach(label => {
 
 //block all inputs except those how need to be updated
 
-text_inputs = document.querySelectorAll('input')
-selects = document.querySelectorAll('select')
+text_inputs = document.querySelectorAll('input:not([type="hidden"])');
+
+selects = document.querySelectorAll('select');
 
 function block_inputs(){
     text_inputs.forEach(input => {
@@ -173,6 +174,9 @@ function block_inputs(){
         if(card_src == "volver_a_subir.jpeg"){
             input = card.querySelector('input')
             input.removeAttribute("disabled")
+            input.setAttribute("required", true)
+        } else {
+            card.querySelector("label").classList.add("inactive");
         }
     });
 }

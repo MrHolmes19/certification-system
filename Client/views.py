@@ -1,8 +1,7 @@
 from Certificados.settings import BASE_DIR
-from Dashboard.forms import FormDocUpdate, formUpdateOperation
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http.response import HttpResponseRedirect
-from Client.forms import FormLogin, FormDoc, formRegisterOperation
+from Client.forms import FormLogin, FormDoc, formRegisterOperation, formUpdateOperation
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from CertificationsApp.models import Client, ModificationsType, Schedule, Vehicle, Operation
@@ -106,30 +105,28 @@ def rejectedDoc(request, pk):
         return render(request,"doc.html",{'form_doc':form, 'operation':operation})
 
     if request.method == "POST":
+        
+        operation = Operation.objects.get(pk=pk)
+        vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
+        client = Client.objects.get(pk=vehicle.owner.id)        
 
-        form_doc_update = FormDocUpdate(request.POST, request.FILES)
-        if form_doc_update.is_valid():
-            
-            operation, client = save_doc(pk, request)
+        operationForm = formUpdateOperation(request.POST, request.FILES, instance = operation)
+        if operationForm.is_valid():
+            operation.save()  
 
-            operationForm = formUpdateOperation(request.POST, request.FILES, instance = operation)
-            if operationForm.is_valid():
-                operation.save()  
+            operation.stage = 'Documentacion enviada'
 
-                operation.stage = 'Documentacion enviada'
+            result = emailNotificationToAdmin(
+                "Documentacion Actualizada",
+                "El cliente: '{} {}' acaba de modificar la documentación para certificar un '{}'".format(client.name, client.surname, operation.final_type)
+                )
+            print("client email: ", result)
 
-                result = emailNotificationToAdmin(
-                    "Documentacion Actualizada",
-                    "El cliente: '{} {}' acaba de modificar la documentación para certificar un '{}'".format(client.name, client.surname, operation.final_type)
-                    )
-                print("client email: ", result)
-
-
-                return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
-            else:
-                print(operationForm.errors)
+            return HttpResponseRedirect(reverse("Waiting_Doc"))
         else:
-            print(form_doc_update.errors)
+            print(operationForm.errors)
+            return HttpResponseRedirect(reverse("Waiting_Doc"))
+
 
 #------------------- doc_checking -> formulario-pendiente ----------------#
 def waitingDoc(request):   

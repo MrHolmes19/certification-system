@@ -55,3 +55,32 @@ class formRegisterOperation(forms.ModelForm):
             'original_type',
             'final_type',
         )
+
+
+class formUpdateOperation(forms.ModelForm):
+
+    image1_uploaded = forms.ImageField(required=False)
+    image2_uploaded = forms.ImageField(required=False)
+    image3_uploaded = forms.ImageField(required=False)
+    image4_uploaded = forms.ImageField(required=False)
+    image5_uploaded = forms.ImageField(required=False)   
+    image6_uploaded = forms.ImageField(required=False)
+    image7_uploaded = forms.ImageField(required=False)
+
+
+    class Meta:
+        model = Operation
+        fields = (
+            #'stage', 
+            'image1_uploaded',
+            'image2_uploaded',
+            'image3_uploaded',
+            'image4_uploaded',
+            'image5_uploaded',
+            'image6_uploaded',
+            'image7_uploaded',
+            #'owner',
+            #'id_vehicle',
+            #'original_type',
+            #'final_type',
+        )

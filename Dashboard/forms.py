@@ -11,6 +11,7 @@ class formUpdateOperation(forms.ModelForm):
     image6_uploaded = forms.ImageField(required=False)
     image7_uploaded = forms.ImageField(required=False)
 
+
     class Meta:
         model = Operation
         fields = (
