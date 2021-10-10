@@ -50,6 +50,11 @@
                               <h5 class="card-title">{{input.label}}</h5>
                               {{input}}
                               <a href="#!" class="btn btn-danger" onclick="rejectImage({{forloop.counter}})"> Rechazar Foto </a>
+                              <a href="#!" class="btn btn-warning" onclick="previewModal({{forloop.counter}})"> Ver imagen </a>
+                              {% comment %} <div class="container">
+                                <a href="#!" class="btn btn-warning"> Cargar otra </a>
+                                <label></label>
+                              </div> {% endcomment %}
                             </div>
                           </div>
                         </div>
@@ -181,6 +186,7 @@
               <div class="col-4"><h6>Nº: <strong>{{operation.certificate_number}}</strong></h6></div>
               <div class="col-4"><h6>Estado: <strong>{{operation.stage}}</strong></h6></div>
               <div class="container-fluid">
+{% comment %} 
                 <form action="{% url 'Dashboard:Operation-pdf' pk=operation.id %}" method="POST">
                   {% csrf_token %}
                     <input type="hidden" name="op_id" value="{{operation.id}}">
@@ -206,6 +212,7 @@
                         <button type="submit" class="btn btn-success" name="render">Crear certificado</button>
                     </div>
                 </form>
+{% endcomment %}
               </div>
             </div> 
           </div>
@@ -267,6 +274,24 @@
                   <button type="submit" class="btn btn-danger">Rechazar</button>
               </div>
             </form>
+        </div>
+    </div>
+  </div>
+
+  <!-- MODAL PREVIEW IMAGES -->
+  <div class="modal fade" id="PreviewModal" tabindex="-1" aria-labelledby="PreviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="PreviewModalLabel">VISTA PREVIA IMAGEN</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center">
+              <img id="preview-img" class="previewimg" src="" alt="Card image cap">
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger">Rechazar</button>
+            </div>
         </div>
     </div>
   </div>

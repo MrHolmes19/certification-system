@@ -55,9 +55,12 @@ finalType.addEventListener("change", function() {showCards()});
 
 var cards = document.querySelectorAll(".card");
 var inputLabels = document.querySelectorAll(".card .container label");
+/* Si se quiere cambiar el label al boton usar:
+var inputLabels = document.querySelectorAll(".card .card-body .container label");
+*/
 
 function showCards(){
-    for(i=0; i<7; i++){
+    for(i=0; i<8; i++){
         try{
             cards[i].setAttribute('class','card my-2 border-secondary d-none')
         }
@@ -69,7 +72,7 @@ function showCards(){
     type_selected = finalType.value;
     typesInfo.forEach(type => {
         if(type_selected == type[0]){
-            typeqt = parseInt(type[1]) + 4
+            typeqt = parseInt(type[1]) + 5
             for(var i=0; i<=typeqt;i++){
                 cards[i].classList.remove('d-none')
                 cards[i].setAttribute('class','card my-2 border-secondary')

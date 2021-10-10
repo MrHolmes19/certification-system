@@ -92,11 +92,12 @@ form{
 
 /* Changing original input format (Believe me. It was afwul)*/
 
+
 .card-body input{
     display: none;
 }
 
-.card .container label{
+.card label{
     position: absolute;
     z-index: 100;
 }
@@ -107,7 +108,8 @@ label[for="id_image3_uploaded"],
 label[for="id_image4_uploaded"],
 label[for="id_image5_uploaded"],
 label[for="id_image6_uploaded"],
-label[for="id_image7_uploaded"]{
+label[for="id_image7_uploaded"],
+label[for="id_image8_uploaded"]{
     cursor: pointer;
     height:100%;
     width:100%;
@@ -120,7 +122,61 @@ label[for="id_image3_uploaded"]:hover ~ .overlay,
 label[for="id_image4_uploaded"]:hover ~ .overlay,
 label[for="id_image5_uploaded"]:hover ~ .overlay,
 label[for="id_image6_uploaded"]:hover ~ .overlay,
-label[for="id_image7_uploaded"]:hover ~ .overlay{
+label[for="id_image7_uploaded"]:hover ~ .overlay,
+label[for="id_image8_uploaded"]:hover ~ .overlay{
     background-color: rgb(0,0,0);
     opacity: .7;
 }
+
+
+/* setting max height in modal preview images*/
+
+#PreviewModal img{
+    max-height: 60vh !important;
+}
+
+@media screen and (max-width: 992px) {
+    #PreviewModal img {
+        max-width: 100%;
+    }
+}
+
+
+/* ACA TRATO DE INTERCAMBIAR EL LABEL DE INPUT CON EL BOTON
+.card-body input{
+    display: none;
+}
+
+.card .card-body .container label{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 100;
+}
+
+label[for="id_image1_uploaded"],
+label[for="id_image2_uploaded"],
+label[for="id_image3_uploaded"],
+label[for="id_image4_uploaded"],
+label[for="id_image5_uploaded"],
+label[for="id_image6_uploaded"],
+label[for="id_image7_uploaded"],
+label[for="id_image8_uploaded"]{
+    cursor: pointer;
+    height:100%;
+    width:100%;
+    transition: 0.5s ease all;
+}
+
+label[for="id_image1_uploaded"]:hover ~ .overlay,
+label[for="id_image2_uploaded"]:hover ~ .overlay,
+label[for="id_image3_uploaded"]:hover ~ .overlay,
+label[for="id_image4_uploaded"]:hover ~ .overlay,
+label[for="id_image5_uploaded"]:hover ~ .overlay,
+label[for="id_image6_uploaded"]:hover ~ .overlay,
+label[for="id_image7_uploaded"]:hover ~ .overlay,
+label[for="id_image8_uploaded"]:hover ~ .overlay{
+    background-color: rgb(0,0,0);
+    opacity: .7;
+}
+*/

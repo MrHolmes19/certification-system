@@ -52,8 +52,9 @@ class Operation(models.Model):
     image3_uploaded = models.ImageField(upload_to="images")
     image4_uploaded = models.ImageField(upload_to="images")
     image5_uploaded = models.ImageField(upload_to="images")
-    image6_uploaded = models.ImageField(upload_to="images", blank=True, null=True)
+    image6_uploaded = models.ImageField(upload_to="images")
     image7_uploaded = models.ImageField(upload_to="images", blank=True, null=True)
+    image8_uploaded = models.ImageField(upload_to="images", blank=True, null=True)
     paid_at = models.DateTimeField(default=None, blank=True, null=True) #Puede llegar a joder el None
     paid_by = models.CharField(max_length=64, blank=True, null=True)
     paid_amount = models.IntegerField(default=0)

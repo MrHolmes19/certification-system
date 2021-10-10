@@ -43,7 +43,8 @@ label[for="id_image3_uploaded"],
 label[for="id_image4_uploaded"],
 label[for="id_image5_uploaded"],
 label[for="id_image6_uploaded"],
-label[for="id_image7_uploaded"]{
+label[for="id_image7_uploaded"],
+label[for="id_image8_uploaded"]{
     font-size: 20px;
     font-weight: 200;
     cursor: pointer;
@@ -61,7 +62,8 @@ label[for="id_image3_uploaded"]:hover,
 label[for="id_image4_uploaded"]:hover,
 label[for="id_image5_uploaded"]:hover,
 label[for="id_image6_uploaded"]:hover,
-label[for="id_image7_uploaded"]:hover{
+label[for="id_image7_uploaded"]:hover,
+label[for="id_image8_uploaded"]:hover{
     font-size: 25px;
     font-weight: 400;
 }
@@ -72,7 +74,8 @@ label[for="id_image3_uploaded"]:hover ~ .overlay,
 label[for="id_image4_uploaded"]:hover ~ .overlay,
 label[for="id_image5_uploaded"]:hover ~ .overlay,
 label[for="id_image6_uploaded"]:hover ~ .overlay,
-label[for="id_image7_uploaded"]:hover ~ .overlay{
+label[for="id_image7_uploaded"]:hover ~ .overlay,
+label[for="id_image8_uploaded"]:hover ~ .overlay{
     background-color: rgb(0,0,0);
     opacity: .7;
 }
@@ -83,7 +86,8 @@ label[for="id_image3_uploaded"]:after,
 label[for="id_image4_uploaded"]:after,
 label[for="id_image5_uploaded"]:after,
 label[for="id_image6_uploaded"]:after,
-label[for="id_image7_uploaded"]:after{
+label[for="id_image7_uploaded"]:after,
+label[for="id_image8_uploaded"]:after{
     font-size: 25px;
     font-weight: 400;
 }

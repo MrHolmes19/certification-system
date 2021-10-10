@@ -26,23 +26,23 @@ class FormDoc(forms.Form):
     final_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(),
         label="Vehiculo a homologar", required=True)
 
-    image1_uploaded = forms.ImageField(label="Foto Cedula", help_text="Foto nitída del frente de su cedula verde", widget = FileInput)
-    image2_uploaded = forms.ImageField(label="Foto Frente", help_text="Foto de la parte posterior del vehiculo", widget = FileInput)
-    image3_uploaded = forms.ImageField(label="Foto Lado derecho", help_text="Foto del vehiculo del lado del acompañante", widget = FileInput)
-    image4_uploaded = forms.ImageField(label="Foto Lado izquierdo", help_text="Foto del vehiculo del lado del conductor", widget = FileInput)
-    image5_uploaded = forms.ImageField(label="Foto Trasera", help_text="Foto de la parte posterior del vehiculo", widget = FileInput)
-    image6_uploaded = forms.ImageField(label="Foto Detalle", required=False, help_text="Aqui insertar descripcion segun modificacion", widget = FileInput)
-    image7_uploaded = forms.ImageField(label="Foto Detalle 2", required=False, help_text="Aqui insertar descripcion segun modificacion", widget = FileInput)
+    image1_uploaded = forms.ImageField(label="Foto Cedula frente", help_text="Foto nitída del frente de su cedula verde", widget = FileInput)
+    image2_uploaded = forms.ImageField(label="Foto Cedula reverso", help_text="Foto nitída del reverso de su cedula verde", widget = FileInput)
+    image3_uploaded = forms.ImageField(label="Foto Frente", help_text="Foto de la parte posterior del vehiculo", widget = FileInput)
+    image4_uploaded = forms.ImageField(label="Foto Lado derecho", help_text="Foto del vehiculo del lado del acompañante", widget = FileInput)
+    image5_uploaded = forms.ImageField(label="Foto Lado izquierdo", help_text="Foto del vehiculo del lado del conductor", widget = FileInput)
+    image6_uploaded = forms.ImageField(label="Foto Trasera", help_text="Foto de la parte posterior del vehiculo", widget = FileInput)
+    image7_uploaded = forms.ImageField(label="Foto Detalle", required=False, help_text="Aqui insertar descripcion segun modificacion", widget = FileInput)
+    image8_uploaded = forms.ImageField(label="Foto Detalle 2", required=False, help_text="Aqui insertar descripcion segun modificacion", widget = FileInput)
 
 class formRegisterOperation(forms.ModelForm):
 
-    image6_uploaded = forms.ImageField(required=False)
     image7_uploaded = forms.ImageField(required=False)
+    image8_uploaded = forms.ImageField(required=False)
 
     class Meta:
         model = Operation
         fields = (
-            #'stage', 
             'image1_uploaded',
             'image2_uploaded',
             'image3_uploaded',
@@ -50,8 +50,7 @@ class formRegisterOperation(forms.ModelForm):
             'image5_uploaded',
             'image6_uploaded',
             'image7_uploaded',
-            #'owner',
-            #'id_vehicle',
+            'image8_uploaded',
             'original_type',
             'final_type',
         )
@@ -66,12 +65,11 @@ class formUpdateOperation(forms.ModelForm):
     image5_uploaded = forms.ImageField(required=False)   
     image6_uploaded = forms.ImageField(required=False)
     image7_uploaded = forms.ImageField(required=False)
-
+    image8_uploaded = forms.ImageField(required=False)
 
     class Meta:
         model = Operation
         fields = (
-            #'stage', 
             'image1_uploaded',
             'image2_uploaded',
             'image3_uploaded',
@@ -79,8 +77,5 @@ class formUpdateOperation(forms.ModelForm):
             'image5_uploaded',
             'image6_uploaded',
             'image7_uploaded',
-            #'owner',
-            #'id_vehicle',
-            #'original_type',
-            #'final_type',
+            'image8_uploaded',
         )

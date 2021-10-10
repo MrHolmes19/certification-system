@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from CertificationsApp.models import Client, ModificationsType, Schedule, Vehicle, Operation
 from .utils import emailNotificationToAdmin, loginRedirect
-from Dashboard.utils import generate_form, save_doc
+from Dashboard.utils import generate_form, save_doc, filesCleaner
 from django.core.mail import EmailMessage
 import mercadopago
 from pprint import pprint
@@ -18,7 +18,7 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 import mimetypes
 from django.template.loader import render_to_string
-from weasyprint import HTML
+#from weasyprint import HTML
 
 
 #------------------- login ------------------#
@@ -163,10 +163,10 @@ def payment(request, pk):
             "payment_methods": {
                 "excluded_payment_types": [
                 {
-                    "id": "atm"
+                    #"id": "atm"
                 },
                 {
-                    "id": "ticket"
+                    #"id": "ticket"
                 }
             ],            
         }
@@ -296,15 +296,22 @@ def download(request, pk):
 def download_certificate(request, pk):  
 
     operation = Operation.objects.get(pk=pk)
+    vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
+    certFile = operation.certificate
 
-    filename = "{} - {}".format(operation.certificate_number, vehicle.domain)
+    filepath = str(settings.MEDIA_ROOT) + "/" + str(certFile)
 
-    filepath = str(settings.MEDIA_ROOT) + "/" + str(filename)
-
+    filename = "{} - {}.pdf".format(operation.certificate_number, vehicle.domain)
     path = open(filepath, 'rb')
     mime_type, _ = mimetypes.guess_type(filepath)
     response = HttpResponse(path, content_type=mime_type)
     response['Content-Disposition'] = "attachment; filename=%s" % filename
+
+    if operation.certificate_downloaded_at:
+        operation.stage = "Operacion completada"
+        filesCleaner()
+    #operation.certificate_downloaded_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    operation.save()  
 
     return response
 
@@ -315,7 +322,6 @@ def download_inform(request, pk):
     client = Client.objects.get(pk=vehicle.owner.id)
 
     description = operation.inform_description
-
     desc_list = description.split(".")
 
     j = 0
@@ -335,6 +341,11 @@ def download_inform(request, pk):
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = "attachment; filename=%s" % filename
 
-    HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response)
+    #HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response)
+
+    if operation.certificate_downloaded_at:
+        operation.stage = "Operacion completada"
+    operation.certificate_downloaded_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    operation.save()  
 
     return response

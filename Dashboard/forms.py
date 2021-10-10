@@ -10,12 +10,11 @@ class formUpdateOperation(forms.ModelForm):
     image5_uploaded = forms.ImageField(required=False)   
     image6_uploaded = forms.ImageField(required=False)
     image7_uploaded = forms.ImageField(required=False)
-
+    image8_uploaded = forms.ImageField(required=False)
 
     class Meta:
         model = Operation
         fields = (
-            #'stage', 
             'image1_uploaded',
             'image2_uploaded',
             'image3_uploaded',
@@ -23,8 +22,7 @@ class formUpdateOperation(forms.ModelForm):
             'image5_uploaded',
             'image6_uploaded',
             'image7_uploaded',
-            #'owner',
-            #'id_vehicle',
+            'image8_uploaded',
             'original_type',
             'final_type',
         )

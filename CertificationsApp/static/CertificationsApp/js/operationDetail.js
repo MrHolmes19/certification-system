@@ -1,5 +1,4 @@
 
-
 // giving id to inputs
 
 var myinputs = document.querySelectorAll(".carta input");
@@ -52,7 +51,7 @@ function rejectImage(i){
 var div_modal = document.getElementById('MessageModal')
 var modal = new bootstrap.Modal(div_modal, {
     keyboard: false
-  })
+})
 
 var Mname = document.getElementById('name')
 var Msurname = document.getElementById('surname')
@@ -61,9 +60,29 @@ var Memail = document.getElementById('email')
 var Mphone = document.getElementById('phone')
 
 // name, surname, mail, phone, id_number
-function messageModal(){
-    
+function messageModal(){   
     modal.toggle()
-
 }
 
+// preview images modal
+
+var preview_Modal = new bootstrap.Modal(document.getElementById('PreviewModal'), {keyboard: false})
+
+function previewModal(i){
+    preview_Modal.toggle()
+    current_image = document.getElementById('image_' + (i-12)).src
+    preview_image = document.querySelector(".previewimg");
+    preview_image.setAttribute('src', current_image)
+}
+
+
+// setting preview images when uploading
+/*
+var imageInputs = document.querySelectorAll(".card input");
+
+i = 1;
+imageInputs.forEach(input => {
+    input.setAttribute('onchange','document.getElementById("image_' + i + '").src = window.URL.createObjectURL(this.files[0])');
+    i++;  
+});
+*/
