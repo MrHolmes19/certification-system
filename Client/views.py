@@ -4,7 +4,7 @@ from django.http.response import HttpResponseRedirect
 from Client.forms import FormLogin, FormDoc, formRegisterOperation, formUpdateOperation
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from CertificationsApp.models import Client, ModificationsType, Schedule, Vehicle, Operation
+from CertificationsApp.models import Client, Company, ModificationsType, Schedule, Vehicle, Operation
 from .utils import emailNotificationToAdmin, loginRedirect
 from Dashboard.utils import generate_form, save_doc, filesCleaner
 from django.core.mail import EmailMessage
@@ -25,12 +25,22 @@ from django.template.loader import render_to_string
 def login(request):
     form_login = FormLogin()
     if request.method == "POST":
+        
+        company_cuit = request.POST.get("cuit")
+        if company_cuit != "":
+    
+            try:
+                company = Company.objects.get(cuit=company_cuit)
+            except Company.DoesNotExist:
+                return render(request,"login.html",{'form_login':form_login, "message": "Este CUIT no es valido, contactese con el administrador de la pagina"})
+
+
         form_login = FormLogin(request.POST)
         if form_login.is_valid():
             id_number_input = request.POST.get("id_number").strip()
             domain_input = request.POST.get("domain").strip()
 
-            targetPage = loginRedirect(id_number_input, domain_input)
+            targetPage = loginRedirect(id_number_input, domain_input, company_cuit)
 
             return redirect("/" + targetPage)
 
@@ -74,6 +84,11 @@ def doc(request):
                 operation.owner = client
                 operation.id_vehicle = vehicle
                 operation.stage = 'Documentacion enviada'
+
+                if request.POST.get("company") != "":
+                    company = Company.objects.get(cuit=request.POST.get("company"))
+                    operation.company = company
+
                 operation.save()  
 
                 # moving images to a new folder
@@ -105,7 +120,8 @@ def doc(request):
                 print(operation.errors)
         #else:
             #print("3:{}".format(form_doc.errors))
-    return render(request,"doc.html",{'form_doc':form_doc})
+    company=login_data.get('empresa')
+    return render(request,"doc.html",{'form_doc':form_doc, "company":company})
 
 #------------------- doc_checking -> formulario-pendiente ----------------#
 def rejectedDoc(request, pk):

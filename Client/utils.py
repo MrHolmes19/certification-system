@@ -20,7 +20,7 @@ stage_levels={
 
 # Redirect from login depending on current stage of user
 
-def loginRedirect(id_number_input, domain_input):
+def loginRedirect(id_number_input, domain_input, company_cuit):
     client = Client.objects.filter(id_number=id_number_input).first()
     # Check if this client already exists in our database
     if client is not None:
@@ -40,11 +40,11 @@ def loginRedirect(id_number_input, domain_input):
                     stage = x.stage
                     return stage_levels[stage] + str(x.id)
                 else:
-                    return "formulario/?dni="+id_number_input+"&patente="+domain_input
+                    return "formulario/?dni="+id_number_input+"&patente="+domain_input+"&empresa="+company_cuit
         else:
-            return "formulario/?dni="+id_number_input+"&patente="+domain_input
+            return "formulario/?dni="+id_number_input+"&patente="+domain_input+"&empresa="+company_cuit
     else:
-        return "formulario/?dni="+id_number_input+"&patente="+domain_input
+        return "formulario/?dni="+id_number_input+"&patente="+domain_input+"&empresa="+company_cuit
 
 
 def emailNotificationToAdmin(title, body):

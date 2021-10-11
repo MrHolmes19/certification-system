@@ -5,6 +5,7 @@ class ModificationsType(models.Model):
     available_type = models.CharField(max_length=64)
     caption = models.CharField(max_length=256)
     fee = models.IntegerField()
+    company_fee = models.IntegerField()
 
     class Meta:
         verbose_name = 'type'
@@ -43,6 +44,19 @@ class Vehicle(models.Model):
     def __str__(self):
         return str(self.domain)
 
+class Company(models.Model):
+
+    cuit = models.CharField(max_length=64)
+    name = models.CharField(max_length=64)
+    enabled = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = 'company'
+        verbose_name_plural = 'companies'
+    
+    def __str__(self):
+        return self.cuit
+
 def upload_path(instance, filename):
     path = f'{instance.id}/files/{filename}'
     return path
@@ -70,6 +84,7 @@ class Operation(models.Model):
     certificate_uploaded_at = models.DateTimeField(default=None, blank=True, null=True)
     certificate_downloaded_at = models.DateTimeField(default=None, blank=True, null=True)
     owner = models.ForeignKey(Client, related_name='operations', on_delete=models.SET_NULL, null=True)
+    company = models.ForeignKey(Company, related_name='operations', on_delete=models.SET_NULL, null=True, default=None)
     id_vehicle = models.ForeignKey(Vehicle, related_name='operations', on_delete=models.SET_NULL, null=True)
     original_type = models.ForeignKey(ModificationsType, related_name='original', on_delete=models.SET_NULL, null=True)
     final_type = models.ForeignKey(ModificationsType, related_name='final', on_delete=models.SET_NULL, null=True)

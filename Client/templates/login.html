@@ -12,9 +12,15 @@
         </div>
 
         <div class="row">
-            <div class="col col-sm-6 offset-sm-3 col-lg-4 offset-lg-4 py-2 px-4">   
+            <div class="col col-sm-6 offset-sm-3 col-lg-4 offset-lg-4 py-2 px-4">
+                   <p style="color:red">{{message}} </p> 
                 <form action="{% url 'Login' %}" method="POST" id="loginform"> {% csrf_token %}
                     <div class="row">
+                            <div class="form-group col-12 pb-2 d-none" id="cuitInput">
+                                <label>CUIT</label>
+                                <input type="text" name="cuit" id="cuit" >
+                                <small class="form-text text-muted"></small>
+                            </div>                            
                         {% for input in form_login %}
                             <div class="form-group col-12 pb-2">
                                 <label>{{input.label}}</label>
@@ -26,8 +32,10 @@
                             <button type="submit" class="btn btn-primary">INGRESAR</button>
                         </div> 
                     </div>   
-                </form>
+                </form>  
+                <p class="mt-4"><small class="form-text text-muted"><span id="caption">¿Sos empresa? hace click </span><a onclick="companyToggle()" href="#"> aqui</a></p>
             </div>
+
         </div>
 
     </section>

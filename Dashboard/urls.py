@@ -16,4 +16,5 @@ urlpatterns = [
     path('detalle/<int:pk>/pdf', views.operationDetailPDF, name='Operation-pdf'),
     path('turnos', views.appointments, name='Appointments'),
     path('tarifas', views.fees, name='Fees'),
+    path('Empresas', views.companies, name='Companies'),
 ]

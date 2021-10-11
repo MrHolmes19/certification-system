@@ -3,7 +3,7 @@ from Dashboard.forms import formUpdateOperation, FormDocUpdate, formCertificate
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from CertificationsApp.models import Client, ModificationsType, Vehicle, Operation, Schedule
+from CertificationsApp.models import Client, Company, ModificationsType, Vehicle, Operation, Schedule
 from django.forms.models import model_to_dict
 from pprint import pprint
 from django.urls import reverse
@@ -257,17 +257,22 @@ def fees(request):
     if request.method == "POST":
         if request.POST.get("action") == "update":
             updatedFee = request.POST.get("updatedFee")
+            updatedCompanyFee = request.POST.get("updatedCompanyFee")
             selected_type = request.POST.get("type")
             type = ModificationsType.objects.filter(available_type = selected_type).first()
             type.fee = updatedFee
+            type.company_fee = updatedCompanyFee
             type.save()
 
         elif request.POST.get("action") == "updateAll":
             updatedFee = request.POST.get("updatedFee")
+            updatedCompanyFee = request.POST.get("updatedCompanyFee")
             types = ModificationsType.objects.all()
             for type in types:
                 type.fee = updatedFee
+                type.company_fee = updatedCompanyFee
                 type.save()
+        
     return HttpResponseRedirect(reverse("Dashboard:Fees"))
 
 
@@ -336,3 +341,35 @@ def operationDetailPDF(request, pk):
     return response
     '''
     return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+
+def companies(request):
+
+    if request.method == "POST" and request.POST.get("action") == "update":
+        
+        cuit = request.POST.get("cuit")
+        name = request.POST.get("name")
+        enabled = request.POST.get("choice")
+        id = request.POST.get("id")
+
+        company = Company.objects.get(id=id)
+
+        company.name = name
+        company.cuit = cuit
+        company.enabled = True if enabled == "enabled" else False
+
+        company.save()
+    
+    if request.method == "POST" and request.POST.get("action") == "new":
+        
+        cuit = request.POST.get("cuit")
+        name = request.POST.get("name")
+        
+        company = Company.objects.create(name=name, cuit=cuit)
+        company.save()
+
+    try:
+        companies = Company.objects.all()
+    except Company.DoesNotExist:
+        companies = {}
+
+    return render(request,"companies.html", {"companies": companies})
