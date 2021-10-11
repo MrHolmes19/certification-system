@@ -35,6 +35,14 @@ class FormDoc(forms.Form):
     image7_uploaded = forms.ImageField(label="Foto Detalle", required=False, help_text="Aqui insertar descripcion segun modificacion", widget = FileInput)
     image8_uploaded = forms.ImageField(label="Foto Detalle 2", required=False, help_text="Aqui insertar descripcion segun modificacion", widget = FileInput)
 
+'''
+class formCreateOperation(forms.ModelForm):
+
+    class Meta:
+        model = Operation
+        fields = ()
+'''
+
 class formRegisterOperation(forms.ModelForm):
 
     image7_uploaded = forms.ImageField(required=False)

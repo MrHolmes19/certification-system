@@ -1,4 +1,5 @@
 from django.db import models
+import os
 
 class ModificationsType(models.Model):
     available_type = models.CharField(max_length=64)
@@ -42,19 +43,22 @@ class Vehicle(models.Model):
     def __str__(self):
         return str(self.domain)
 
+def upload_path(instance, filename):
+    path = f'{instance.id}/files/{filename}'
+    return path
 
 class Operation(models.Model):    
     certificate_number = models.CharField(max_length=64)
     stage = models.CharField(max_length=64)
     registrated_at = models.DateTimeField(auto_now_add=True)
-    image1_uploaded = models.ImageField(upload_to="images")
-    image2_uploaded = models.ImageField(upload_to="images")
-    image3_uploaded = models.ImageField(upload_to="images")
-    image4_uploaded = models.ImageField(upload_to="images")
-    image5_uploaded = models.ImageField(upload_to="images")
-    image6_uploaded = models.ImageField(upload_to="images")
-    image7_uploaded = models.ImageField(upload_to="images", blank=True, null=True)
-    image8_uploaded = models.ImageField(upload_to="images", blank=True, null=True)
+    image1_uploaded = models.ImageField(upload_to='temporary')
+    image2_uploaded = models.ImageField(upload_to='temporary')
+    image3_uploaded = models.ImageField(upload_to='temporary')
+    image4_uploaded = models.ImageField(upload_to='temporary')
+    image5_uploaded = models.ImageField(upload_to='temporary')
+    image6_uploaded = models.ImageField(upload_to='temporary')
+    image7_uploaded = models.ImageField(upload_to='temporary', blank=True, null=True)
+    image8_uploaded = models.ImageField(upload_to='temporary', blank=True, null=True)
     paid_at = models.DateTimeField(default=None, blank=True, null=True) #Puede llegar a joder el None
     paid_by = models.CharField(max_length=64, blank=True, null=True)
     paid_amount = models.IntegerField(default=0)
@@ -62,7 +66,7 @@ class Operation(models.Model):
     onsite_verified_at = models.DateTimeField(default=None, blank=True, null=True)
     inform_description = models.TextField(default=None, blank=True, null=True)
     inform_created_at = models.DateTimeField(default=None, blank=True, null=True)
-    certificate = models.FileField(upload_to="files", blank=True, null=True)
+    certificate = models.FileField(upload_to=upload_path, blank=True, null=True)
     certificate_uploaded_at = models.DateTimeField(default=None, blank=True, null=True)
     certificate_downloaded_at = models.DateTimeField(default=None, blank=True, null=True)
     owner = models.ForeignKey(Client, related_name='operations', on_delete=models.SET_NULL, null=True)

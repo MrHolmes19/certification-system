@@ -13,7 +13,7 @@ from pprint import pprint
 import json
 from datetime import datetime
 from .utils import convert_to_localtime
-import os
+import os, shutil
 from django.conf import settings
 from django.http import HttpResponse, Http404
 import mimetypes
@@ -76,6 +76,18 @@ def doc(request):
                 operation.stage = 'Documentacion enviada'
                 operation.save()  
 
+                # moving images to a new folder
+                temporary_dir = os.path.join(settings.MEDIA_ROOT, 'temporary')
+                target_dir = os.path.join(settings.MEDIA_ROOT, str(operation.id), 'images')
+
+                os.chdir(settings.MEDIA_ROOT)
+                os.mkdir(str(operation.id))
+                os.mkdir(os.path.join(str(operation.id), 'images'))
+
+                image_names = os.listdir(temporary_dir)  
+                for image_name in image_names:
+                    shutil.move(os.path.join(temporary_dir, image_name), os.path.join(target_dir, image_name))
+
                 # email sending
                 email = EmailMessage("Nuevo cliente - revisar documentación",
                     "El cliente: '{} {}' acaba de cargar la documentación para certificar un '{}'".format(client_data['name'],client_data['surname'], operation.final_type),
@@ -91,7 +103,6 @@ def doc(request):
                 #return redirect("client-module:Waiting_Doc") otra manera de hacerlo
             else:
                 print(operation.errors)
-
         #else:
             #print("3:{}".format(form_doc.errors))
     return render(request,"doc.html",{'form_doc':form_doc})
@@ -216,7 +227,6 @@ def appointment(request, pk):
         operation.stage = new_stage
         operation.save()
 
-
     if request.method == "POST":
         
         operation = Operation.objects.get(pk=pk)
@@ -228,8 +238,6 @@ def appointment(request, pk):
         operation.onsite_verified_at = datetime.strptime(appointment, '%Y-%m-%d %H:%M')
         operation.stage = "Verificacion pendiente"
         operation.save()
-
-
 
         return render(request,"verification_inprocess.html", {"date":day, "time":schedule})
 
@@ -292,7 +300,6 @@ def download(request, pk):
     return render(request,"download.html", {"operation" : operation})
 
 
-
 def download_certificate(request, pk):  
 
     operation = Operation.objects.get(pk=pk)
@@ -310,7 +317,7 @@ def download_certificate(request, pk):
     if operation.certificate_downloaded_at:
         operation.stage = "Operacion completada"
         filesCleaner()
-    #operation.certificate_downloaded_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    operation.certificate_downloaded_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S') #eliminar esta linea
     operation.save()  
 
     return response
@@ -345,6 +352,7 @@ def download_inform(request, pk):
 
     if operation.certificate_downloaded_at:
         operation.stage = "Operacion completada"
+        filesCleaner()
     operation.certificate_downloaded_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     operation.save()  
 

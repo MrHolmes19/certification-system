@@ -5,7 +5,7 @@ from CertificationsApp.models import *
 from django.core.mail import EmailMessage
 from django.conf import settings
 from datetime import datetime, timedelta
-import os
+import os, shutil
 
 def emailNotificationToClient(title, body, receiver):
     
@@ -71,19 +71,27 @@ def save_doc(pk, request):
     vehicle.save()
     return operation, client
 
-def fileEraser(operation):
-    '''
-    1) identificar nombre archivos
-     lista de nombres
-
-    2) armar path con ese nombre  path = media/ + nombre archivo
-    lista de path
-    3) borrarlo
-    '''
-    #['image1_uploaded','image1_uploaded','image1_uploaded','image1_uploaded']
-    
+'''
+def folderEraser(operation):
+    operation.certificate = ''
+    operation.save()
+    os.chdir(settings.MEDIA_ROOT)
+    shutil.rmtree(operation.id)
+'''
 
 def filesCleaner():
-    limit_date = datetime.now() - timedelta(seconds = 30)
-    operations = Operation.objects.filter(certificate_downloaded_at__lte = limit_date )
-    map(fileEraser, operations)
+    limit_date = datetime.now() + timedelta(hours = 30)
+    print(limit_date)
+    operations = Operation.objects.filter(certificate_downloaded_at__lte = limit_date, certificate__isnull=False).exclude(certificate="")
+    for i in operations:
+        print(i)
+    for operation in operations:
+        print("------------------------")
+        print(operation.id)
+        print(operation.certificate)
+        operation.certificate = ''
+        print(operation.certificate)
+        operation.save()
+        os.chdir(settings.MEDIA_ROOT)
+        shutil.rmtree(str(operation.id))
+    #map(folderEraser(), operations)
