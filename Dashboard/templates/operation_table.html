@@ -14,6 +14,7 @@
                 <th scope="col">Detalle</th>
                 <th scope="row">Nº de certificado</th>
                 <th scope="col">Cliente</th>
+                <th scope="col">Titular</th>
                 <th scope="col">Vehiculo</th>
                 <th scope="col">Patente</th>
                 <th scope="col">Estado</th>
@@ -28,6 +29,11 @@
                         <img src="https://img.icons8.com/emoji/48/000000/magnifying-glass-tilted-right-emoji.png"></a>
                     </td>
                     <td>{{op.certificate_number}}</td>
+                    {% if op.company %}
+                    <td>{{op.company}}</td>
+                    {% else %}
+                    <td> </td>
+                    {% endif %}
                     <td>
                         <a id="client-link" href="#" onclick="clientModal('{{op.id_vehicle.owner.name}}',
                             '{{op.id_vehicle.owner.surname}}', '{{op.id_vehicle.owner.mail}}',

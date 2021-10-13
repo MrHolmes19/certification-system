@@ -25,6 +25,7 @@ class FormDoc(forms.Form):
         label="Vehiculo actual", required=True)
     final_type = forms.ModelChoiceField(queryset=ModificationsType.objects.all(),
         label="Vehiculo a homologar", required=True)
+    #company = forms.HiddenInput()
 
     image1_uploaded = forms.ImageField(label="Foto Cedula frente", help_text="Foto nitída del frente de su cedula verde", widget = FileInput)
     image2_uploaded = forms.ImageField(label="Foto Cedula reverso", help_text="Foto nitída del reverso de su cedula verde", widget = FileInput)

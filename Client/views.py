@@ -4,7 +4,7 @@ from django.http.response import HttpResponseRedirect
 from Client.forms import FormLogin, FormDoc, formRegisterOperation, formUpdateOperation
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from CertificationsApp.models import Client, ModificationsType, Schedule, Vehicle, Operation
+from CertificationsApp.models import Client, Company, ModificationsType, Schedule, Vehicle, Operation
 from .utils import emailNotificationToAdmin, loginRedirect
 from Dashboard.utils import generate_form, save_doc, filesCleaner
 from django.core.mail import EmailMessage
@@ -25,12 +25,20 @@ from django.template.loader import render_to_string
 def login(request):
     form_login = FormLogin()
     if request.method == "POST":
+        
+        company_cuit = request.POST.get("cuit")
+        if company_cuit != "":
+            try:
+                company = Company.objects.get(cuit=company_cuit)
+            except Company.DoesNotExist:
+                return render(request,"login.html",{'form_login':form_login, "message": "Este CUIT no es valido, contactese con el administrador de la pagina"})
+
         form_login = FormLogin(request.POST)
         if form_login.is_valid():
             id_number_input = request.POST.get("id_number").strip()
             domain_input = request.POST.get("domain").strip()
 
-            targetPage = loginRedirect(id_number_input, domain_input)
+            targetPage = loginRedirect(id_number_input, domain_input, company_cuit)
 
             return redirect("/" + targetPage)
 
@@ -43,6 +51,8 @@ def doc(request):
     if request.method == "POST":
         form_doc = FormDoc(request.POST, request.FILES)
         if form_doc.is_valid():
+
+
             client_data = {
             'id_number': request.POST.get("id_number"),
             'name': request.POST.get("name"),
@@ -63,8 +73,9 @@ def doc(request):
             }
             vehicle = Vehicle.objects.create(**vehicle_data)
 
-            operation = formRegisterOperation(request.POST, request.FILES)
-            
+            operation = Operation.objects.create() # Necesary to generate instance and create path before saving images
+            operation = formRegisterOperation(request.POST, request.FILES, instance = operation)
+
             if operation.is_valid():
 
                 operation = operation.save()
@@ -74,9 +85,15 @@ def doc(request):
                 operation.owner = client
                 operation.id_vehicle = vehicle
                 operation.stage = 'Documentacion enviada'
+
+                if request.POST.get("company") != "":
+                    company = Company.objects.get(cuit=request.POST.get("company"))
+                    operation.company = company
+                
                 operation.save()  
 
                 # moving images to a new folder
+                '''
                 temporary_dir = os.path.join(settings.MEDIA_ROOT, 'temporary')
                 target_dir = os.path.join(settings.MEDIA_ROOT, str(operation.id), 'images')
 
@@ -87,7 +104,7 @@ def doc(request):
                 image_names = os.listdir(temporary_dir)  
                 for image_name in image_names:
                     shutil.move(os.path.join(temporary_dir, image_name), os.path.join(target_dir, image_name))
-
+                '''
                 # email sending
                 email = EmailMessage("Nuevo cliente - revisar documentación",
                     "El cliente: '{} {}' acaba de cargar la documentación para certificar un '{}'".format(client_data['name'],client_data['surname'], operation.final_type),
@@ -105,7 +122,8 @@ def doc(request):
                 print(operation.errors)
         #else:
             #print("3:{}".format(form_doc.errors))
-    return render(request,"doc.html",{'form_doc':form_doc})
+    company=login_data.get('empresa')
+    return render(request,"doc.html",{'form_doc':form_doc, "company":company})
 
 #------------------- doc_checking -> formulario-pendiente ----------------#
 def rejectedDoc(request, pk):
@@ -234,7 +252,7 @@ def appointment(request, pk):
         schedule = request.POST.get("schedule")
 
         appointment = day + " " + schedule
-        print(appointment)
+        #print(appointment)
         operation.onsite_verified_at = datetime.strptime(appointment, '%Y-%m-%d %H:%M')
         operation.stage = "Verificacion pendiente"
         operation.save()
@@ -254,7 +272,7 @@ def appointment(request, pk):
         appointments_list.append(x)
 
     appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder) 
-    print(appointments_list)
+    #print(appointments_list)
     return render(request,"appointment.html", {"operation":operation, "appointments_list": appointments_list})
 
 #------------------- appointment_success -> turno-verificacion-ok ----------------#
@@ -336,7 +354,7 @@ def download_inform(request, pk):
         desc_list[j] = i + "."
         j += 1
 
-    print(desc_list)
+    #print(desc_list)
     html = render_to_string("pdf_template.html", {
         "operation": operation,
         "description": desc_list,

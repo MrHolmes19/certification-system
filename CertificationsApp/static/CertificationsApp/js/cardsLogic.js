@@ -180,6 +180,7 @@ function block_inputs(){
             input.setAttribute("required", true)
         } else {
             card.querySelector("label").classList.add("inactive");
+            card.querySelector(".overlay").classList.remove("overlay");
         }
     });
 }

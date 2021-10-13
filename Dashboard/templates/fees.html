@@ -13,6 +13,7 @@
               <tr>
                 <th scope="row">Tipo de modificación</th>
                 <th scope="row">Tarifa</th>
+                <th scope="row">Tarifa preferencial</th>
                 <th scope="col">Modificacion</th>
               </tr>
             </thead>
@@ -21,6 +22,7 @@
                 <tr>
                     <td>{{fee.available_type}}</td>
                     <td>$ {{fee.fee}}.-</td>
+                    <td>$ {{fee.company_fee}}.-</td>
                     <td>
                         <a href="#" id="fee-link" onclick="feeModal('{{fee.available_type}}','{{fee.fee}}')">
                             Actualizar
@@ -56,7 +58,19 @@
                         <div class="mb-3 row">
                             <label for="feeUpdated" class="col-sm-4 col-form-label">Tarifa actualizada:</label>
                             <div class="col-sm-8">
-                                <input type="number" name="updatedFee" class="form-control" id="feeUpdated">
+                                <input type="number" name="updatedFee" class="form-control" id="feeUpdated" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="currentCompanyFee" class="col-sm-4 col-form-label">Tarifa preferencial vigente:</label>
+                            <div class="col-sm-8">
+                                <input type="text" readonly class="form-control-plaintext" id="currentCompanyFee" value=0>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="feeCompanyUpdated" class="col-sm-4 col-form-label">Tarifa actualizada:</label>
+                            <div class="col-sm-8">
+                                <input type="number" name="updatedCompanyFee" class="form-control" id="feeCompanyUpdated"  required>
                             </div>
                         </div>
                         <input type="hidden" id="selected_type" name="type" value="">

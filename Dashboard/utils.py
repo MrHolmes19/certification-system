@@ -39,7 +39,6 @@ def generate_form(pk):
     # creating form from dict
     global_dict = operation_dict|vehicle_dict|client_dict
     form = FormDoc(initial = global_dict)
-    pprint.pprint(form)
     return form, operation
 
 
@@ -71,27 +70,11 @@ def save_doc(pk, request):
     vehicle.save()
     return operation, client
 
-'''
-def folderEraser(operation):
-    operation.certificate = ''
-    operation.save()
-    os.chdir(settings.MEDIA_ROOT)
-    shutil.rmtree(operation.id)
-'''
-
 def filesCleaner():
     limit_date = datetime.now() + timedelta(hours = 30)
-    print(limit_date)
     operations = Operation.objects.filter(certificate_downloaded_at__lte = limit_date, certificate__isnull=False).exclude(certificate="")
-    for i in operations:
-        print(i)
     for operation in operations:
-        print("------------------------")
-        print(operation.id)
-        print(operation.certificate)
         operation.certificate = ''
-        print(operation.certificate)
         operation.save()
         os.chdir(settings.MEDIA_ROOT)
         shutil.rmtree(str(operation.id))
-    #map(folderEraser(), operations)

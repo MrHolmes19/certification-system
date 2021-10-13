@@ -25,6 +25,7 @@
             {% endif %}
             " method="POST" enctype="multipart/form-data"> {% csrf_token %}
           <!-- text fields -->
+          <input type="hidden" name="company" value={{company}}>
           <div class="row">
             {% for input in form_doc %}
               {% if forloop.counter < 13 %} 

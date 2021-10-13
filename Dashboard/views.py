@@ -3,7 +3,7 @@ from Dashboard.forms import formUpdateOperation, FormDocUpdate, formCertificate
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from CertificationsApp.models import Client, ModificationsType, Vehicle, Operation, Schedule
+from CertificationsApp.models import Client, Company, ModificationsType, Vehicle, Operation, Schedule
 from django.forms.models import model_to_dict
 from pprint import pprint
 from django.urls import reverse
@@ -66,7 +66,7 @@ def operationDetail(request, pk):
             rejected_images = rejected_images.split("-")
             rejected_imgs = {}
             for image in set(rejected_images):
-                if image != "": #Se cambio el "is not" ya que tiraba warning
+                if image != "":
                     rejected_imgs[image] = "volver_a_subir.jpeg"
 
             operationForm = formUpdateOperation(request.POST, request.FILES, instance = operation)
@@ -101,28 +101,6 @@ def operationDetail(request, pk):
 
     return render(request,"doc.html",{'form_doc':form_doc_update})
 
-'''
-def acceptPayment(request, pk, estado):
-
-    if request.method == "POST":
-        operation = Operation.objects.get(pk=pk)
-        operation.stage = "Turno pendiente"
-        operation.paid_at = datetime.now()
-
-        operation.save()
-        print("Entre a accept Payment")
-        return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
-    
-    
-def rejectPayment(request, pk, estado):
-
-    if request.method == "POST":
-        operation = Operation.objects.get(pk=pk)
-        operation.stage = "Pago pendiente"
-        operation.save()
-        print("Entre a reject Payment")
-        return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))  
-'''
 
 def checkPayment(request):
 
@@ -135,7 +113,6 @@ def checkPayment(request):
             operation.stage = "Turno pendiente"
             operation.paid_at = datetime.now()
             operation.paid_amount = operation.final_type.fee
-            print(operation.final_type.fee)
             operation.save()
 
         if approved == 'false':
@@ -205,16 +182,14 @@ def appointments(request):
         day = request.POST.get("day")
 
         max_time = datetime.strptime(day +  " 23:59", '%Y-%m-%d %H:%M')
-        print(max_time)
         min_time = datetime.strptime(day +  " 00:00", '%Y-%m-%d %H:%M')
-        print(min_time)
 
         day_schedules = Schedule.objects.filter(appointment__lte=max_time, appointment__gte=min_time)
 
         for sch in day_schedules:
             sch.delete()
 
-        print(len(appointments))
+        #print(len(appointments))
 
         for appo in appointments:
             appointment = day + " " + appo
@@ -240,8 +215,8 @@ def appointments(request):
     appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder)
     block_list = json.dumps(list(block_list), cls=DjangoJSONEncoder)
     appointments = Operation.objects.all().filter(onsite_verified_at__isnull=False, stage="Verificacion pendiente").order_by("onsite_verified_at")  #.values_list('onsite_verified_at', flat=True)
-    print("appo_list: ", appointments_list)
-    print("block_list: ", block_list)
+    # print("appo_list: ", appointments_list)
+    # print("block_list: ", block_list)
     for i in appointments:
         i.onsite_verified_at = convert_to_localtime(i.onsite_verified_at).replace("T", " ")
 
@@ -257,17 +232,22 @@ def fees(request):
     if request.method == "POST":
         if request.POST.get("action") == "update":
             updatedFee = request.POST.get("updatedFee")
+            updatedCompanyFee = request.POST.get("updatedCompanyFee")
             selected_type = request.POST.get("type")
             type = ModificationsType.objects.filter(available_type = selected_type).first()
             type.fee = updatedFee
+            type.company_fee = updatedCompanyFee
             type.save()
 
         elif request.POST.get("action") == "updateAll":
             updatedFee = request.POST.get("updatedFee")
+            updatedCompanyFee = request.POST.get("updatedCompanyFee")
             types = ModificationsType.objects.all()
             for type in types:
                 type.fee = updatedFee
+                type.company_fee = updatedCompanyFee
                 type.save()
+        
     return HttpResponseRedirect(reverse("Dashboard:Fees"))
 
 
@@ -336,3 +316,35 @@ def operationDetailPDF(request, pk):
     return response
     '''
     return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+
+def companies(request):
+
+    if request.method == "POST" and request.POST.get("action") == "update":
+        
+        cuit = request.POST.get("cuit")
+        name = request.POST.get("name")
+        enabled = request.POST.get("choice")
+        id = request.POST.get("id")
+
+        company = Company.objects.get(id=id)
+
+        company.name = name
+        company.cuit = cuit
+        company.enabled = True if enabled == "enabled" else False
+
+        company.save()
+    
+    if request.method == "POST" and request.POST.get("action") == "new":
+        
+        cuit = request.POST.get("cuit")
+        name = request.POST.get("name")
+        
+        company = Company.objects.create(name=name, cuit=cuit)
+        company.save()
+
+    try:
+        companies = Company.objects.all()
+    except Company.DoesNotExist:
+        companies = {}
+
+    return render(request,"companies.html", {"companies": companies})
