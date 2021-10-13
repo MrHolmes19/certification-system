@@ -24,7 +24,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='operation',
             name='certificate',
+<<<<<<< HEAD
             field=models.FileField(blank=True, null=True, upload_to=CertificationsApp.models.file_path),
+=======
+            field=models.FileField(blank=True, null=True, upload_to=CertificationsApp.models.upload_path),
+>>>>>>> e54d63930af89755dba30d601ffe3e964e188c37
         ),
         migrations.AlterField(
             model_name='operation',

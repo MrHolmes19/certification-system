@@ -27,7 +27,7 @@ def login(request):
     if request.method == "POST":
         
         company_cuit = request.POST.get("cuit")
-        if company_cuit != "":
+        if company_cuit != "":   
             try:
                 company = Company.objects.get(cuit=company_cuit)
             except Company.DoesNotExist:
