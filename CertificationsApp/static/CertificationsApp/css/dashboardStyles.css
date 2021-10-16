@@ -32,6 +32,15 @@ tbody{
     transition: 0.5s;
 }
 
+.nav-link{
+    padding: 4px 16px !important;
+}
+
+i{
+    display:inline-block !important;
+    width: 18px;
+}
+
 /* tables */
 
 table tbody tr td a img{

@@ -1,8 +1,17 @@
-{% extends "dashboard.html" %}
+{% extends "dashboard_sidenav.html" %}
 
 {% load static %}
 
 {% block content2 %}
+
+    <!-- Title -->
+    <div class="container">
+        <div class="row my-3">
+            <div class="col-12">
+                <h3 class="text-center"> Tarifas</h3>
+            </div>
+        </div>
+    </div>
 
     <!-- Table -->
 
@@ -50,26 +59,26 @@
                 {% csrf_token %}
                     <div class="modal-body">
                         <div class="mb-3 row">
-                            <label for="currentFee" class="col-sm-4 col-form-label">Tarifa vigente:</label>
-                            <div class="col-sm-8">
+                            <label for="currentFee" class="col-sm-6 col-form-label text-end">Tarifa vigente:</label>
+                            <div class="col-sm-6">
                                 <input type="text" readonly class="form-control-plaintext" id="currentFee" value=0>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="feeUpdated" class="col-sm-4 col-form-label">Tarifa actualizada:</label>
-                            <div class="col-sm-8">
+                            <label for="feeUpdated" class="col-sm-6 col-form-label text-end">Tarifa actualizada:</label>
+                            <div class="col-sm-6">
                                 <input type="number" name="updatedFee" class="form-control" id="feeUpdated" required>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="currentCompanyFee" class="col-sm-4 col-form-label">Tarifa preferencial vigente:</label>
-                            <div class="col-sm-8">
+                            <label for="currentCompanyFee" class="col-sm-6 col-form-label text-end">Tarifa preferencial vigente:</label>
+                            <div class="col-sm-6">
                                 <input type="text" readonly class="form-control-plaintext" id="currentCompanyFee" value=0>
                             </div>
                         </div>
                         <div class="mb-3 row">
-                            <label for="feeCompanyUpdated" class="col-sm-4 col-form-label">Tarifa actualizada:</label>
-                            <div class="col-sm-8">
+                            <label for="feeCompanyUpdated" class="col-sm-6 col-form-label text-end">Tarifa actualizada:</label>
+                            <div class="col-sm-6">
                                 <input type="number" name="updatedCompanyFee" class="form-control" id="feeCompanyUpdated"  required>
                             </div>
                         </div>

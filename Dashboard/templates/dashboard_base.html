@@ -8,8 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- styles CSS-->
+    <!-- Custom CSS-->
     <link href="{% static 'CertificationsApp/css/dashboardStyles.css' %}" rel="stylesheet">
+    <link href="{% static 'CertificationsApp/fontawesome/css/all.css' %}" rel="stylesheet">
 
     <!-- Bootstrap CSS-->
  
@@ -40,10 +41,10 @@
             <div class="container justify-content-end">
                 <ul class="nav">
                     <li class="nav-item visually-hidden back-button">
-                        <a class="nav-link" href="{% url 'Dashboard:Dashboard-operations' %}">Volver</a>
+                        <a class="nav-link" href="{% url 'Dashboard:Operations' %}"> <i class="fas fa-arrow-circle-left"></i> VOLVER</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Salir</a>
+                        <a class="nav-link" href="#"><i class="fas fa-door-open"></i>  SALIR</a>
                     </li>                    
                 </ul>
             </div>
@@ -59,6 +60,10 @@
     {% endblock %}
 
     {% block content3 %}
+
+    {% endblock %}
+
+    {% block content4 %}
 
     {% endblock %}
     <!-- FOOTER -->

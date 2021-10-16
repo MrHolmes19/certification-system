@@ -1,0 +1,100 @@
+{% extends "dashboard_base.html" %}
+
+{% load static %}
+
+{% block content1 %}
+     
+<div id="wrapper" class="d-flex align-items-start">
+    <!-- SIDE NAV -->
+
+    <div class="sidebar-wrapper">        
+        <div class="nav flex-column me-3 bg-dark vh-100" aria-orientation="vertical">
+            <u><a class="nav-link disabled text-center" href="#">Tablas</a></u>
+            <a class="nav-link" href="{% url 'Dashboard:Operations' %}" aria-selected="true" 
+                onchange="currentTable('operations')"><i class="fas fa-clipboard-list"></i> Operaciones</a>
+            <a class="nav-link" href="{% url 'Dashboard:Clients' %}" aria-selected="false" 
+                onchange="currentTable('clients')"> <i class="fas fa-user"></i> Clientes</a>
+            <a class="nav-link" href="{% url 'Dashboard:Vehicles' %}" aria-selected="false" 
+                onchange="currentTable('vehicles')"><i class="fas fa-car"></i> Vehiculos</a>
+            <a class="nav-link" href="{% url 'Dashboard:Companies' %}" aria-selected="false"
+                onchange="currentTable('companies')"><i class="fas fa-building"></i> Empresas</a>
+
+            <u><a class="nav-link disabled text-center" href="#">Filtros</a></u>
+            <a class="nav-link" href="{% url 'Dashboard:Operations' %}" aria-selected="false">
+                <i class="fas fa-clipboard"></i> Operaciones abiertas</a>
+            <a class="nav-link" href="{% url 'Dashboard:Operations' %}?stage=Documentacion enviada" 
+                aria-selected="false"><i class="fas fa-check"></i> Pendientes de revision</a>
+            <a class="nav-link" href="{% url 'Dashboard:Operations' %}?stage=Pago a revisar" 
+                aria-selected="false"><i class="fas fa-dollar-sign"></i> Pagos a confirmar</a>
+            <a class="nav-link" href="{% url 'Dashboard:Operations' %}?stage=Verificacion pendiente"
+                aria-selected="false"><i class="fas fa-clipboard-check"></i> Próximos a verificar</a>
+            <a class="nav-link" href="{% url 'Dashboard:Operations' %}?stage=Esperando certificado"
+                aria-selected="false"><i class="fas fa-file-signature"></i> Esperando certificado</a>
+
+            <u><a class="nav-link disabled text-center" href="#">Acciones</a></u>
+            <a class="nav-link" href="{% url 'Dashboard:Search' %}" aria-selected="false"><i 
+                class="fas fa-search"></i>  Buscador</a>
+            <a class="nav-link" href="{% url 'Dashboard:Fees' %}" aria-selected="false">
+                <i class="fas fa-comments-dollar"></i> Modificar tarifas</a>
+            <a class="nav-link" href="{% url 'Dashboard:Appointments' %}" aria-selected="false" 
+                onchange="currentTable('appoinments')"><i class="fas fa-calendar-alt"></i> Turnos</a>
+            <a class="nav-link" href="{% url 'Dashboard:Stats' %}" aria-selected="false">
+                <i class="fas fa-chart-line"></i> Ver estadisticas</a>  
+        </div>
+    </div>
+
+    <!-- PAGE CONTENT -->
+    <div class="page-content-wrapper"> 
+    {% comment %} 
+        <!-- Title and download button -->
+        <div class="container">
+            <div class="row my-3">
+                <div class="col-8 offset-2">
+                    <h3 class="text-center"> Registro de operaciones</h3>
+                </div>
+                <div class="col-2 d-grid gap-2 d-flex justify-content-end">
+                    <button class="btn-sm btn-dark" id="download"> DESCARGAR </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Entries & Search Bar -->
+        
+        <div id="search-bar" class="container-fluid mb-2">
+            <div class="row d-flex align-items-center">
+                <!-- show entries -->
+                <div class="col-3 d-flex justify-content-start">
+                    <div class="gap-2 d-flex">
+                        <label>Mostrar</label>
+                        <select class="form-select form-select-sm">
+                            <option>10</option>
+                            <option>20</option>
+                            <option>30</option>
+                            <option>50</option>
+                        </select>
+                        <label>entradas</label>
+                    </div>
+                </div>
+                <!-- search field -->
+                <div class="col-9 gap-2 d-flex justify-content-end align-items-center">                    
+                    <form class="d-flex gap-2">
+                        <label> Buscar: </label>
+                        <input id="search-field" class="form-control" type="search" placeholder="Palabra clave" aria-label="Search" oninput="search(this.value)">
+                        <button class="btn btn-outline-success d-flex align-items-center">Buscar</button>
+                    </form>
+                </div>
+            </div>   
+        </div>  
+    {% endcomment %}
+
+    <script src="{% static 'CertificationsApp/js/tabs.js' %}"></script>
+
+{% endblock %}
+        
+{% block content2 %}
+
+{% endblock %}
+        
+{% block content3 %}
+
+{% endblock %}

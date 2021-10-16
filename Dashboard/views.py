@@ -93,7 +93,7 @@ def operationDetail(request, pk):
                     )
                     print("email: ", result)
 
-                return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+                return HttpResponseRedirect(reverse("Dashboard:Operations"))
             else:
                 print(operationForm.errors)
         else:
@@ -127,7 +127,7 @@ def checkPayment(request):
             operation.save()
             result = emailNotificationToClient(title,body,client.mail)
 
-        return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+        return HttpResponseRedirect(reverse("Dashboard:Operations"))
 
 def checkVerification(request):
 
@@ -170,7 +170,7 @@ def checkVerification(request):
 
             operation.save()
 
-    return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+    return HttpResponseRedirect(reverse("Dashboard:Operations"))
 
 
 
@@ -262,6 +262,7 @@ def certificate(request):
         operation.certificate = file
         operation.stage = "Certificado disponible"
         operation.certificate_uploaded_at = datetime.now()
+        # Probar esto --> operation.certificate_uploaded_at = datetime.strptime(datetime.now(), '%Y-%m-%d %H:%M')
         operation.save()
  
         result = emailNotificationToClient(
@@ -273,7 +274,7 @@ def certificate(request):
             )
         print("email: ", result)
 
-        return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+        return HttpResponseRedirect(reverse("Dashboard:Operations"))
       
     #return render(request,"doc.html",{'form_doc':form_doc_update})
 
@@ -315,7 +316,7 @@ def operationDetailPDF(request, pk):
 
     return response
     '''
-    return HttpResponseRedirect(reverse("Dashboard:Dashboard-operations"))
+    return HttpResponseRedirect(reverse("Dashboard:Operations"))
 
 def companies(request):
 
@@ -347,4 +348,13 @@ def companies(request):
     except Company.DoesNotExist:
         companies = {}
 
-    return render(request,"companies.html", {"companies": companies})
+    return render(request,"company_table.html", {"companies": companies})
+
+
+def stats(request):
+        
+    return render(request,"stats.html")
+
+def search(request):
+    
+    return render(request,"search.html")

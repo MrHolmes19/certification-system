@@ -1,8 +1,8 @@
-{% extends "dashboard.html" %}
+{% extends "table_features.html" %}
 
 {% load static %}
 
-{% block content2 %}
+{% block content4 %}
 
     <!-- Table -->
 
@@ -30,7 +30,7 @@
                     </td>
                     <td>{{op.certificate_number}}</td>
                     {% if op.company %}
-                    <td>{{op.company}}</td>
+                    <td>{{op.company.name}}</td>
                     {% else %}
                     <td> </td>
                     {% endif %}

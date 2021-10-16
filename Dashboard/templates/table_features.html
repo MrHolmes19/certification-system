@@ -1,0 +1,56 @@
+{% extends "dashboard_sidenav.html" %}
+
+{% load static %}
+
+{% block content3 %}
+<!-- Title and download button -->
+
+<div id="table-features" class="">
+
+    <div class="container">
+        <div class="row my-3">
+            <div class="col-8 offset-2">
+                <h3 class="text-center"> Registro de operaciones</h3>
+            </div>
+            <div class="col-2 d-grid gap-2 d-flex justify-content-end">
+                <button class="btn-sm btn-dark" id="download"> DESCARGAR </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Entries & Search Bar -->
+
+    <div id="search-bar" class="container-fluid mb-2">
+        <div class="row d-flex align-items-center">
+            <!-- show entries -->
+            <div class="col-3 d-flex justify-content-start">
+                <div class="gap-2 d-flex">
+                    <label>Mostrar</label>
+                    <select class="form-select form-select-sm">
+                        <option>10</option>
+                        <option>20</option>
+                        <option>30</option>
+                        <option>50</option>
+                    </select>
+                    <label>entradas</label>
+                </div>
+            </div>
+            <!-- search field -->
+            <div class="col-9 gap-2 d-flex justify-content-end align-items-center">                    
+                <form class="d-flex gap-2">
+                    <label> Buscar: </label>
+                    <input id="search-field" class="form-control" type="search" placeholder="Palabra clave" aria-label="Search" oninput="search(this.value)">
+                    <button class="btn btn-outline-success d-flex align-items-center">Buscar</button>
+                </form>
+            </div>
+        </div>   
+    </div>
+</div>
+
+<script src="{% static 'CertificationsApp/js/tabs.js' %}"></script>
+        
+{% endblock %}
+
+{% block content4 %}
+
+{% endblock %}     

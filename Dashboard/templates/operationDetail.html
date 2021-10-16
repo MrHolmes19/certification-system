@@ -83,7 +83,7 @@
                   <!-- send button  -->
                   <div class="row">
                     <div class="col d-flex justify-content-around">
-                      <a href="{% url 'Dashboard:Dashboard-operations' %}" class="btn btn-warning">Descartar cambios</a>
+                      <a href="{% url 'Dashboard:Operations' %}" class="btn btn-warning">Descartar cambios</a>
                       <button type="submit" class="btn btn-success">Guardar cambios</button>
                     </div> 
                   </div> 
@@ -238,7 +238,7 @@
                     <input class="form-control" type="file" name="certificateInput" id="formFile">
                   </div>
                   <div class="col d-flex justify-content-around">
-                    <a href="{% url 'Dashboard:Dashboard-operations' %}" class="btn btn-warning">Cancelar</a>
+                    <a href="{% url 'Dashboard:Operations' %}" class="btn btn-warning">Cancelar</a>
                     <input type="hidden" name="op_id" value="{{operation.id}}">
                     <button type="submit" class="btn btn-success">Guardar cambios</button>
                   </div>  
@@ -266,12 +266,15 @@
               <div class="modal-body">
                 <input type="hidden" name="op_id" value="{{operation.id}}">
                 <input type="hidden" name="approved" value="false">
-                <input type="text" name="title">
-                <input type="number" name="amount" value=0  min=0 max={{operation.final_type.fee}} required="true">
-                <textarea name="body" cols="30" rows="10"></textarea>
+                <label for="title" class="form-label"> Asunto del mail:</label>
+                <input id="title" type="text" name="title">
+                <label for="amount" class="form-label"> Monto registrado:</label>
+                <input id="amount" type="number" name="amount" value=0  min=0 max={{operation.final_type.fee}} required="true">
+                <label for="body" class="form-label"> Cuerpo del mail:</label>
+                <textarea id="body" name="body" cols="60" rows="5"></textarea>
               </div>
               <div class="modal-footer">
-                  <button type="submit" class="btn btn-danger">Rechazar</button>
+                  <button type="submit" class="btn btn-danger">Enviar</button>
               </div>
             </form>
         </div>
