@@ -72,14 +72,44 @@ def operationDetail(request, pk):
             operationForm = formUpdateOperation(request.POST, request.FILES, instance = operation)
             if operationForm.is_valid():
                 operation.__dict__.update(**rejected_imgs)
-                operation.save()  
+                 
 
                 if request.POST.get("choice") == "approved":
-                    operation.stage = 'Pendiente de pago'
+
+                    operation.doc_verified_at = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M')
+                    jumpPay = request.POST.get("jumpPay")
+                    jumpAppointment = request.POST.get("jumpAppointment")
+
+                    if jumpPay == "true" and jumpAppointment == "true":
+                        message = "Hola {}, Te notificaremos cuando esté disponible tu certificado".format(operation.company.name)
+
+                        operation.paid_by = "Arreglado con cliente"
+                        operation.paid_amount = operation.final_type.company_fee
+                        operation.stage = "Esperando certificado" 
+
+                    elif jumpPay == "true":
+                        message = "Hola {}, entrá al siguiente link para continuar con el trámite\
+                                \n: http://localhost:8000/turno-verificacion/{}".format(operation.company.name, operation.id)
+
+                        operation.paid_by = "Arreglado con cliente"
+                        operation.paid_amount = operation.final_type.company_fee  
+                        operation.stage = "Turno pendiente"      
+
+                    elif jumpAppointment == "true":  
+                        message = "Hola {}, entrá al siguiente link para continuar con el trámite\
+                                \n: http://localhost:8000/pago/{}".format(operation.company.name, operation.id)
+
+                        operation.onsite_verified_at = datetime.now()
+                        operation.stage = 'Pendiente de pago'
+
+                    else:
+                        operation.stage = 'Pendiente de pago'
+                        message = "Hola {}, entrá al siguiente link para continuar con el trámite\
+                                \n: http://localhost:8000/pago/{}".format(operation.company.name, operation.id)
+
                     result = emailNotificationToClient(
                         "Tu documentacion fue Aprobada",
-                        "Hola {} {}, entrá al siguiente link para continuar con el trámite\
-                            \n: http://localhost:8000/pago/{}".format(client.name, client.surname, operation.id),
+                        message,
                         client.mail
                         )
                     print("email: ", result)
@@ -92,6 +122,10 @@ def operationDetail(request, pk):
                     client.mail
                     )
                     print("email: ", result)
+                
+                operation.save()
+
+
 
                 return HttpResponseRedirect(reverse("Dashboard:Operations"))
             else:
@@ -137,7 +171,7 @@ def checkVerification(request):
         vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
         client = Client.objects.get(pk=vehicle.owner.id)
         action = request.POST.get("action")
-
+    
 
         if action == 'cancel':
             operation.stage = "Turno pendiente"
@@ -156,7 +190,7 @@ def checkVerification(request):
         if action == 'reject':
             operation.stage = "Turno pendiente"
 
-            operation.onsite_verified_at = None
+            #operation.onsite_verified_at = None
 
             operation.save()
 
@@ -167,6 +201,9 @@ def checkVerification(request):
 
         if action == 'aprove':
             operation.stage = "Esperando certificado"
+
+            if not operation.onsite_verified_at:
+                operation.onsite_verified_at = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M')
 
             operation.save()
 

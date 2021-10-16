@@ -46,18 +46,13 @@ function rejectImage(i){
     rejectedImages_input.value += "-image"+i+"_uploaded"
     btn_aprove.setAttribute("disabled", true)
     btn_reject.click()
+    blockChecks()
 }
 
 var div_modal = document.getElementById('MessageModal')
 var modal = new bootstrap.Modal(div_modal, {
     keyboard: false
 })
-
-var Mname = document.getElementById('name')
-var Msurname = document.getElementById('surname')
-var Mid_number = document.getElementById('id_number')
-var Memail = document.getElementById('email')
-var Mphone = document.getElementById('phone')
 
 // name, surname, mail, phone, id_number
 function messageModal(){   
@@ -86,3 +81,27 @@ imageInputs.forEach(input => {
     i++;  
 });
 */
+
+
+//blocking the checks if the operation is not aproved
+
+function blockChecks(){
+    let checks = document.querySelectorAll(".jumpChecks input")
+
+    checks.forEach(check => {
+        check.checked = false
+        check.setAttribute("disabled", true)
+    });
+    }
+
+function unblockChecks(){
+    let checks = document.querySelectorAll(".jumpChecks input")
+    
+    checks.forEach(check => {
+        check.removeAttribute("disabled")
+    });
+    }
+
+
+btn_reject.addEventListener("click", blockChecks)
+btn_aprove.addEventListener("click", unblockChecks)

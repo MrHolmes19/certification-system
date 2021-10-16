@@ -79,6 +79,24 @@
                       </div>
                     </div> 
                   </div> 
+                  {% if operation.company %}
+                  <div class="row my-2 jumpChecks">
+                    <div class="col d-grid gap-2">
+                      <div class="form-check d-flex gap-2">
+                        <input class="form-check-input" type="checkbox" name="jumpPay" id="flexCheckboxDefault1" value="true">
+                        <label class="form-check-label" for="flexCheckboxDefault1">
+                          Saltar Pago
+                        </label>
+                      </div>
+                      <div class="form-check d-flex gap-2">
+                        <input class="form-check-input" type="checkbox" name="jumpAppointment" id="flexCheckboxDefault2" value="true">
+                        <label class="form-check-label" for="flexCheckboxDefault2">
+                          Saltar Turno
+                        </label>
+                      </div>
+                    </div> 
+                  </div>
+                  {% endif %}
                   <input type="hidden" name="rejectedImages" id="rejectedImages">
                   <!-- send button  -->
                   <div class="row">
@@ -111,6 +129,8 @@
                 <strong>
                   {% if not operation.paid_at and not operation.paid_by%}
                     Pago Pendiente
+                  {% elif operation.paid_by == "Arreglado con cliente" %}
+                    Pago convenido con el cliente
                   {% elif operation.paid_by == "Transferencia Bancaria" %}
                     {% if not operation.paid_at %}
                       Pago por transferencia bancaria a VERIFICAR
@@ -145,7 +165,16 @@
           <div class="accordion-body">
             <div class="row">
               <div class="col-4"> 
-              {% if not operation.onsite_verified_at %}
+              {% if operation.stage == "Esperando certificado" and not operation.onsite_verified_at %}
+               <h6><strong>Estado: Verificacion arreglada con el cliente </strong></h6>
+                <form action="{% url 'Dashboard:Check-verification' %}" method="POST">
+                  {% csrf_token %}
+                    <input type="hidden" name="op_id" value="{{operation.id}}">
+                    <div class="container">
+                        <button type="submit" class="btn btn-success" name="action" value="aprove">Aprobar</button>
+                    </div>
+                </form> 
+              {% elif not operation.onsite_verified_at %}
                 <h6><strong>Estado: Turno pendiente </strong></h6>
               </div>
               {% elif operation.stage == "Verificacion pendiente" %}
@@ -160,9 +189,9 @@
                         <button type="submit" class="btn btn-danger" name="action" value="reject">Rechazar</button>
                     </div>
                 </form>
-              {% elif operation.stage == "Verificacion pendiente" %}
+              {% elif operation.stage == "Turno pendiente" and operation.onsite_verified_at %}
                 <h6><strong>Estado: Inspeccion Rechazada - Turno pendiente </strong></h6>
-                <h6><strong>Primera visita: {{operation.onsite_verified_at}} </strong></h6>
+                <h6><strong>Primera visita: {{operation.onsite_verified_at}} </strong></h6>             
               {% else %}
                <h6><strong>Estado: Aprobado </strong></h6>
                <h6><strong>Verifico el dia: {{operation.onsite_verified_at}} </strong></h6>

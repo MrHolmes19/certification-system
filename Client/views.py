@@ -167,7 +167,11 @@ def payment(request, pk):
 
         operation = Operation.objects.get(pk=pk)
         type = ModificationsType.objects.get(pk=operation.final_type.id)
-        fee = type.fee - operation.paid_amount
+
+        if operation.company:
+            fee = type.company_fee - operation.paid_amount
+        else:
+            fee = type.fee - operation.paid_amount
 
         # Adding MP credentials
         sdk = mercadopago.SDK("TEST-3332094717111517-083117-50ddb3f26d4594433d667165a99ad80b-25704844")
@@ -235,8 +239,16 @@ def appointment(request, pk):
         payment_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         payment_type = payment_data['payment_type']
         new_stage = 'Turno pendiente'
-        
+
         operation = Operation.objects.get(pk=pk)
+
+        # checkeo si tiene fecha de verificacion como flag para saber si se salta la seleccion de turno
+        if operation.onsite_verified_at:
+            operation.onsite_verified_at = None
+            operation.stage = "Esperando certificado"
+            operation.save()
+            return render(request,"download_inprocess_.html")
+
         amount = operation.final_type.fee
         print(amount)
         operation.paid_amount = amount
@@ -295,8 +307,14 @@ def waitingVerification(request):
     return render(request,"verification_inprocess.html")
 
 #------------------- cert_inprocess -> certificado-en-proceso ----------------#
-def waitingCertificate(request, pk):   
-    return render(request,"download_inprocess.html")
+def waitingCertificate(request, pk):
+    operation = Operation.objects.get(pk=pk)
+
+    # checkeo si tiene fecha de verificacion como flag para saber si se salta la seleccion de turno
+    if operation.onsite_verified_at:
+        return render(request,"download_inprocess.html")
+
+    return render(request,"download_inprocess_.html")
 
 #------------------- download -> descarga-certificado ----------------#
 '''
