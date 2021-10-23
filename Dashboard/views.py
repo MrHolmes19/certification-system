@@ -16,9 +16,12 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.template.loader import render_to_string
 from weasyprint import HTML
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 
 
-# Create your views here.
+
+@login_required
 def dashboard(request):
     if request.method == "GET":
 

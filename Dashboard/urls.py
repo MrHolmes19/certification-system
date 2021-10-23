@@ -1,9 +1,11 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 app_name = 'Dashboard'
 
 urlpatterns = [
+    path('auth/', include("django.contrib.auth.urls")),
+
     path('', views.dashboard, name="Operations"),
     path('Clientes', views.dashboardClient, name="Clients"),
     path('Empresas', views.companies, name='Companies'),
