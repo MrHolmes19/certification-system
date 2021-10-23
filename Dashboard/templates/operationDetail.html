@@ -215,7 +215,6 @@
               <div class="col-4"><h6>Nº: <strong>{{operation.certificate_number}}</strong></h6></div>
               <div class="col-4"><h6>Estado: <strong>{{operation.stage}}</strong></h6></div>
               <div class="container-fluid">
-{% comment %} 
                 <form action="{% url 'Dashboard:Operation-pdf' pk=operation.id %}" method="POST">
                   {% csrf_token %}
                     <input type="hidden" name="op_id" value="{{operation.id}}">
@@ -238,10 +237,9 @@
                     {% endif %}
                     </textarea>
                     <div class="container">
-                        <button type="submit" class="btn btn-success" name="render">Crear certificado</button>
+                        <button type="submit" class="btn btn-success" name="render">Crear informe</button>
                     </div>
                 </form>
-{% endcomment %}
               </div>
             </div> 
           </div>

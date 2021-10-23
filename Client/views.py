@@ -18,7 +18,7 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 import mimetypes
 from django.template.loader import render_to_string
-#from weasyprint import HTML
+from weasyprint import HTML
 
 
 #------------------- login ------------------#
@@ -384,7 +384,7 @@ def download_inform(request, pk):
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = "attachment; filename=%s" % filename
 
-    #HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response)
+    HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response)
 
     if operation.certificate_downloaded_at:
         operation.stage = "Operacion completada"

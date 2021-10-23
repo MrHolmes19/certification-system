@@ -14,7 +14,7 @@ from Dashboard.utils import generate_form
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.template.loader import render_to_string
-#from weasyprint import HTML
+from weasyprint import HTML
 from django.conf import settings
 
 
@@ -319,7 +319,7 @@ def certificate(request):
 
 
 def operationDetailPDF(request, pk):
-    '''
+
     operation = Operation.objects.get(pk=pk)
     vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
     client = Client.objects.get(pk=vehicle.owner.id)
@@ -354,7 +354,7 @@ def operationDetailPDF(request, pk):
     return response
     '''
     return HttpResponseRedirect(reverse("Dashboard:Operations"))
-
+    '''
 def companies(request):
 
     if request.method == "POST" and request.POST.get("action") == "update":
