@@ -25,7 +25,8 @@ from django.template.loader import render_to_string
 def login(request):
     form_login = FormLogin()
     if request.method == "POST":
-        
+
+        # If company
         company_cuit = request.POST.get("cuit")
         if company_cuit != "":   
             try:
@@ -38,8 +39,19 @@ def login(request):
             id_number_input = request.POST.get("id_number").strip()
             domain_input = request.POST.get("domain").strip()
 
-            targetPage = loginRedirect(id_number_input, domain_input, company_cuit)
+            # input transformation
+            if id_number_input.isdigit() == False:
+                numbers = [s for s in id_number_input if s.isdigit()]
+                id_number_input = ''.join(numbers)
 
+            if domain_input.isalnum() == False:
+                alphanumerics = [s for s in domain_input if s.isalnum()]
+                domain_input = ''.join(alphanumerics)
+
+            # redirection manager
+            targetPage = loginRedirect(id_number_input, domain_input, company_cuit)
+            if targetPage == "unable":
+                return render(request,"login.html",{'form_login':form_login, "message": "No es posible continuar con el trámite. Contáctenos a la brevedad vía mail o teléfono"})
             return redirect("/" + targetPage)
 
     return render(request,"login.html",{'form_login':form_login})
@@ -48,17 +60,25 @@ def login(request):
 def doc(request):
     login_data = request.GET
     form_doc = FormDoc(initial={'id_number':login_data.get('dni'),'domain':login_data.get('patente')})
+
     if request.method == "POST":
+
+        # input transformation
+        phone = request.POST.get("phone").strip()
+        if phone.isdigit() == False:
+            numbers = [s for s in phone if s.isdigit()]
+            phone = ''.join(numbers)
+
         form_doc = FormDoc(request.POST, request.FILES)
+
         if form_doc.is_valid():
-
-
             client_data = {
             'id_number': request.POST.get("id_number"),
             'name': request.POST.get("name"),
             'surname': request.POST.get("surname"),
             'mail': request.POST.get("mail"),
-            'phone': request.POST.get("phone"),
+            'phone': phone,
+            #'phone': request.POST.get("phone"),
             }
             client = Client.objects.create(**client_data)
 
@@ -92,19 +112,6 @@ def doc(request):
                 
                 operation.save()  
 
-                # moving images to a new folder
-                '''
-                temporary_dir = os.path.join(settings.MEDIA_ROOT, 'temporary')
-                target_dir = os.path.join(settings.MEDIA_ROOT, str(operation.id), 'images')
-
-                os.chdir(settings.MEDIA_ROOT)
-                os.mkdir(str(operation.id))
-                os.mkdir(os.path.join(str(operation.id), 'images'))
-
-                image_names = os.listdir(temporary_dir)  
-                for image_name in image_names:
-                    shutil.move(os.path.join(temporary_dir, image_name), os.path.join(target_dir, image_name))
-                '''
                 # email sending
                 email = EmailMessage("Nuevo cliente - revisar documentación",
                     "El cliente: '{} {}' acaba de cargar la documentación para certificar un '{}'".format(client_data['name'],client_data['surname'], operation.final_type),
@@ -115,14 +122,19 @@ def doc(request):
                     email.send()
                     return HttpResponseRedirect(reverse("Waiting_Doc"))
                 except:
-                    print("El mail no se mandó loco")
+                    print("El mail no se mandó")
                     return HttpResponseRedirect(reverse("Waiting_Doc"))
                 #return redirect("client-module:Waiting_Doc") otra manera de hacerlo
             else:
                 print(operation.errors)
-        #else:
-            #print("3:{}".format(form_doc.errors))
-    company=login_data.get('empresa')
+        else:
+            print("3:{}".format(form_doc.errors))
+    #company=login_data.get('empresa')
+    if login_data.get('empresa')!="":
+        print(request.GET.get('empresa'))
+        company = Company.objects.get(cuit=login_data.get('empresa'))
+    else:
+        company = ""
     return render(request,"doc.html",{'form_doc':form_doc, "company":company})
 
 #------------------- doc_checking -> formulario-pendiente ----------------#
@@ -287,6 +299,7 @@ def appointment(request, pk):
     #print(appointments_list)
     return render(request,"appointment.html", {"operation":operation, "appointments_list": appointments_list})
 
+''' NO VA MAS. ERA PARA EL CALENDLY
 #------------------- appointment_success -> turno-verificacion-ok ----------------#
 def appointmentSuccessful(request):
     if request.method == "GET":
@@ -301,10 +314,15 @@ def appointmentSuccessful(request):
         operation.stage = "Verificacion pendiente"
         operation.save()
     return render(request,"appointment_success.html", {'date':event_date,'time':event_time})
+'''
 
 #------------------- verification_inprocess -> verificacion-pendiente ----------------#
-def waitingVerification(request):   
-    return render(request,"verification_inprocess.html")
+def waitingVerification(request, pk):   
+    operation = Operation.objects.get(pk=pk)
+    schedule = operation.onsite_verified_at
+    date = datetime.strftime(schedule, '%d-%m-%Y')
+    time = datetime.strftime(schedule, '%H:%M')
+    return render(request,"verification_inprocess.html", {'date':date,'time':time})
 
 #------------------- cert_inprocess -> certificado-en-proceso ----------------#
 def waitingCertificate(request, pk):

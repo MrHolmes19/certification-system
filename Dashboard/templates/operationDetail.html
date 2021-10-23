@@ -5,7 +5,7 @@
 {% block content1 %}
   <section id="operationDetail">
     
-    <div class="accordion mb-5" id="Detail">
+    <div class="accordion mb-3" id="Detail">
 
       <!-- DOCUMENTATION UPLOADED  -->
 
@@ -123,7 +123,6 @@
         </h2>
         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-
             <div class="row">
               <div class="col-4"><h6>Estado del pago:</h6> 
                 <strong>
@@ -150,6 +149,7 @@
                 </strong>
               </div>
             </div>
+          </div>
         </div>
       </div>
 
@@ -165,38 +165,37 @@
           <div class="accordion-body">
             <div class="row">
               <div class="col-4"> 
-              {% if operation.stage == "Esperando certificado" and not operation.onsite_verified_at %}
-               <h6><strong>Estado: Verificacion arreglada con el cliente </strong></h6>
-                <form action="{% url 'Dashboard:Check-verification' %}" method="POST">
-                  {% csrf_token %}
-                    <input type="hidden" name="op_id" value="{{operation.id}}">
-                    <div class="container">
-                        <button type="submit" class="btn btn-success" name="action" value="aprove">Aprobar</button>
-                    </div>
+                {% if operation.stage == "Esperando certificado" and not operation.onsite_verified_at %}
+                <h6><strong>Estado: Verificacion arreglada con el cliente </strong></h6>
+                <form action="{% url 'Dashboard:Check-verification' %}" method="POST"> {% csrf_token %}
+                  <input type="hidden" name="op_id" value="{{operation.id}}">
+                  <div class="container">
+                    <button type="submit" class="btn btn-success" name="action" value="aprove">Aprobar</button>
+                  </div>
                 </form> 
-              {% elif not operation.onsite_verified_at %}
+                {% elif not operation.onsite_verified_at %}
                 <h6><strong>Estado: Turno pendiente </strong></h6>
-              </div>
-              {% elif operation.stage == "Verificacion pendiente" %}
-               <h6><strong>Estado: Pendiente de verificacion </strong></h6>
-               <h6><strong>Turno concertado para el: {{operation.onsite_verified_at}} </strong></h6>
+              
+                {% elif operation.stage == "Verificacion pendiente" %}
+                <h6><strong>Estado: Pendiente de verificacion </strong></h6>
+                <h6><strong>Turno concertado para el: {{operation.onsite_verified_at}} </strong></h6>
                 <form action="{% url 'Dashboard:Check-verification' %}" method="POST">
                   {% csrf_token %}
                     <input type="hidden" name="op_id" value="{{operation.id}}">
                     <div class="container">
-                        <button type="submit" class="btn btn-warning" name="action" value="cancel">Cancelar Turno</button>
-                        <button type="submit" class="btn btn-success" name="action" value="aprove">Aprobar</button>
-                        <button type="submit" class="btn btn-danger" name="action" value="reject">Rechazar</button>
+                      <button type="submit" class="btn btn-warning" name="action" value="cancel">Cancelar Turno</button>
+                      <button type="submit" class="btn btn-success" name="action" value="aprove">Aprobar</button>
+                      <button type="submit" class="btn btn-danger" name="action" value="reject">Rechazar</button>
                     </div>
                 </form>
-              {% elif operation.stage == "Turno pendiente" and operation.onsite_verified_at %}
+                {% elif operation.stage == "Turno pendiente" and operation.onsite_verified_at %}
                 <h6><strong>Estado: Inspeccion Rechazada - Turno pendiente </strong></h6>
                 <h6><strong>Primera visita: {{operation.onsite_verified_at}} </strong></h6>             
-              {% else %}
-               <h6><strong>Estado: Aprobado </strong></h6>
-               <h6><strong>Verifico el dia: {{operation.onsite_verified_at}} </strong></h6>
-              {% endif %}
-
+                {% else %}
+                <h6><strong>Estado: Aprobado </strong></h6>
+                <h6><strong>Verifico el dia: {{operation.onsite_verified_at}} </strong></h6>
+                {% endif %}
+              </div>
             </div> 
           </div>
         </div>        
@@ -279,6 +278,32 @@
       </div>
 
     </div>   <!-- End Accordion -->
+
+  <!-- OPERATION STATE BUTTON -->
+
+  <div class="container ms-4">
+    <form action="{% url 'Dashboard:InactiveOperation' pk=operation.id %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+      <div class="row my-2">
+        <div class="col d-grid gap-2">    
+          <!--      
+          <div class="form-check d-flex gap-2">
+            <input class="form-check-input" type="checkbox" name="toggleInactive" id="checkboxInactive" value="true">
+            <label class="form-check-label" for="checkboxInactive"> Marcar como operación inactiva</label>
+          </div>
+          -->
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" name="stateSwitch" value="prueba" id="stateSwitch" 
+              onclick="toggleState()" {% if operation.is_active|lower == "true" %}checked{%endif%}>
+            <label class="form-check-label" id="switchLabel" for="stateSwitch">Operación Activa</label>
+          </div>
+        </div> 
+        <div class="col d-flex justify-content-start">
+          <button type="submit" id="stateButton" class="btn btn-success btn-sm">Guardar estado</button>
+        </div> 
+        <input type="hidden" name="op_id" value="{{operation.id}}">
+      </div> 
+    </form>
+  </div>
 
   </section>
  

@@ -9,14 +9,18 @@ var newCompany_modal = new bootstrap.Modal(document.getElementById('createCompan
 
 nameInput = document.getElementById('companyName')
 cuitInput = document.getElementById('companyCuit')
+mailInput = document.getElementById('companyMail')
+phoneInput = document.getElementById('companyPhone')
 idInput = document.getElementById('company_id')
 
 radioEnabled = document.getElementById('enabled')
 radioDisabled = document.getElementById('disabled')
 
-function updateModal(cuit, name, enabled, id){
+function updateModal(cuit, name, mail, phone, enabled, id){
     nameInput.value = name
     cuitInput.value = cuit
+    mailInput.value = mail
+    phoneInput.value = phone
     idInput.value = id
     if(enabled == "True"){
         radioEnabled.checked = true

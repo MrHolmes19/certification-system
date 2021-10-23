@@ -26,6 +26,8 @@
             " method="POST" enctype="multipart/form-data"> {% csrf_token %}
           <!-- text fields -->
           <input type="hidden" name="company" value={{company}}>
+          <input type="hidden" name="companyMail" value={{company.mail}}>
+          <input type="hidden" name="companyPhone" value={{company.phone}}>
           <div class="row">
             {% for input in form_doc %}
               {% if forloop.counter < 13 %} 
@@ -69,7 +71,7 @@
           <!-- send button  -->
           <div class="row">
             <div class="col d-grid gap-2">
-              <button type="submit" class="btn btn-primary">Enviar documentacion</button>
+              <button id="submit" type="submit" class="btn btn-primary" onclick="thanks()">Enviar documentacion</button>
             </div>  
           </div>          
         </form>
@@ -80,5 +82,6 @@
 
 <script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script>
 <script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script>
+<script src="{% static 'CertificationsApp/js/speaker.js' %}"></script>
 
 {% endblock %}

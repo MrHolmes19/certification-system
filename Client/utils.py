@@ -34,9 +34,14 @@ def loginRedirect(id_number_input, domain_input, company_cuit):
                 operations = i.operations
                 break
         if coincidence == True:
-            for x in operations.all():
+            for x in operations.all(): ## ESTO CREO QUE ESTA MAL !!!!! PROBAR
                 # Check if this vehicle has active operations
                 if x.stage != "Operacion completada":
+                    # Check if this operation is active
+                    print(x.is_active)
+                    if x.is_active == False:
+                        print("----------------------efectivamente es unable")
+                        return "unable"
                     stage = x.stage
                     return stage_levels[stage] + str(x.id)
                 else:

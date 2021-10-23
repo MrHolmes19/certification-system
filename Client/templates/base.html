@@ -8,9 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- styles CSS-->
+    <!-- Custom CSS-->
   
     <link href="{% static 'CertificationsApp/css/clientStyles.css' %}" rel="stylesheet">
+    <link href="{% static 'CertificationsApp/fontawesome/css/all.css' %}" rel="stylesheet">
 
     <!-- Bootstrap CSS-->
  
@@ -28,7 +29,7 @@
 
     <nav id="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">   
         <div class="container-fluid">
-          <!-- <a class="navbar-brand" href="#"> <img {% static 'src="CertificationsApp/images/motorhome2.png"' %} alt="logo-platzi"></a>-->
+          <a class="navbar-brand" id="logo" href="#"> <img src={% static "CertificationsApp/images/motorhome2.png" %} alt="logo"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -51,6 +52,7 @@
               </li>
             </ul>
           </div>
+          <a class="nav-link" href="#"><i class="fas fa-door-open"></i> SALIR </a>
         </div>
       </nav>
 

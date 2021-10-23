@@ -15,8 +15,8 @@ class ModificationsTypeAdmin(admin.ModelAdmin):
     search_fields = ("available_type","caption", "fee")
 
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ("name","cuit", "enabled")
-    search_fields = ("name","cuit", "enabled")
+    list_display = ("cuit","name", "mail", "phone", "enabled")
+    search_fields = ("cuit","name", "mail", "phone", "enabled")
 
 class OperationAdmin(admin.ModelAdmin):
     list_display = ("certificate_number","stage", "owner", "id_vehicle", "original_type","final_type","registrated_at", "certificate_downloaded_at", "paid_by", "paid_at", "is_active")

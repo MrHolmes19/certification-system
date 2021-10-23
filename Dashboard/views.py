@@ -315,9 +315,6 @@ def certificate(request):
       
     #return render(request,"doc.html",{'form_doc':form_doc_update})
 
-
-
-
 def operationDetailPDF(request, pk):
     '''
     operation = Operation.objects.get(pk=pk)
@@ -361,6 +358,8 @@ def companies(request):
         
         cuit = request.POST.get("cuit")
         name = request.POST.get("name")
+        mail = request.POST.get("mail")
+        phone = request.POST.get("phone")
         enabled = request.POST.get("choice")
         id = request.POST.get("id")
 
@@ -368,6 +367,8 @@ def companies(request):
 
         company.name = name
         company.cuit = cuit
+        company.mail = mail
+        company.phone = phone
         company.enabled = True if enabled == "enabled" else False
 
         company.save()
@@ -376,8 +377,10 @@ def companies(request):
         
         cuit = request.POST.get("cuit")
         name = request.POST.get("name")
+        mail = request.POST.get("mail")
+        phone = request.POST.get("phone")
         
-        company = Company.objects.create(name=name, cuit=cuit)
+        company = Company.objects.create(name=name, cuit=cuit, mail=mail, phone=phone)
         company.save()
 
     try:
@@ -387,6 +390,15 @@ def companies(request):
 
     return render(request,"company_table.html", {"companies": companies})
 
+def inactiveOperation(request, pk):
+
+    if request.method == "POST": 
+        stateSwitch = request.POST.get("stateSwitch")       
+        operation = Operation.objects.get(pk=pk)
+        operation.is_active = False if not stateSwitch else True
+        operation.save()
+        
+    return HttpResponseRedirect(reverse("Dashboard:Operations"))
 
 def stats(request):
         

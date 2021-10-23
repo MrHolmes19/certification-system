@@ -19,15 +19,15 @@ class Client(models.Model):
     id_number = models.IntegerField(unique=True)
     name = models.CharField(max_length=64)
     surname = models.CharField(max_length=64)
-    mail = models.EmailField(max_length=64, unique=True)
-    phone = models.IntegerField(blank=False, unique=True)
+    mail = models.EmailField(max_length=64, blank=False, unique=True)
+    phone = models.IntegerField(blank=False)
 
     class Meta:
         verbose_name = 'client'
         verbose_name_plural = 'clients'
     
     def __str__(self):
-        return "{} {}".format(self.name, self.surname) #OJO acá lo cambié porque me saltaba error en el admin al cargar
+        return "{} {}".format(self.name, self.surname)
 
 class Vehicle(models.Model):    
     domain = models.CharField(max_length=7)
@@ -49,6 +49,8 @@ class Company(models.Model):
 
     cuit = models.CharField(max_length=64)
     name = models.CharField(max_length=64)
+    mail = models.EmailField(max_length=64, blank=False, unique=True)
+    phone = models.IntegerField(blank=False)
     enabled = models.BooleanField(default=True)
 
     class Meta:
@@ -58,6 +60,7 @@ class Company(models.Model):
     def __str__(self):
         return self.cuit
 
+# Functions for upload_to root
 def file_path(instance, filename):
     path = f'{instance.id}/files/{filename}'
     return path

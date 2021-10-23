@@ -13,8 +13,10 @@ urlpatterns = [
     path('detalle/validar-verificacion', views.checkVerification, name='Check-verification'),
     path('detalle/certificado', views.certificate, name='Certificate'),
     path('detalle/<int:pk>/pdf', views.operationDetailPDF, name='Operation-pdf'),
+    path('detalle/<int:pk>/inactive', views.inactiveOperation, name='InactiveOperation'),
     path('turnos', views.appointments, name='Appointments'),
     path('tarifas', views.fees, name='Fees'),
     path('Estadisticas', views.stats, name='Stats'),
     path('Busqueda', views.search, name='Search'),
+    
 ]

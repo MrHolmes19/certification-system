@@ -1,3 +1,14 @@
+/* ----------------- NAV ----------------- */
+
+#logo{
+    padding: 0px !important;
+}
+
+#logo img{
+    max-height: 50px !important;
+}
+
+
 /* ----------------- DOC FORM ----------------- */
 
 /*Setting height of images to standarize cards*/

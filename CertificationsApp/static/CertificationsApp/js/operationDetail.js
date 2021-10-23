@@ -11,11 +11,9 @@ myinputs.forEach(input => {
     
 });
 
-//selecting the hidden input
-
-rejectedImages_input = document.querySelector("#rejectedImages");
 
 // giving id to buttons
+
 var buttons = document.querySelectorAll(".card a");
 
 i = 1;
@@ -26,21 +24,14 @@ buttons.forEach(button => {
     
 });
 
+// setting default image for rejected ones
 
-// i = 1;
-// buttons.forEach(button => {
-//     button.setAttribute('onclick','document.getElementById("image_' + i + '").src = "../../static/CertificationsApp/images/volver_a_subir.jpeg"');
-//     //button.setAttribute('onchange','document.getElementById("image_' + i + '").style.backgroundColor = "yellow"');
-//     i++;
-    
-// });
-
+rejectedImages_input = document.querySelector("#rejectedImages");
 btn_aprove = document.getElementById('flexRadioDefault1')
 btn_reject = document.getElementById('flexRadioDefault2')
 
 function rejectImage(i){
     i = i-12
-    console.log(i)
     document.getElementById("image_" + i).src = "../../static/CertificationsApp/images/volver_a_subir.jpeg"
     previous_value = rejectedImages_input.value
     rejectedImages_input.value += "-image"+i+"_uploaded"
@@ -54,7 +45,6 @@ var modal = new bootstrap.Modal(div_modal, {
     keyboard: false
 })
 
-// name, surname, mail, phone, id_number
 function messageModal(){   
     modal.toggle()
 }
@@ -70,20 +60,7 @@ function previewModal(i){
     preview_image.setAttribute('src', current_image)
 }
 
-
-// setting preview images when uploading
-/*
-var imageInputs = document.querySelectorAll(".card input");
-
-i = 1;
-imageInputs.forEach(input => {
-    input.setAttribute('onchange','document.getElementById("image_' + i + '").src = window.URL.createObjectURL(this.files[0])');
-    i++;  
-});
-*/
-
-
-//blocking the checks if the operation is not aproved
+// blocking checkbuttons if the operation is not aproved
 
 function blockChecks(){
     let checks = document.querySelectorAll(".jumpChecks input")
@@ -102,6 +79,53 @@ function unblockChecks(){
     });
     }
 
-
 btn_reject.addEventListener("click", blockChecks)
 btn_aprove.addEventListener("click", unblockChecks)
+
+// Disable all buttons when operation is inactive and show toggle button when check is click
+
+let stateSwitch = document.getElementById("stateSwitch")
+let switchLabel = document.getElementById("switchLabel")
+let stateButton = document.getElementById("stateButton")
+const onloadState = stateSwitch.checked
+let currentState = stateSwitch.checked
+
+stateButton.hidden = true
+
+if(currentState == false){ //inactive
+    switchLabel.innerHTML = "Operacion Inactiva"
+    allButtons = document.querySelectorAll(".btn")
+    allButtons.forEach( button =>{
+        button.disabled = true
+    });
+}else { //active
+    allButtons = document.querySelectorAll(".btn")
+    allButtons.forEach( button =>{
+        button.disabled = false
+    });
+}
+
+function toggleState(){
+    currentState = stateSwitch.checked
+    // console.log("current es check: " + currentState)
+    // console.log("onload es check: " + onloadState)
+    if(currentState!=onloadState){
+        stateButton.hidden = false
+        stateButton.disabled = false
+    }else{
+        stateButton.hidden = true
+    }
+    if(currentState == false){
+        switchLabel.innerHTML = "Operacion Inactiva"
+        stateSwitch.value = "off"
+        // console.log("Entró en false. HTML: ")
+        // console.log(stateSwitch)
+        // console.log("Entró en false. Valor del input: " + stateSwitch.value)
+    }else{
+        switchLabel.innerHTML = "Operacion Activa"
+        stateSwitch.value = "on"
+        // console.log("Entró en true. HTML: ")
+        // console.log(stateSwitch)
+        // console.log("Entró en true. Valor del input: " + stateSwitch.value)
+    }
+}
