@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from CertificationsApp.models import Client, Company, ModificationsType, Schedule, Vehicle, Operation
 from .utils import emailNotificationToAdmin, loginRedirect
-from Dashboard.utils import generate_form, save_doc, filesCleaner
+from Dashboard.utils import emailNotificationToClient, generate_form, save_doc, filesCleaner
 from django.core.mail import EmailMessage
 import mercadopago
 from pprint import pprint
@@ -171,7 +171,7 @@ def rejectedDoc(request, pk):
 
 #------------------- doc_checking -> formulario-pendiente ----------------#
 def waitingDoc(request):   
-    return render(request,"doc_checking.html")
+    return render(request,"doc_checking.html", {"admin_email": settings.EMAIL_HOST_USER})
 
 #------------------- payment -> pago ----------------#
 def payment(request, pk):
@@ -200,9 +200,9 @@ def payment(request, pk):
             ],
             # Returns after payment (Only if the form is not shown trhough a modal in the same page)
             "back_urls": {
-                "success": "http://127.0.0.1:8000/turno-verificacion/" + str(pk),
-                "failure": "http://127.0.0.1:8000/pago-fallido",
-                "pending": "http://127.0.0.1:8000/pago-en-proceso"
+                "success": "settings.HOST_URL/turno-verificacion/" + str(pk),
+                "failure": "settings.HOST_URL/pago-fallido",
+                "pending": "settings.HOST_URL/pago-en-proceso"
             },
             "auto_return": "approved",
             "payment_methods": {
@@ -235,6 +235,7 @@ def waitingPayment(request, pk):
     client = Client.objects.get(pk=vehicle.owner.id)
 
     operation.paid_by = "Transferencia Bancaria"
+    operation.stage = "Pago a revisar"
     operation.save()
 
     result = emailNotificationToAdmin(
@@ -242,7 +243,7 @@ def waitingPayment(request, pk):
         "El cliente: '{} {}' notifica que realizo una tranferencia correspondiente al informe {}".format(client.name, client.surname, operation.certificate_number)
         )
     
-    return render(request,"payment_checking.html")
+    return render(request,"payment_checking.html", {"operation": operation, "admin_email": settings.EMAIL_HOST_USER})
 
 #------------------- appointment -> turno-verificacion ----------------#
 def appointment(request, pk):   
@@ -259,7 +260,7 @@ def appointment(request, pk):
             operation.onsite_verified_at = None
             operation.stage = "Esperando certificado"
             operation.save()
-            return render(request,"download_inprocess_.html")
+            return render(request,"download_inprocess_.html", {"admin_email": settings.EMAIL_HOST_USER})
 
         amount = operation.final_type.fee
         print(amount)
@@ -280,6 +281,21 @@ def appointment(request, pk):
         operation.onsite_verified_at = datetime.strptime(appointment, '%Y-%m-%d %H:%M')
         operation.stage = "Verificacion pendiente"
         operation.save()
+        domain = operation.id_vehicle.domain
+
+        if request.POST.get("admin"):
+
+            message = f"Tu turno para la inspeccion visual fue reservado para el {day} a las {schedule}"
+            
+            result = emailNotificationToClient(
+                f"Turno para la verificacion de {domain}",
+                message,
+                operation
+                )
+
+            return HttpResponseRedirect(reverse("Dashboard:Operations"))
+
+            
 
         return render(request,"verification_inprocess.html", {"date":day, "time":schedule})
 
@@ -328,11 +344,7 @@ def waitingVerification(request, pk):
 def waitingCertificate(request, pk):
     operation = Operation.objects.get(pk=pk)
 
-    # checkeo si tiene fecha de verificacion como flag para saber si se salta la seleccion de turno
-    if operation.onsite_verified_at:
-        return render(request,"download_inprocess.html")
-
-    return render(request,"download_inprocess_.html")
+    return render(request,"download_inprocess_.html", {"admin_email": settings.EMAIL_HOST_USER})
 
 #------------------- download -> descarga-certificado ----------------#
 '''

@@ -8,7 +8,7 @@ from django.forms.models import model_to_dict
 from pprint import pprint
 from django.urls import reverse
 from Client.forms import FormDoc
-from .utils import emailNotificationToClient, save_doc
+from .utils import emailNotificationToClient, filesCleaner, save_doc
 from Client.utils import convert_to_localtime
 from Dashboard.utils import generate_form
 import json
@@ -45,11 +45,29 @@ def dashboardVehicles(request):
         return render(request,"vehicle_table.html",{'vehicles':vehicles})
 
 def operationDetail(request, pk):
+
+    filesCleaner()
+
     if request.method == "GET":
         
         form, operation = generate_form(pk)
+        #getting appointments
+        appointments = Operation.objects.all().values_list('onsite_verified_at', flat=True)
+        appointments_list = []
+        for i in appointments:
+            x = convert_to_localtime(i)
+            appointments_list.append(x)
+
+        admin_appointments = Schedule.objects.all().values_list('appointment', flat=True)
+        for i in admin_appointments:
+            x = convert_to_localtime(i)
+            appointments_list.append(x)
+
+        appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder) 
+
+        print(appointments_list)        
         
-        return render(request,"operationDetail.html",{'form_doc':form, 'operation':operation})
+        return render(request,"operationDetail.html",{'form_doc':form, 'operation':operation, "appointments_list": appointments_list})
 
     if request.method == "POST":
         form_doc_update = FormDocUpdate(request.POST, request.FILES)
@@ -73,7 +91,7 @@ def operationDetail(request, pk):
             if operationForm.is_valid():
                 operation.__dict__.update(**rejected_imgs)
                  
-
+                name = operation.company.name if operation.company else f"{client.name} {client.surname}"
                 if request.POST.get("choice") == "approved":
 
                     operation.doc_verified_at = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M')
@@ -81,45 +99,45 @@ def operationDetail(request, pk):
                     jumpAppointment = request.POST.get("jumpAppointment")
 
                     if jumpPay == "true" and jumpAppointment == "true":
-                        message = "Hola {}, Te notificaremos cuando esté disponible tu certificado".format(operation.company.name)
+                        message = f"Hola {name}, Te notificaremos cuando esté disponible tu certificado"
 
                         operation.paid_by = "Arreglado con cliente"
                         operation.paid_amount = operation.final_type.company_fee
                         operation.stage = "Esperando certificado" 
 
                     elif jumpPay == "true":
-                        message = "Hola {}, entrá al siguiente link para continuar con el trámite\
-                                \n: http://localhost:8000/turno-verificacion/{}".format(operation.company.name, operation.id)
+                        message = f"Hola {name}, entrá al siguiente link para continuar con el trámite\
+                                \n: settings.HOST_URL/turno-verificacion/{operation.id}"
 
                         operation.paid_by = "Arreglado con cliente"
                         operation.paid_amount = operation.final_type.company_fee  
                         operation.stage = "Turno pendiente"      
 
                     elif jumpAppointment == "true":  
-                        message = "Hola {}, entrá al siguiente link para continuar con el trámite\
-                                \n: http://localhost:8000/pago/{}".format(operation.company.name, operation.id)
+                        message = f"Hola {name}, entrá al siguiente link para continuar con el trámite\
+                                \n: settings.HOST_URL/pago/{operation.id}"
 
                         operation.onsite_verified_at = datetime.now()
                         operation.stage = 'Pendiente de pago'
 
                     else:
                         operation.stage = 'Pendiente de pago'
-                        message = "Hola {}, entrá al siguiente link para continuar con el trámite\
-                                \n: http://localhost:8000/pago/{}".format(operation.company.name, operation.id)
+                        message = f"Hola {name}, entrá al siguiente link para continuar con el trámite\
+                                \n: settings.HOST_URL/pago/{operation.id}"
 
                     result = emailNotificationToClient(
                         "Tu documentacion fue Aprobada",
                         message,
-                        client.mail
+                        operation
                         )
                     print("email: ", result)
                 else:
                     operation.stage = 'Documentacion rechazada'
                     result = emailNotificationToClient(
                     "Tu documentacion fue Rechazada",
-                    "Hola {} {}, entrá al siguiente link para continuar con el trámite\
-                        \n: http://localhost:8000/formulario/{}".format(client.name, client.surname, operation.id),
-                    client.mail
+                    f"Hola {name}, entrá al siguiente link para continuar con el trámite\
+                        \n: settings.HOST_URL/formulario/{operation.id}",
+                    operation
                     )
                     print("email: ", result)
                 
@@ -133,7 +151,7 @@ def operationDetail(request, pk):
         else:
             print(form_doc_update.errors)
 
-    return render(request,"doc.html",{'form_doc':form_doc_update})
+    return render(request,"doc.html",{'form_doc':form_doc_update, "appointments_list": appointments_list})
 
 
 def checkPayment(request):
@@ -142,24 +160,29 @@ def checkPayment(request):
         pk = request.POST.get("op_id")
         approved = request.POST.get("approved")
         operation = Operation.objects.get(pk=pk)
+        vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
+        client = Client.objects.get(pk=vehicle.owner.id)
 
         if approved == 'true':
             operation.stage = "Turno pendiente"
             operation.paid_at = datetime.now()
             operation.paid_amount = operation.final_type.fee
+            
+
+            title = f"Pago aprobado"
+            body = f"Hemos recibido tu pago, por favor saca turno para la verificacion visual: settings.HOST_URL/turno-verificacion/{operation.id}"
+
+            result = emailNotificationToClient(title,body,operation)
             operation.save()
 
         if approved == 'false':
-            operation = Operation.objects.get(pk=pk)
-            vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
-            client = Client.objects.get(pk=vehicle.owner.id)
 
             title = request.POST.get("title")
             body = request.POST.get("body")
             amount = request.POST.get("amount")
             operation.paid_amount = amount
             operation.save()
-            result = emailNotificationToClient(title,body,client.mail)
+            result = emailNotificationToClient(title,body,operation)
 
         return HttpResponseRedirect(reverse("Dashboard:Operations"))
 
@@ -185,7 +208,7 @@ def checkVerification(request):
             title = "Turno cancelado - volvé a reservar"
             body = "Lo sentimos, Cancelamos tu turno por razones de fuerza mayor volve a sacarlo visitando este link: {}/turno-verificacion/{}".format(settings.SITE_DOMAIN, pk)
 
-            result = emailNotificationToClient(title,body,client.mail)
+            result = emailNotificationToClient(title,body,operation)
 
         if action == 'reject':
             operation.stage = "Turno pendiente"
@@ -197,7 +220,7 @@ def checkVerification(request):
             title = "Inspeccion visual rechazada - volvé a reservar"
             body = "Rechazamos tu vehiculo, volve a sacar turno para una nueva verificacion, visitando este link: {}/turno-verificacion/{}".format(settings.SITE_DOMAIN, pk)
 
-            result = emailNotificationToClient(title,body,client.mail)
+            result = emailNotificationToClient(title,body,operation)
 
         if action == 'aprove':
             operation.stage = "Esperando certificado"
@@ -306,8 +329,8 @@ def certificate(request):
             "Certificado disponible",
             "Hola {} {}, Has finalizado el trámite exitosamente! \
                 \n Descargá el certificado del COPIME ingresando con tus credenciales aquí: \
-                \n http://localhost:8000/descarga-certificado/{}".format(client.name, client.surname, operation.id),
-            client.mail
+                \n settings.HOST_URL/descarga-certificado/{}".format(client.name, client.surname, operation.id),
+            operation
             )
         print("email: ", result)
 

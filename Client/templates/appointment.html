@@ -19,7 +19,7 @@
                 
                     <form action="{% url 'Appointment' pk=operation.id %}" method="POST">
                         {% csrf_token %}
-
+                        
                         <h6>Elegí la fecha:</h6>
                         <input type="date" name="day" id="day" class="my-3">
 
@@ -50,7 +50,11 @@
         </div>
     </div>
 
-    <script>
+        <script>
+        const mylist = JSON.parse("{{appointments_list}}".replace(/&quot;/g,'"'));
+        </script>
+
+    {% comment %} <script>
         const mylist = JSON.parse("{{appointments_list}}".replace(/&quot;/g,'"'));
         for(i = 0; i < mylist.length; i++){
             console.log(mylist[i])
@@ -126,10 +130,12 @@
 
     today = yyyy+'-'+mm+'-'+dd;
     day_input.setAttribute("min", today);
-    </script>
+    </script> {% endcomment %}
 
 {% comment %} <script src="{% static 'CertificationsApp/js/scheduler.js' %}"></script> {% endcomment %}
 
 </section>
+
+  <script src="{% static 'CertificationsApp/js/scheduler.js' %}"></script> 
 
 {% endblock %}

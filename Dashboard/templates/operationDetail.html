@@ -175,7 +175,7 @@
                 </form> 
                 {% elif not operation.onsite_verified_at %}
                 <h6><strong>Estado: Turno pendiente </strong></h6>
-              
+                <button type="button" class="btn btn-primary" onclick="appointmentModal()">ASIGNAR TURNO</button>
                 {% elif operation.stage == "Verificacion pendiente" %}
                 <h6><strong>Estado: Pendiente de verificacion </strong></h6>
                 <h6><strong>Turno concertado para el: {{operation.onsite_verified_at}} </strong></h6>
@@ -353,8 +353,53 @@
     </div>
   </div>
 
+  <!-- MODAL APPOINTMENT BY ADMIN -->
+  <div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="appointmentModalLabel">SELECCION DE TURNO</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="container">
+            <form action="{% url 'Appointment' pk=operation.id %}" method="POST">
+              <div class="modal-body d-flex justify-content-center">
+                
+                  {% csrf_token %}
+                  <input type="hidden" name="admin" value="true">
+                  <h6>Elegí la fecha:</h6>
+                  <input type="date" name="day" id="day" class="my-3">
+
+                  <h6>Elegí un horario:</h6>
+                  <table class="table text-center radio-table">
+                      <th scope="col" colspan="3"> Horario disponibles</th>
+                      {% for i in '012345'|make_list %}
+                      <tr>
+
+                      <td scope="row"> <input type="radio" class="" name="schedule" id="radio_{{ forloop.counter |add:7}}:00" value="{{ forloop.counter |add:7}}:00" disabled> <label for="radio_{{ forloop.counter |add:7}}:00"> {{ forloop.counter |add:7}}:00  </label></td>
+                      <td scope="row"> <input type="radio" class="" name="schedule" id="radio_{{ forloop.counter |add:7}}:20" value="{{ forloop.counter |add:7}}:20" disabled> <label for="radio_{{ forloop.counter |add:7}}:20"> {{ forloop.counter |add:7}}:20  </label></td>
+                      <td scope="row"> <input type="radio" class="" name="schedule" id="radio_{{ forloop.counter |add:7}}:40" value="{{ forloop.counter |add:7}}:40" disabled> <label for="radio_{{ forloop.counter |add:7}}:40"> {{ forloop.counter |add:7}}:40  </label></td>
+
+                      </tr>
+                      {% endfor %}
+                  </table>           
+              </div>
+              <div class="modal-footer">
+                  <button type="submit" class="btn btn-danger">Rechazar</button>
+              </div>
+            </form>  
+                       
+        </div>
+    </div>
+  </div>
+
+  <script>
+    const mylist = JSON.parse("{{appointments_list}}".replace(/&quot;/g,'"'));
+  </script>
+
   <script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script>
   <script src="{% static 'CertificationsApp/js/operationDetail.js' %}"></script>
-  <script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script> 
+  <script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script>
+  <script src="{% static 'CertificationsApp/js/scheduler.js' %}"></script> 
 
 {% endblock %}

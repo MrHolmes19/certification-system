@@ -7,7 +7,9 @@ from django.conf import settings
 from datetime import datetime, timedelta
 import os, shutil
 
-def emailNotificationToClient(title, body, receiver):
+def emailNotificationToClient(title, body, operation):
+
+    receiver = operation.company.mail if operation.company else operation.owner.mail
     
     email = EmailMessage(title, body, settings.EMAIL_HOST_USER, [receiver])
     try:
@@ -71,10 +73,10 @@ def save_doc(pk, request):
     return operation, client
 
 def filesCleaner():
-    limit_date = datetime.now() + timedelta(hours = 30)
+    limit_date = datetime.now() - timedelta(days = 30)
     operations = Operation.objects.filter(certificate_downloaded_at__lte = limit_date, certificate__isnull=False).exclude(certificate="")
     for operation in operations:
-        operation.certificate = ''
+        operation.certificate = ""
         operation.save()
         os.chdir(settings.MEDIA_ROOT)
         shutil.rmtree(str(operation.id))

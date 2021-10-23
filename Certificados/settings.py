@@ -149,3 +149,7 @@ SITE_DOMAIN = 'www.certificacioneslarroca.com'
 # Contact Data
 
 ADMIN_PHONE = 1111111 
+
+# Nomain name
+
+HOST_URL = "http://127.0.0.1:8000"

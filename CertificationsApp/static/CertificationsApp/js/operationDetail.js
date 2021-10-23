@@ -49,6 +49,16 @@ function messageModal(){
     modal.toggle()
 }
 
+
+// appointmentModal
+var appointment_Modal = new bootstrap.Modal(document.getElementById('appointmentModal'), {keyboard: false})
+
+function appointmentModal(){   
+    appointment_Modal.toggle()
+}
+
+
+
 // preview images modal
 
 var preview_Modal = new bootstrap.Modal(document.getElementById('PreviewModal'), {keyboard: false})

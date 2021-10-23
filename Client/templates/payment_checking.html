@@ -12,7 +12,7 @@
 
                 <p> Nos notificaste sobre un pago via transferencia bancaria. Cuando se procese el pago, te notificaremos para que sigas con el trámite. <p>
                 <br>
-                <p> Si cometiste un error, hace click <a href="http://127.0.0.1:8000/pago/19">Aquí</a> para volver a la página de pago. <p>
+                <p> Si cometiste un error, hace click <a href="{% url 'Payment' pk=operation.id %}">Aquí</a> para volver a la página de pago. <p>
                 <br><br>               
                 <div class="d-inline-flex gap-2 align-items-center">
                     <small class="text-muted"> Aun no recibiste una notificación?</small> 
@@ -33,7 +33,7 @@
                 </div>
             <div class="modal-body">
                 <p>La respuesta suele tardar un máximo de 24 hs en dias hábiles. Si ya pasó ese lapso, comunicate con nosotros:</p>
-                <p><strong>Correo:</strong> hermanaGaby@mail.com</p>
+                <p><strong>Correo:</strong> {{admin_email}}</p>
                 <p><strong>Telefono:</strong> 11552244</p>
             </div>
             <div class="modal-footer">
