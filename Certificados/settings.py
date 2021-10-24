@@ -32,15 +32,15 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    'CertificationsApp',
+    'Client',
+    'Dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'CertificationsApp',
-    'Client',
-    'Dashboard',
     'django_extensions',
 ]
 
