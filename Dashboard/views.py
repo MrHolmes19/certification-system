@@ -1,4 +1,5 @@
 from datetime import datetime
+from threading import Thread
 from Dashboard.forms import formUpdateOperation, FormDocUpdate, formCertificate
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -8,7 +9,7 @@ from django.forms.models import model_to_dict
 from pprint import pprint
 from django.urls import reverse
 from Client.forms import FormDoc
-from .utils import emailNotificationToClient, filesCleaner, save_doc
+from .utils import emailNotificationToClient, save_doc
 from Client.utils import convert_to_localtime
 from Dashboard.utils import generate_form
 import json
@@ -20,6 +21,7 @@ from django.conf import settings
 
 # Create your views here.
 def dashboard(request):
+
     if request.method == "GET":
 
         operations = Operation.objects.select_related('id_vehicle').select_related('owner').all().order_by('-registrated_at')
@@ -46,8 +48,6 @@ def dashboardVehicles(request):
 
 def operationDetail(request, pk):
 
-    filesCleaner()
-
     if request.method == "GET":
         
         form, operation = generate_form(pk)
@@ -63,9 +63,7 @@ def operationDetail(request, pk):
             x = convert_to_localtime(i)
             appointments_list.append(x)
 
-        appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder) 
-
-        print(appointments_list)        
+        appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder)       
         
         return render(request,"operationDetail.html",{'form_doc':form, 'operation':operation, "appointments_list": appointments_list})
 
@@ -143,8 +141,6 @@ def operationDetail(request, pk):
                 
                 operation.save()
 
-
-
                 return HttpResponseRedirect(reverse("Dashboard:Operations"))
             else:
                 print(operationForm.errors)
@@ -168,11 +164,12 @@ def checkPayment(request):
             operation.paid_at = datetime.now()
             operation.paid_amount = operation.final_type.fee
             
-
             title = f"Pago aprobado"
-            body = f"Hemos recibido tu pago, por favor saca turno para la verificacion visual: settings.HOST_URL/turno-verificacion/{operation.id}"
+            body = f"Hemos recibido tu pago, por favor sacá turno para la verificacion visual: {settings.HOST_URL}/turno-verificacion/{operation.id}"
 
-            result = emailNotificationToClient(title,body,operation)
+            #result = emailNotificationToClient(title,body,operation)
+            #Thread(target = emailNotificationToClient(title,body,operation)).start()
+            Thread(target = emailNotificationToClient, args = [title,body,operation]).start()
             operation.save()
 
         if approved == 'false':

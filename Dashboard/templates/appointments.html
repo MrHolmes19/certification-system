@@ -16,61 +16,61 @@
     <!-- Table -->
 
     <section id="operation-table">
-        <div class="row">
-        <div class="table-responsive mx-1 col-5">
-            <table class="table table-sm table-hover table-bordered table-striped">
-                <thead class="text-center align-middle bg-secondary bg-gradient bg-opacity-50">
-                <tr>
-                    <th scope="col">Detalle</th>
-                    <th scope="row">Nº de certificado</th>
-                    <th scope="col">Patente</th>
-                    <th scope="col">Turno</th>
-                </tr>
-                </thead>
-                <tbody class="body">
-                    {% for op in operations %}
+        <div class="row my-1">
+            <div class="table-responsive mx-1 col-5">
+                <table class="table table-sm table-hover table-bordered table-striped">
+                    <thead class="text-center align-middle bg-secondary bg-gradient bg-opacity-50">
                     <tr>
-                        <td class="text-center"><a href="{% url 'Dashboard:OperationDetail' op.id %}">
-                            <img src="https://img.icons8.com/emoji/48/000000/magnifying-glass-tilted-right-emoji.png"></a>
-                        </td>
-                        <td>{{op.certificate_number}}</td>
-                        <td>
-                            <a id="appointment-link" href="#" onclick="clientModal('{{op.id_vehicle.owner.name}}',
-                                '{{op.id_vehicle.owner.surname}}', '{{op.id_vehicle.owner.mail}}',
-                                '{{op.id_vehicle.owner.phone}}', '{{op.id_vehicle.owner.id_number}}')">
-                                {{op.id_vehicle.domain}}
-                            </a>
-                        </td>
-                        <td>{{op.onsite_verified_at}}</td>
-
+                        <th scope="col">Detalle</th>
+                        <th scope="row">Nº cert.</th>
+                        <th scope="row">Vehiculo</th>
+                        <th scope="col">Patente</th>
+                        <th scope="col">Turno</th>
                     </tr>
-                {% endfor %}
+                    </thead>
+                    <tbody class="body">
+                        {% for op in operations %}
+                        <tr>
+                            <td class="text-center"><a href="{% url 'Dashboard:OperationDetail' op.id %}">
+                                <img src="https://img.icons8.com/emoji/48/000000/magnifying-glass-tilted-right-emoji.png"></a>
+                            </td>
+                            <td>
+                                <a id="appointment-link" href="#" onclick="clientModal('{{op.id_vehicle.owner.name}}',
+                                    '{{op.id_vehicle.owner.surname}}', '{{op.id_vehicle.owner.mail}}',
+                                    '{{op.id_vehicle.owner.phone}}', '{{op.id_vehicle.owner.id_number}}')">
+                                    {{op.certificate_number}}
+                                </a>
+                            </td>
+                            <td>{{op.id_vehicle.model}}</td>
+                            <td>{{op.id_vehicle.domain}}</td>
+                            <td>{{op.onsite_verified_at}}</td>
 
-                </tbody>
-            </table>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="calendar col-6">
+                <form action="{% url 'Dashboard:Appointments' %}" method="POST">
+                    {% csrf_token %}
+                    <p>elegi un dia:</p>
+                    <input type="date" name="day" id="day">
+                    <table class="table text-center radio-table">
+                        <th scope="col" colspan="3"> Horario</th>
+                        {% for i in '012345'|make_list %}
+                        <tr>
+                            <td scope="row"> <input type="checkbox" class="" name="schedule" id="check_{{ forloop.counter |add:7}}:00" value="{{ forloop.counter |add:7}}:00" disabled> <label for="check_{{ forloop.counter |add:7}}:00"> {{ forloop.counter |add:7}}:00  </label></td>
+                            <td scope="row"> <input type="checkbox" class="" name="schedule" id="check_{{ forloop.counter |add:7}}:20" value="{{ forloop.counter |add:7}}:20" disabled> <label for="check_{{ forloop.counter |add:7}}:20"> {{ forloop.counter |add:7}}:20  </label></td>
+                            <td scope="row"> <input type="checkbox" class="" name="schedule" id="check_{{ forloop.counter |add:7}}:40" value="{{ forloop.counter |add:7}}:40" disabled> <label for="check_{{ forloop.counter |add:7}}:40"> {{ forloop.counter |add:7}}:40  </label></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                        <button type="submit" class="btn btn-primary">Bloquear</button>
+                </form>
+            </div>
         </div>
-
-        <div class="calendar col-6">
-        <form action="{% url 'Dashboard:Appointments' %}" method="POST">
-            {% csrf_token %}
-            <p>elegi un dia:</p>
-            <input type="date" name="day" id="day">
-            <table class="table text-center radio-table">
-                <th scope="col" colspan="3"> Horario</th>
-                {% for i in '012345'|make_list %}
-                <tr>
-
-                <td scope="row"> <input type="checkbox" class="" name="schedule" id="check_{{ forloop.counter |add:7}}:00" value="{{ forloop.counter |add:7}}:00" disabled> <label for="check_{{ forloop.counter |add:7}}:00"> {{ forloop.counter |add:7}}:00  </label></td>
-                <td scope="row"> <input type="checkbox" class="" name="schedule" id="check_{{ forloop.counter |add:7}}:20" value="{{ forloop.counter |add:7}}:20" disabled> <label for="check_{{ forloop.counter |add:7}}:20"> {{ forloop.counter |add:7}}:20  </label></td>
-                <td scope="row"> <input type="checkbox" class="" name="schedule" id="check_{{ forloop.counter |add:7}}:40" value="{{ forloop.counter |add:7}}:40" disabled> <label for="check_{{ forloop.counter |add:7}}:40"> {{ forloop.counter |add:7}}:40  </label></td>
-
-                </tr>
-                {% endfor %}
-            </table>
-                <button type="submit" class="btn btn-primary">Bloquear</button>
-        </form>
-        </div>
-    </div>
     </section>
 
 
@@ -88,7 +88,7 @@
     .radio-table label {
     display: inline-block;
     background-color: #ddd;
-    padding: 10px 20px;
+    padding: 5px 20px;
     font-family: sans-serif, Arial;
     font-size: 16px;
     border: 2px solid #444;

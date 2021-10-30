@@ -87,7 +87,7 @@ class Operation(models.Model):
     image6_uploaded = models.ImageField(upload_to=image_path)
     image7_uploaded = models.ImageField(upload_to=image_path, blank=True, null=True)
     image8_uploaded = models.ImageField(upload_to=image_path, blank=True, null=True)
-    paid_at = models.DateTimeField(default=None, blank=True, null=True) #Puede llegar a joder el None
+    paid_at = models.DateTimeField(default=None, blank=True, null=True)
     paid_by = models.CharField(max_length=64, blank=True, null=True)
     paid_amount = models.IntegerField(default=0)
     doc_verified_at = models.DateTimeField(default=None, blank=True, null=True)
@@ -98,7 +98,7 @@ class Operation(models.Model):
     certificate_uploaded_at = models.DateTimeField(default=None, blank=True, null=True)
     certificate_downloaded_at = models.DateTimeField(default=None, blank=True, null=True)
     owner = models.ForeignKey(Client, related_name='operations', on_delete=models.SET_NULL, null=True)
-    company = models.ForeignKey(Company, related_name='operations', on_delete=models.SET_NULL, null=True, default=None)
+    company = models.ForeignKey(Company, related_name='operations', on_delete=models.SET_NULL, blank=True, null=True, default=None)
     id_vehicle = models.ForeignKey(Vehicle, related_name='operations', on_delete=models.SET_NULL, null=True)
     original_type = models.ForeignKey(ModificationsType, related_name='original', on_delete=models.SET_NULL, null=True)
     final_type = models.ForeignKey(ModificationsType, related_name='final', on_delete=models.SET_NULL, null=True)

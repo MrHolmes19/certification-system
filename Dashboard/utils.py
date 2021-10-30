@@ -1,16 +1,13 @@
-import pprint
 from Client.forms import FormDoc
 from django.forms.models import model_to_dict
 from CertificationsApp.models import *
 from django.core.mail import EmailMessage
 from django.conf import settings
-from datetime import datetime, timedelta
-import os, shutil
+from threading import Thread
 
 def emailNotificationToClient(title, body, operation):
 
-    receiver = operation.company.mail if operation.company else operation.owner.mail
-    
+    receiver = operation.company.mail if operation.company else operation.owner.mail  
     email = EmailMessage(title, body, settings.EMAIL_HOST_USER, [receiver])
     try:
         email.send()
@@ -71,12 +68,3 @@ def save_doc(pk, request):
     vehicle.__dict__.update(**vehicle_data)
     vehicle.save()
     return operation, client
-
-def filesCleaner():
-    limit_date = datetime.now() - timedelta(days = 30)
-    operations = Operation.objects.filter(certificate_downloaded_at__lte = limit_date, certificate__isnull=False).exclude(certificate="")
-    for operation in operations:
-        operation.certificate = ""
-        operation.save()
-        os.chdir(settings.MEDIA_ROOT)
-        shutil.rmtree(str(operation.id))

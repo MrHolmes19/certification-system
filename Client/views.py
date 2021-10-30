@@ -1,3 +1,4 @@
+from threading import Thread
 from Certificados.settings import BASE_DIR
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http.response import HttpResponseRedirect
@@ -6,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from CertificationsApp.models import Client, Company, ModificationsType, Schedule, Vehicle, Operation
 from .utils import emailNotificationToAdmin, loginRedirect
-from Dashboard.utils import emailNotificationToClient, generate_form, save_doc, filesCleaner
+from Dashboard.utils import emailNotificationToClient, generate_form, save_doc
 from django.core.mail import EmailMessage
 import mercadopago
 from pprint import pprint
@@ -237,12 +238,16 @@ def waitingPayment(request, pk):
     operation.paid_by = "Transferencia Bancaria"
     operation.stage = "Pago a revisar"
     operation.save()
-
+    '''
     result = emailNotificationToAdmin(
         "Pago Efectuado",
         "El cliente: '{} {}' notifica que realizo una tranferencia correspondiente al informe {}".format(client.name, client.surname, operation.certificate_number)
         )
-    
+    '''
+    title = "Pago Efectuado"
+    body = "El cliente: '{} {}' notifica que realizo una tranferencia correspondiente al informe {}".format(client.name, client.surname, operation.certificate_number)
+    Thread(target = emailNotificationToAdmin, args = [title,body]).start()
+
     return render(request,"payment_checking.html", {"operation": operation, "admin_email": settings.EMAIL_HOST_USER})
 
 #------------------- appointment -> turno-verificacion ----------------#
@@ -382,7 +387,7 @@ def download_certificate(request, pk):
 
     if operation.certificate_downloaded_at:
         operation.stage = "Operacion completada"
-        filesCleaner()
+
     operation.certificate_downloaded_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S') #eliminar esta linea
     operation.save()  
 
@@ -418,7 +423,7 @@ def download_inform(request, pk):
 
     if operation.certificate_downloaded_at:
         operation.stage = "Operacion completada"
-        filesCleaner()
+
     operation.certificate_downloaded_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     operation.save()  
 
