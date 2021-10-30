@@ -352,7 +352,7 @@ def waitingCertificate(request, pk):
     return render(request,"download_inprocess_.html", {"admin_email": settings.EMAIL_HOST_USER})
 
 #------------------- download -> descarga-certificado ----------------#
-'''
+
 def download(request, pk, path):   
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     if os.path.exists(file_path):
@@ -363,7 +363,7 @@ def download(request, pk, path):
     raise Http404
 
     return render(request,"download.html")
-'''
+
 def download(request, pk):  
 
     operation = Operation.objects.get(pk=pk)
