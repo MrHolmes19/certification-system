@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'CertificationsApp',
     'Client',
     'Dashboard',
-    'django_extensions',
+ #   'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -77,6 +77,17 @@ WSGI_APPLICATION = 'Certificados.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql', 
+#         'NAME': 'DB_NAME',
+#         'USER': 'DB_USER',
+#         'PASSWORD': 'DB_PASSWORD',
+#         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+#         'PORT': '3306',
+#     }
+# }
 
 DATABASES = {
     'default': {
@@ -122,6 +133,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = '/home/HernanMonsalvo/certification-system/static/CertificationsApp'
 
 # folder where the images are taken
 
