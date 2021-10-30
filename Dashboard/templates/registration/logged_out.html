@@ -1,0 +1,15 @@
+
+{% block content %}
+
+<p>Has sido desconectado.</p>
+
+<a id="volver" href="{% url 'login'%}">Click aqui para volver a acceder.</a>
+
+<script>
+btn_volver = document.getElementById("volver");
+
+btn_volver.click();
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- {% load static %} -->
+    {% load static %}
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- styles CSS-->
+  
+    <link href="{% static 'CertificationsApp/css/clientStyles.css' %}" rel="stylesheet">
+
+    <!-- Bootstrap CSS-->
+ 
+    <link href="{% static 'CertificationsApp/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    
+    <!-- Bootstrap desde la pagina
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+     -->
+
+    <title>Certificaciones</title>
+</head>
+<body>
+
+    <!-- HEADER -->
+
+    <nav id="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">   
+        <span class="neon ms-3">INFORMES LARROCA</span>
+      </nav>
+    <style>
+      .neon {
+        color: #fff;
+        text-shadow:
+            0 0 7px #fff,
+            0 0 10px #fff,
+            0 0 21px #fff,
+            0 0 42px #0fa,
+            0 0 82px #0fa,
+            0 0 92px #0fa,
+            0 0 102px #0fa,
+            0 0 151px #0fa;
+            animation-name: move;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+      }
+
+        @keyframes move {
+          0% {transform: rotate(10deg);}
+          50% {transform: rotate(-10deg);}
+          100% {transform: rotate(10deg);}
+        }
+
+
+    </style>
+    <!-- CONTENIDO DINAMICO -->
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- FOOTER -->
+    <footer class="footer mt-auto py-1 bg-dark fixed-bottom">
+      <div class="container-fluid text-center">
+        <small class="text-light"> Creado por L.Márquez y H.Monsalvo - &copy 2021 </small>
+      </div>
+    </footer>
+    
+</body>
+
+<!-- Bootstrap JS-->
+
+<!-- Bootstrap desde la pagina
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+-->
+
+<script src="{% static 'CertificationsApp/bootstrap/js/bootstrap.min.js' %}"></script>
+
+</html>

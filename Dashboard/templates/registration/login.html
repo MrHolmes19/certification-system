@@ -1,0 +1,47 @@
+{% extends "base_accounts.html" %}
+
+{% load static %}
+
+{% block content %}
+    <section id="intro-login">
+
+        <div class="row">
+  </head>
+  <body>
+    
+      <div class="container-fluid text-center mt-2">
+    </nav>
+      {% if form.errors %}
+        <p>El usuario y la clave no coinciden, por favor intente nuevamente.</p>
+        {% endif %}
+    </div>
+    <!-- Main -->
+    <div class="container mt-4 mb-5">
+      <div class="row text-center">
+        <span class="navbar-brand mb-4 h1">Login administrador</span>
+        <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          <div class="col-12 col-md-4 offset-md-4">
+            <div class="form-group col-12 pb-2 mb-3" id="username">
+              {{ form.username.label_tag }} {{ form.username }}
+            </div>
+            <div class="form-group col-12 pb-2 mb-3" id="password">
+              {{ form.password.label_tag }} {{ form.password }}
+            </div>
+            <input type="hidden" name="next" value="{% url 'Dashboard:Operations' %}" />
+            <div class="col d-grid gap-2">
+              <button type="submit" class="btn btn-primary mb-1">Ingresar</button>
+            </div>
+          </div>
+        </form>
+        <p><a href="{% url 'Dashboard:password_reset' %}">¿Olvidó su contraseña?</a></p>
+
+      </div>
+    </div>
+
+        </div>
+
+    </section>
+
+<script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script>  
+{% endblock %}
