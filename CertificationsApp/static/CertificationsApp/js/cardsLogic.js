@@ -48,7 +48,7 @@ typesInfo = [
     ];
     
 // Showing cards depending on client type selection OR when the client comes back after rejected
-
+// select/option logic
 var finalType =  document.querySelector("#id_final_type");
 finalType.setAttribute("disabled", true)
 var originalType =  document.querySelector("#id_original_type");
@@ -57,6 +57,7 @@ finalType.addEventListener("change", function() {showCards()});
 originalType.addEventListener("change", function() {enableFinal()});
 
 function enableFinal(){
+    originalType.getElementsByTagName('option')[0].disabled = true
     finalType.removeAttribute("disabled")
     finalType.getElementsByTagName('option')[0].selected = 'selected'
     showCards()
