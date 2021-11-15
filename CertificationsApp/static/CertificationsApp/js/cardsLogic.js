@@ -50,8 +50,18 @@ typesInfo = [
 // Showing cards depending on client type selection OR when the client comes back after rejected
 
 var finalType =  document.querySelector("#id_final_type");
+finalType.setAttribute("disabled", true)
+var originalType =  document.querySelector("#id_original_type");
 
 finalType.addEventListener("change", function() {showCards()});
+originalType.addEventListener("change", function() {enableFinal()});
+
+function enableFinal(){
+    finalType.removeAttribute("disabled")
+    finalType.getElementsByTagName('option')[0].selected = 'selected'
+    showCards()
+    block_same_type(originalType.value)
+}
 
 var cards = document.querySelectorAll(".card");
 var inputLabels = document.querySelectorAll(".card .container label");
@@ -59,6 +69,14 @@ var inputLabels = document.querySelectorAll(".card .container label");
 var inputLabels = document.querySelectorAll(".card .card-body .container label");
 */
 
+function block_same_type(type){
+    options = finalType.getElementsByTagName('option')
+    Array.from(options).forEach(opt => {
+        opt.disabled = false;
+    });
+
+    finalType.getElementsByTagName('option')[type].disabled = true
+}
 function showCards(){
     for(i=0; i<8; i++){
         try{
