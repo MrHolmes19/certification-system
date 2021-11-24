@@ -139,3 +139,19 @@ function toggleState(){
         // console.log("Entró en true. Valor del input: " + stateSwitch.value)
     }
 }
+
+if(!can_change_doc){
+    alert("you cant change the doc")
+
+    const client_doc = document.getElementById('client_doc_form')
+    const client_inputs = client_doc.querySelectorAll('input')
+    const client_buttons = client_doc.querySelectorAll('.btn')
+
+    client_inputs.forEach(inp => {
+        inp.disabled = true
+    });
+
+    client_buttons.forEach(btn => {
+        btn.classList.add('disabled')
+    });
+}

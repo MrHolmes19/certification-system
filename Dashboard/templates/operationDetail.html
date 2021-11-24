@@ -20,8 +20,14 @@
             <!-- form -->
             <div class="row">
               <div class="col col-md-10 offset-md-1 col-lg-10 offset-lg-1 pt-2 pb-4">
-                <form action="{% url 'Dashboard:OperationDetail' pk=operation.id %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
-                
+                <form id="client_doc_form" action="{% url 'Dashboard:OperationDetail' pk=operation.id %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                <script>
+                {% if operation.paid_at %}
+                const can_change_doc = false
+                {% else %}
+                const can_change_doc = true
+                {% endif %}
+                </script>
                   <!-- text fields -->
                   <div class="row">
                     {% for input in form_doc %}
