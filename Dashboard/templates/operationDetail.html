@@ -110,7 +110,12 @@
                       <a href="{% url 'Dashboard:Operations' %}" class="btn btn-warning">Descartar cambios</a>
                       <button type="submit" class="btn btn-success">Guardar cambios</button>
                     </div> 
+                  </div>
+                  {% if operation.doc_verified_at %}
+                  <div class="row my-3 py-2 border">
+                    <h3>Documentacion verificada el dia: {{operation.doc_verified_at}}</h3>
                   </div> 
+                  {% endif %}
                 </form>
               </div>
             </div>              

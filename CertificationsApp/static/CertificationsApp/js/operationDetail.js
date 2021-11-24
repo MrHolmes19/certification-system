@@ -141,8 +141,6 @@ function toggleState(){
 }
 
 if(!can_change_doc){
-    alert("you cant change the doc")
-
     const client_doc = document.getElementById('client_doc_form')
     const client_inputs = client_doc.querySelectorAll('input')
     const client_buttons = client_doc.querySelectorAll('.btn')
