@@ -1,20 +1,27 @@
 /* sidebar effect */
 
+:root{
+    --shift-nav: 250px;
+}
+
 .page-content-wrapper{
-    margin-left: 250px;
+    /*margin-left: 250px;*/
+    margin-left: var(--shift-nav);
     transition: 0.5s;
-    width:80vw;
+    width:100vw; /*Estaba 80*/
 }
 
 .sidebar-wrapper{
-    width: 250px;
+    /*width: 250px;*/
+    width: var(--shift-nav);
     position: fixed;
     margin-left: 0px;
     transition: 0.5s;
 }
 
 .hide-nav{
-    margin-left: -250px;
+    /*margin-left: -250px;*/
+    margin-left: calc(var(--shift-nav) * -1);
 }
 
 .expand-cont{
@@ -71,6 +78,13 @@ form{
     height: 31px;
 }
 */
+
+/* ------Operation details - form ----- */
+
+select{
+    width: 100%;
+}
+
 
 /* ---- Operation Details - cards -----*/
 

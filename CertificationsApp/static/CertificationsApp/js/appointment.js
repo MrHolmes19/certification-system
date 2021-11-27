@@ -1,9 +1,4 @@
 
-for(i = 0; i < mylist.length; i++){
-    console.log(mylist[i])
-};
-//console.log({{appointments_list}})
-
 const picker = document.getElementById('day');
 picker.addEventListener('input', function(e){
     var day = new Date(this.value).getUTCDay();
@@ -17,6 +12,7 @@ day_input = document.getElementById('day')
 
 day_input.addEventListener('change', (event) => {
     block_radios(day_input.value)
+    picker.classList.add("active")
 });
 
 function block_radios(day_value){
@@ -32,7 +28,6 @@ function block_radios(day_value){
         });
     }
 
-    console.log(day_input.value)
 
     for(i = 0; i < mylist.length; i++){
         try{
@@ -41,7 +36,6 @@ function block_radios(day_value){
 
             if(element_day == day_input.value){
                 time = element_time.substr(0, 5);
-                console.log("entro al if "+time);
                 if(time.charAt(0) == "0"){
                     time = time.substr(1, time.length)
                 }
@@ -70,3 +64,9 @@ if(mm<10){
 
 today = yyyy+'-'+mm+'-'+dd;
 day_input.setAttribute("min", today);
+
+// Toggling date input
+
+//const $datepicker = document.querySelector("input[type='date']").root 
+
+picker

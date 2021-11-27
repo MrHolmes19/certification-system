@@ -1,8 +1,8 @@
-/* navbar adptations*/
+/* navbar adaptations*/
 
 var current_url = window.location.href;
 var back_link = document.querySelector(".back-button");
-var sidebar_toggler = document.querySelector(".navbar-toggler-icon");
+var sidebar_toggler = document.querySelector("#menu-toggle");
 var title = document.querySelector("#topnav .navbar-brand");
 
 if(current_url.indexOf("/administrador/detalle") > 0){

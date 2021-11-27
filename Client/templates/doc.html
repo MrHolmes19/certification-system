@@ -44,7 +44,7 @@
           <div id="cards" class="row">
             {% for input in form_doc %}
               {% if forloop.counter > 12 %}
-                <div class="col-12 col-md-6 col-xl-4 pt-3">
+                <div class="col-12 col-md-6 col-xl-4 pt-3 d-flex justify-content-center">
                   <div class="card my-2 border-secondary d-none" style="width: 18rem;">
                     <div class="container">
                       <img class="card-img-top" 
@@ -69,7 +69,7 @@
           </div>
 
           <!-- send button  -->
-          <div class="row">
+          <div class="row mt-2">
             <div class="col d-grid gap-2">
               <button id="submit" type="submit" class="btn btn-primary" onclick="thanks()">Enviar documentacion</button>
             </div>  
@@ -80,8 +80,9 @@
   </div>
 </section>
 
+<script src="{% static 'CertificationsApp/js/types.js' %}"></script>
 <script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script>
-<script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script>
+<script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script> <!--type="module"--> 
 <script src="{% static 'CertificationsApp/js/speaker.js' %}"></script>
 
 {% endblock %}

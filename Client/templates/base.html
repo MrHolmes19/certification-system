@@ -29,13 +29,13 @@
 
     <nav id="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">   
         <div class="container-fluid">
-          <a class="navbar-brand" id="logo" href="#"> <img src={% static "CertificationsApp/images/motorhome2.png" %} alt="logo"></a>
+          <a class="navbar-brand" id="logo" href="#"> <img src={% static "CertificationsApp/images/motorhome.png" %} alt="logo"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbar">
-            <ul class="navbar-nav mx-auto mb-20 mb-lg-0">
-              <li class="nav-item">
+            <ul class="navbar-nav mx-auto mb-20 mb-lg-0 d-flex container-fluid justify-content-around">
+              <li class="nav-item ms-sm-0 ms-lg-auto">
                 <a class="nav-link disabled {% if request.path == '/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">1) Ingreso</a>
               </li>
               <li class="nav-item">
@@ -50,9 +50,9 @@
               <li class="nav-item">
                 <a class="nav-link disabled {% if request.path|slice:':21' == '/descarga-certificado' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">5) Descargar certificado</a>
               </li>
+              <a class="nav-link ms-auto" href="#"><i class="fas fa-door-open"></i> SALIR </a>
             </ul>
           </div>
-          <a class="nav-link" href="#"><i class="fas fa-door-open"></i> SALIR </a>
         </div>
       </nav>
 
@@ -78,5 +78,6 @@
 -->
 
 <script src="{% static 'CertificationsApp/bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'CertificationsApp/js/responsive.js' %}"></script>
 
 </html>

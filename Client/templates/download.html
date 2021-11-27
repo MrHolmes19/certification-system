@@ -14,17 +14,19 @@
 
                 <p> El tramite se realizó exitosamente. Descargá los siguientes archivos para presentar ante el DNRPA. <p>
 
-                <div id="certificate" class="container my-3">
-                    <div class="d-inline-flex gap-2 align-items-center">
-                    <strong> Certificado COPIME: </strong> 
-                    <a href="{% url 'DownloadCertificate' pk=operation.id %}" name="" class="btn btn-success">Descargar</a>   
+                <div id="downloadFrame" class="mt-3 border p-2 border-success rounded">
+                    <div id="certificate" class="my-2">
+                        <div class="d-flex gap-2 align-items-center justify-content-between">
+                            <strong> Certificado COPIME: </strong> 
+                            <a href="{% url 'DownloadCertificate' pk=operation.id %}" name="" class="btn btn-success">Descargar</a>   
+                        </div> 
                     </div> 
-                </div> 
-                
-                <div id="inform" class="container mb-2">
-                    <div class="d-inline-flex gap-2 align-items-center">
-                    <strong> Informe técnico:  </strong>
-                    <a href="{% url 'DownloadInform' pk=operation.id %}" name="" class="btn btn-success">Descargar</a>   
+                    
+                    <div id="inform" class="mb-2">
+                        <div class="d-flex gap-2 align-items-center justify-content-between">
+                            <strong> Informe técnico:  </strong>
+                            <a href="{% url 'DownloadInform' pk=operation.id %}" name="" class="btn btn-success">Descargar</a>   
+                        </div>
                     </div>
                 </div>
             </div>
