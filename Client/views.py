@@ -19,7 +19,7 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 import mimetypes
 from django.template.loader import render_to_string
-#from weasyprint import HTML
+from weasyprint import HTML
 
 
 #------------------- login ------------------#
@@ -345,7 +345,7 @@ def waitingCertificate(request, pk):
     return render(request,"download_inprocess_.html", {"admin_email": settings.EMAIL_HOST_USER})
 
 #------------------- download -> descarga-certificado ----------------#
-'''
+
 def download(request, pk, path):   
     file_path = os.path.join(settings.MEDIA_ROOT, path)
     if os.path.exists(file_path):
@@ -356,7 +356,7 @@ def download(request, pk, path):
     raise Http404
 
     return render(request,"download.html")
-'''
+
 def download(request, pk):  
 
     operation = Operation.objects.get(pk=pk)
@@ -412,7 +412,7 @@ def download_inform(request, pk):
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = "attachment; filename=%s" % filename
 
-    #HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response)
+    HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response)
 
     if operation.certificate_downloaded_at:
         operation.stage = "Operacion completada"
