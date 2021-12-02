@@ -33,6 +33,7 @@
     height: 100%;
     position: absolute;
     transition: 0.6s ease all;
+    border-radius: .25rem;
 }
 
 /* Changing original input format (Believe me. It was afwul)*/
@@ -46,6 +47,8 @@
     background-color: rgba(0,0,0, 0.6);
     position: absolute;
     z-index: 100;
+    margin-top: 8px;
+    border-radius: .25rem;
 }
 
 label[for="id_image1_uploaded"],
@@ -108,7 +111,33 @@ label[for="id_image8_uploaded"]:after{
     opacity: 0;
 }
 
+/* sizing select width */
+
+select{
+    width: 100%;
+}
+
+
 /* ----------------- APPOINTMENT PAGE ----------------- */
+
+input[type="date"]::-webkit-calendar-picker-indicator{
+    padding-left: 100px;
+    border-radius: 1px solid red;
+}
+
+input[type="date"]::-webkit-datetime-edit{
+    padding-left: 10px;
+    padding-right: 0px;
+    display: none;    
+}
+
+input[type="date"]{
+    background-color: #ddd;
+}
+
+input[type="date"].active::-webkit-datetime-edit{
+    display: block;
+}
 
 .radio-table {
 margin: 10px;
@@ -148,3 +177,16 @@ background-color: #dfd;
     border: 0px;
     color: gray;
 }
+
+
+/* ----------------- DOWNLOAD PAGE ----------------- */
+
+#inform, #certificate, #downloadFrame{
+    max-width: 360px;
+}
+
+#downloadFrame{
+    max-width: 400px;
+}
+
+

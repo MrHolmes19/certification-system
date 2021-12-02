@@ -8,6 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="icon" type="image/gif" href="{% static 'CertificationsApp/images/motorhome4.png' %}">
+
     <!-- Custom CSS-->
     <link href="{% static 'CertificationsApp/css/dashboardStyles.css' %}" rel="stylesheet">
     <link href="{% static 'CertificationsApp/fontawesome/css/all.css' %}" rel="stylesheet">
@@ -28,7 +30,7 @@
     <!-- TOP NAV -->
 <!-- -->
     <div id="topnav">
-        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+        <nav class="navbar navbar-dark sticky-top bg-dark flex-nowrap p-0 ">
             <div class="container" style="width:250px;">
                 <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Panel de Control</a>
                 <button class="btn" id="menu-toggle"> 
@@ -39,12 +41,12 @@
                 </button>-->
             </div>
             <div class="container justify-content-end">
-                <ul class="nav">
+                <ul class="nav d-flex flex-row">
                     <li class="nav-item visually-hidden back-button">
-                        <a class="nav-link" href="{% url 'Dashboard:Operations' %}"> <i class="fas fa-arrow-circle-left"></i> VOLVER</a>
+                        <a class="nav-link px-2 px-sm-4" href="{% url 'Dashboard:Operations' %}"> <i class="fas fa-arrow-circle-left"></i> <span class = "d-none d-sm-inline-block"> VOLVER </span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-door-open"></i>  SALIR</a>
+                        <a class="nav-link px-2 px-sm-4" href="{% url 'logout' %}"><i class="fas fa-door-open"></i> <span class = "d-none d-sm-inline-block"> SALIR </span></a>
                     </li>                    
                 </ul>
             </div>
@@ -70,12 +72,13 @@
 
     <footer class="footer mt-auto py-2 bg-dark fixed-bottom">
         <div class="container-fluid text-center">
-            <small class="text-light"> App web creada por L.Márquez y H.Monsalvo - &copy 2021 </small>
+            <small class="text-light"> Creado por L.Márquez y H.Monsalvo - &copy 2021 </small>
         </div>
     </footer>
 
 </body>
 
 <script src="{% static 'CertificationsApp/js/dashboard.js' %}"></script>
+<script src="{% static 'CertificationsApp/js/responsive.js' %}"></script>
 
 </html>
