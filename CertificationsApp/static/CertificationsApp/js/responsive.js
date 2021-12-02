@@ -24,7 +24,8 @@ if(window.location.pathname.includes("formulario")){
 }
 */
 
-if(window.location.pathname.includes("administrador")){
+
+if(w.location.pathname.includes("administrador") && !w.location.pathname.includes("detalle")){
     let breakpoint = w.matchMedia('(max-width: 360px)')
     const $sidebar = d.querySelector(".sidebar-wrapper")
     const $pageContent = d.querySelector(".page-content-wrapper")
@@ -51,5 +52,4 @@ if(window.location.pathname.includes("administrador")){
 
     breakpoint.addEventListener('change', responsive2)
     responsive2(breakpoint)
-
 }

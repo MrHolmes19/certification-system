@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from threading import Thread
 from Dashboard.forms import formUpdateOperation, FormDocUpdate, formCertificate
 from django.http.response import HttpResponseRedirect
@@ -17,7 +17,8 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.template.loader import render_to_string
 #from weasyprint import HTML
 from django.conf import settings
-
+from datetime import datetime, timedelta
+import os, shutil
 
 # Create your views here.
 def dashboard(request):
@@ -123,21 +124,15 @@ def operationDetail(request, pk):
                         message = f"Hola {name}, entrá al siguiente link para continuar con el trámite\
                                 \n: settings.HOST_URL/pago/{operation.id}"
 
-                    result = emailNotificationToClient(
-                        "Tu documentacion fue Aprobada",
-                        message,
-                        operation
-                        )
-                    print("email: ", result)
+                    title = "Tu documentacion fue Aprobada"
+                    Thread(target = emailNotificationToClient, args = [title,message,operation]).start()
                 else:
                     operation.stage = 'Documentacion rechazada'
-                    result = emailNotificationToClient(
-                    "Tu documentacion fue Rechazada",
-                    f"Hola {name}, entrá al siguiente link para continuar con el trámite\
-                        \n: settings.HOST_URL/formulario/{operation.id}",
-                    operation
-                    )
-                    print("email: ", result)
+                    
+                    title = "Tu documentacion fue Rechazada"
+                    body = f"Hola {name}, entrá al siguiente link para continuar con el trámite\
+                            \n: settings.HOST_URL/formulario/{operation.id}"
+                    Thread(target = emailNotificationToClient, args = [title,body,operation]).start()
                 
                 operation.save()
 
@@ -166,9 +161,6 @@ def checkPayment(request):
             
             title = f"Pago aprobado"
             body = f"Hemos recibido tu pago, por favor sacá turno para la verificacion visual: {settings.HOST_URL}/turno-verificacion/{operation.id}"
-
-            #result = emailNotificationToClient(title,body,operation)
-            #Thread(target = emailNotificationToClient(title,body,operation)).start()
             Thread(target = emailNotificationToClient, args = [title,body,operation]).start()
             operation.save()
 
@@ -179,7 +171,7 @@ def checkPayment(request):
             amount = request.POST.get("amount")
             operation.paid_amount = amount
             operation.save()
-            result = emailNotificationToClient(title,body,operation)
+            Thread(target = emailNotificationToClient, args = [title,body,operation]).start()
 
         return HttpResponseRedirect(reverse("Dashboard:Operations"))
 
@@ -205,19 +197,16 @@ def checkVerification(request):
             title = "Turno cancelado - volvé a reservar"
             body = "Lo sentimos, Cancelamos tu turno por razones de fuerza mayor volve a sacarlo visitando este link: {}/turno-verificacion/{}".format(settings.SITE_DOMAIN, pk)
 
-            result = emailNotificationToClient(title,body,operation)
+            Thread(target = emailNotificationToClient, args = [title,body,operation]).start()
 
         if action == 'reject':
             operation.stage = "Turno pendiente"
-
-            #operation.onsite_verified_at = None
-
             operation.save()
 
             title = "Inspeccion visual rechazada - volvé a reservar"
             body = "Rechazamos tu vehiculo, volve a sacar turno para una nueva verificacion, visitando este link: {}/turno-verificacion/{}".format(settings.SITE_DOMAIN, pk)
 
-            result = emailNotificationToClient(title,body,operation)
+            Thread(target = emailNotificationToClient, args = [title,body,operation]).start()
 
         if action == 'aprove':
             operation.stage = "Esperando certificado"
@@ -322,14 +311,11 @@ def certificate(request):
         # Probar esto --> operation.certificate_uploaded_at = datetime.strptime(datetime.now(), '%Y-%m-%d %H:%M')
         operation.save()
  
-        result = emailNotificationToClient(
-            "Certificado disponible",
-            "Hola {} {}, Has finalizado el trámite exitosamente! \
+        title = "Certificado disponible"
+        body = "Hola {} {}, Has finalizado el trámite exitosamente! \
                 \n Descargá el certificado del COPIME ingresando con tus credenciales aquí: \
-                \n settings.HOST_URL/descarga-certificado/{}".format(client.name, client.surname, operation.id),
-            operation
-            )
-        print("email: ", result)
+                \n settings.HOST_URL/descarga-certificado/{}".format(client.name, client.surname, operation.id)
+        Thread(target = emailNotificationToClient, args = [title,body,operation]).start()
 
         return HttpResponseRedirect(reverse("Dashboard:Operations"))
       
@@ -427,3 +413,17 @@ def stats(request):
 def search(request):
     
     return render(request,"search.html")
+
+def filesCleaner(request):
+    if request.method == 'GET':
+        try:
+            limit_date = datetime.now() - timedelta(days = 30)
+            operations = Operation.objects.filter(certificate_downloaded_at__lte = limit_date, certificate__isnull=False).exclude(certificate="")
+            for operation in operations:
+                operation.certificate = ""
+                operation.save()
+                os.chdir(settings.MEDIA_ROOT)
+                shutil.rmtree(str(operation.id))
+            return HttpResponse(f"Limpieza de archivos realizada. Se borraron {len(operations)} directorios", status=200)
+        except:
+            return HttpResponse("Ocurrió un error durante la limpieza de archivos", status=500)

@@ -158,11 +158,9 @@ def rejectedDoc(request, pk):
 
             operation.stage = 'Documentacion enviada'
 
-            result = emailNotificationToAdmin(
-                "Documentacion Actualizada",
-                "El cliente: '{} {}' acaba de modificar la documentación para certificar un '{}'".format(client.name, client.surname, operation.final_type)
-                )
-            print("client email: ", result)
+            title = "Documentacion Actualizada"
+            body = f"El cliente: '{client.name} {client.surname}' acaba de modificar la documentación para certificar un '{operation.final_type}'"
+            Thread(target = emailNotificationToAdmin, args = [title,body]).start()
 
             return HttpResponseRedirect(reverse("Waiting_Doc"))
         else:
@@ -238,14 +236,9 @@ def waitingPayment(request, pk):
     operation.paid_by = "Transferencia Bancaria"
     operation.stage = "Pago a revisar"
     operation.save()
-    '''
-    result = emailNotificationToAdmin(
-        "Pago Efectuado",
-        "El cliente: '{} {}' notifica que realizo una tranferencia correspondiente al informe {}".format(client.name, client.surname, operation.certificate_number)
-        )
-    '''
+
     title = "Pago Efectuado"
-    body = "El cliente: '{} {}' notifica que realizo una tranferencia correspondiente al informe {}".format(client.name, client.surname, operation.certificate_number)
+    body = f"El cliente: '{client.name} {client.surname}' notifica que realizo una tranferencia correspondiente al informe {operation.certificate_number}"
     Thread(target = emailNotificationToAdmin, args = [title,body]).start()
 
     return render(request,"payment_checking.html", {"operation": operation, "admin_email": settings.EMAIL_HOST_USER})

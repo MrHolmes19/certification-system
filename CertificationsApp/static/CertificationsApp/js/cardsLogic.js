@@ -36,15 +36,15 @@ overlays.forEach(overlay => {
 // List of type id, amount of photos, title and descriptions for cards (hardcoded)
 
 typesInfo = [
-    ["1", "0", FURGON], //Furgon
-    ["2", "1", FURGON_TERMICO],  //Furgon termico
-    ["3", "1", FURGON_ASIENTOS],  //Furgon con asientos
-    ["4", "0", CABINA_SIMPLE],  //Cabina simple
-    ["5", "1", FURGON_VIDRIADO],  //Furgon vidriado
-    ["6", "2", FURGON_ASIENTOS_VIDRIADO],  //Furgon vidriado con asientos
-    ["7", "2", MOTORHOME],  //Casa rodante motorizada
-    ["8", "2", FURGON_FRIGORIFICO],  //Furgon termico con equipo de frio
-    ["9", "2", TRAILER],  //Trailer
+    ["1", "0", FURGON],
+    ["2", "1", FURGON_TERMICO],
+    ["3", "1", FURGON_ASIENTOS],
+    ["4", "0", CABINA_SIMPLE], 
+    ["5", "1", FURGON_VIDRIADO], 
+    ["6", "2", FURGON_ASIENTOS_VIDRIADO],
+    ["7", "2", MOTORHOME],
+    ["8", "2", FURGON_FRIGORIFICO],
+    ["9", "2", TRAILER],
 ];
     
     
@@ -82,6 +82,7 @@ function showCards(){
                 inputLabels[i].setAttribute('for','id_image'+ (i+1) +'_uploaded') //Meter condicional en funcion de la URL
 
                 if(i>5){
+                    alert("boludooo")
                     let title = cards[i].querySelector(".card-title")
                     let caption = cards[i].querySelector(".card-text")
                     title.innerHTML = type[2][`picture${i-5}`].title

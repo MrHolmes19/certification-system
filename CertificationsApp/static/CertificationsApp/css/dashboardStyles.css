@@ -161,6 +161,29 @@ label[for="id_image8_uploaded"]:hover ~ .overlay{
 
 /* ----------------- APPOINTMENT MODAL ----------------- */
 
+/*Date*/
+
+input[type="date"]::-webkit-calendar-picker-indicator{
+    padding-left: 100px;
+    border-radius: 1px solid red;
+}
+
+input[type="date"]::-webkit-datetime-edit{
+    padding-left: 10px;
+    padding-right: 0px;
+    display: none;    
+}
+
+input[type="date"]{
+    background-color: #ddd;
+}
+
+input[type="date"].active::-webkit-datetime-edit{
+    display: block;
+}
+
+/*Available Schedule*/
+
 #appointment-modal{
     padding-bottom: 8px !important;
 }

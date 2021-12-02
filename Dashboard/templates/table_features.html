@@ -18,13 +18,14 @@
     <!-- Entries & Search Bar -->
 
     <div id="search-bar" class="container-fluid mb-2">
-        <div class="row d-flex align-items-center">
+        <div class="row">
             <!-- search field -->
-            <div class="col-12 gap-2 d-flex justify-content-end align-items-center">                    
+            <div class="col-12 gap-2 d-flex">                    
                 <form class="d-flex gap-2">
-                    <label> Buscar: </label>
-                    <input id="search-field" class="form-control" type="search" placeholder="Palabra clave" aria-label="Search" oninput="search(this.value)">
-                    <button class="btn btn-outline-success d-flex align-items-center d-none">Buscar</button>
+                    <label class="d-flex align-items-center"> Buscar: </label>
+                    <input id="search-field" class="form-control" type="search" 
+                            placeholder="Palabra clave" aria-label="Search" oninput="search(this.value)">
+                    <!--<button class="btn btn-outline-success d-flex align-items-center">Buscar</button>-->
                 </form>
             </div>
         </div>   

@@ -124,7 +124,7 @@
         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <div class="row">
-              <div class="col-4"><h6>Estado del pago:</h6> 
+              <div class="col-12"><h6>Estado del pago:</h6> 
                 <strong>
                   {% if not operation.paid_at and not operation.paid_by%}
                     Pago Pendiente
@@ -164,7 +164,7 @@
         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <div class="row">
-              <div class="col-4"> 
+              <div class="col-12"> 
                 {% if operation.stage == "Esperando certificado" and not operation.onsite_verified_at %}
                 <h6><strong>Estado: Verificacion arreglada con el cliente </strong></h6>
                 <form action="{% url 'Dashboard:Check-verification' %}" method="POST"> {% csrf_token %}
@@ -182,11 +182,11 @@
                 <form action="{% url 'Dashboard:Check-verification' %}" method="POST">
                   {% csrf_token %}
                     <input type="hidden" name="op_id" value="{{operation.id}}">
-                    <div class="container">
-                      <button type="submit" class="btn btn-warning" name="action" value="cancel">Cancelar Turno</button>
-                      <button type="submit" class="btn btn-success" name="action" value="aprove">Aprobar</button>
-                      <button type="submit" class="btn btn-danger" name="action" value="reject">Rechazar</button>
-                    </div>
+                   
+                    <button type="submit" class="btn btn-warning" name="action" value="cancel">Cancelar Turno</button>
+                    <button type="submit" class="btn btn-success" name="action" value="aprove">Aprobar</button>
+                    <button type="submit" class="btn btn-danger" name="action" value="reject">Rechazar</button>
+                  
                 </form>
                 {% elif operation.stage == "Turno pendiente" and operation.onsite_verified_at %}
                 <h6><strong>Estado: Inspeccion Rechazada - Turno pendiente </strong></h6>
@@ -325,7 +325,9 @@
                 <label for="amount" class="form-label"> Monto registrado:</label>
                 <input id="amount" type="number" name="amount" value=0  min=0 max={{operation.final_type.fee}} required="true">
                 <label for="body" class="form-label"> Cuerpo del mail:</label>
-                <textarea id="body" name="body" cols="60" rows="5"></textarea>
+                <div class="form-group">
+                  <textarea class="form-control" id="body" name="body" cols="60" rows="5"></textarea>
+                </div>
               </div>
               <div class="modal-footer">
                   <button type="submit" class="btn btn-success">Enviar</button>
@@ -365,11 +367,11 @@
         <div id="appointment-modal" class="modal-body"> <!-- d-flex justify-content-center -->
           {% csrf_token %}
           <div class="row">
-            <div class="col-4">
-              <h6 class="text-center mb-5">Elegí la fecha:</h6>
+            <div class="col-12 col-sm-4">
+              <h6 class="text-center mb-sm-5">Elegí la fecha:</h6>
               <input type="date" name="day" id="day" class="my-3">        
             </div>
-            <div class="col-8">
+            <div class="col-12 col-sm-8">
               <h6 class="text-center">Elegí un horario:</h6>
               <table class="table text-center radio-table">
                   <th scope="col" colspan="3"> Horario disponibles</th>

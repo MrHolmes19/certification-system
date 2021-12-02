@@ -17,6 +17,5 @@ urlpatterns = [
     path('turnos', views.appointments, name='Appointments'),
     path('tarifas', views.fees, name='Fees'),
     path('Estadisticas', views.stats, name='Stats'),
-    path('Busqueda', views.search, name='Search'),
-    
+    path('Busqueda', views.search, name='Search'),    
 ]

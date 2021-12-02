@@ -28,11 +28,15 @@
                             <th scope="col" colspan="3"> Horario disponibles</th>
                             {% for i in '012345'|make_list %}
                             <tr>
-
-                            <td scope="row"> <input type="radio" class="" name="schedule" id="radio_{{ forloop.counter |add:7}}:00" value="{{ forloop.counter |add:7}}:00" disabled> <label for="radio_{{ forloop.counter |add:7}}:00"> {{ forloop.counter |add:7}}:00  </label></td>
-                            <td scope="row"> <input type="radio" class="" name="schedule" id="radio_{{ forloop.counter |add:7}}:20" value="{{ forloop.counter |add:7}}:20" disabled> <label for="radio_{{ forloop.counter |add:7}}:20"> {{ forloop.counter |add:7}}:20  </label></td>
-                            <td scope="row"> <input type="radio" class="" name="schedule" id="radio_{{ forloop.counter |add:7}}:40" value="{{ forloop.counter |add:7}}:40" disabled> <label for="radio_{{ forloop.counter |add:7}}:40"> {{ forloop.counter |add:7}}:40  </label></td>
-
+                                <td scope="row"> <input type="radio" class="" name="schedule" 
+                                    id="radio_{{ forloop.counter |add:7}}:00" value="{{ forloop.counter |add:7}}:00" disabled> 
+                                    <label for="radio_{{ forloop.counter |add:7}}:00"> {{ forloop.counter |add:7}}:00 </label></td>
+                                <td scope="row"> <input type="radio" class="" name="schedule" 
+                                    id="radio_{{ forloop.counter |add:7}}:20" value="{{ forloop.counter |add:7}}:20" disabled> 
+                                    <label for="radio_{{ forloop.counter |add:7}}:20"> {{ forloop.counter |add:7}}:20 </label></td>
+                                <td scope="row"> <input type="radio" class="" name="schedule"
+                                    id="radio_{{ forloop.counter |add:7}}:40" value="{{ forloop.counter |add:7}}:40" disabled>
+                                    <label for="radio_{{ forloop.counter |add:7}}:40"> {{ forloop.counter |add:7}}:40 </label></td>
                             </tr>
                             {% endfor %}
                         </table>

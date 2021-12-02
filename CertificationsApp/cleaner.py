@@ -1,3 +1,4 @@
+'''
 from datetime import datetime, timedelta
 import os, shutil
 from CertificationsApp.models import Operation
@@ -11,3 +12,13 @@ def filesCleaner():
         operation.save()
         os.chdir(settings.MEDIA_ROOT)
         shutil.rmtree(str(operation.id))
+'''
+
+import requests
+
+path = 'http://127.0.0.1:8000/limpieza'
+
+r = requests.get(path, verify = False)
+
+#print(r.status_code)
+#print(r.text) 

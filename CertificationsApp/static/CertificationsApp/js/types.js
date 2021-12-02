@@ -65,7 +65,7 @@ const MOTORHOME = {
         "caption":"Debe verse los cinturones de seguridad",
     },
     "picture2": {
-        "title":"interior",
+        "title":"Interior",
         "caption":"Debe mostrarse el interior",
     },
 }
