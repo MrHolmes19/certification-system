@@ -20,8 +20,8 @@
                 onchange="currentTable('companies')"><i class="fas fa-building"></i> Empresas</a>
 
             <u><a class="nav-link disabled text-center" href="#">Filtros</a></u>
-            <a id="openopes-tab" class="nav-link" href="{% url 'Dashboard:Operations' %}" aria-selected="false">
-                <i class="fas fa-clipboard"></i> Operaciones abiertas</a>
+            <a id="openops-tab" class="nav-link" href="{% url 'Dashboard:Operations' %}?stage=Abiertas" aria-selected="false">
+                <i class="fas fa-clipboard"></i> Abiertas</a>
             <a id="penddoc-tab" class="nav-link" href="{% url 'Dashboard:Operations' %}?stage=Documentacion enviada" 
                 aria-selected="false"><i class="fas fa-check"></i> Pendientes de revision</a>
             <a id="payconf-tab" class="nav-link" href="{% url 'Dashboard:Operations' %}?stage=Pago a revisar" 

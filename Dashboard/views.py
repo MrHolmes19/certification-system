@@ -29,8 +29,10 @@ def dashboard(request):
         operations = Operation.objects.select_related('id_vehicle').select_related('owner').all().order_by('-registrated_at')
 
         stage = request.GET.get('stage')
-        if stage is not None:
+        if stage is not None and stage != 'Abiertas':
             operations = operations.filter(stage=stage)
+        elif stage == 'Abiertas':
+            operations = operations.exclude(stage='Operacion completada')
         
         return render(request,"operation_table.html",{'operations':operations})
 

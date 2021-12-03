@@ -7,6 +7,7 @@ var clients_tab = document.getElementById('client-tab')
 var vehicles_tab = document.getElementById('vehicle-tab')
 var company_tab = document.getElementById('company-tab')
 
+var openops_tab = document.getElementById('openops-tab')
 var penddoc_tab = document.getElementById('penddoc-tab')
 var payconf_tab = document.getElementById('payconf-tab')
 var pendverif_tab = document.getElementById('pendverif-tab')
@@ -32,6 +33,9 @@ if(path == '/administrador/Estadisticas'){
 
 if(path == '/administrador/'){
 
+    if(args == '?stage=Abiertas'){
+        openops_tab.classList.add(activeClass[0],activeClass[1])
+    }
     if(args == '?stage=Documentacion%20enviada'){
         penddoc_tab.classList.add(activeClass[0],activeClass[1])
     }
