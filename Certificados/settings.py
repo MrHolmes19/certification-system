@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
+import secret_config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9mcu%9(qvc9x16g_o6os13!+dla8*nyjykm&kfk(uez@8e^wu4'
+SECRET_KEY = secret_config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,6 +76,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Certificados.wsgi.application'
 
 
+USER = secret_config.USER
+PASS = secret_config.PASSWORD
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -82,8 +86,8 @@ WSGI_APPLICATION = 'Certificados.wsgi.application'
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql', 
 #         'NAME': 'DB_NAME',
-#         'USER': 'DB_USER',
-#         'PASSWORD': 'DB_PASSWORD',
+#         'USER': USER,
+#         'PASSWORD': PASS,
 #         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
 #         'PORT': '3306',
 #     }
@@ -155,13 +159,15 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'certificaciones.larroca@gmail.com'
-EMAIL_HOST_PASSWORD = 'larroca321'
+EMAIL_HOST_PASSWORD = secret_config.EMAIL_HOST_PASSWORD
 
 SITE_DOMAIN = 'www.certificacioneslarroca.com'
 
 # Contact Data
 
-ADMIN_PHONE = 1111111 
+ADMIN_PHONE = secret_config.ADMIN_PHONE
+
+MP_TOKEN = secret_config.MP_TOKEN
 
 # Nomain name
 
