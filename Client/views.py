@@ -185,23 +185,25 @@ def payment(request, pk):
             fee = type.fee - operation.paid_amount
 
         # Adding MP credentials
-        sdk = mercadopago.SDK("TEST-3332094717111517-083117-50ddb3f26d4594433d667165a99ad80b-25704844")
+        
+        sdk = mercadopago.SDK(settings.MP_ACCESS_TOKEN)
 
         # Creating the preference items
         preference_data = {
             "items": [
                 {
                     "title": "Certificación por Cambio de Tipo",
-                    "description": "Verificación visual del vehiculo, elaboración de informe técnico firmado por Ing. mecánico matriculado y entrega de certificado aprobado por el COPYME",
+                    "description": "Verificación visual del vehiculo, elaboración de informe técnico firmado por Ing. mecánico matriculado y entrega de certificado aprobado por el COPIME",
                     "quantity": 1,
+                    "currency_id": "ARS",
                     "unit_price": fee,
                 }
             ],
             # Returns after payment (Only if the form is not shown trhough a modal in the same page)
             "back_urls": {
-                "success": "settings.HOST_URL/turno-verificacion/" + str(pk),
-                "failure": "settings.HOST_URL/pago-fallido",
-                "pending": "settings.HOST_URL/pago-en-proceso"
+                "success": settings.HOST_URL + "/turno-verificacion/" + str(pk),
+                "failure": settings.HOST_URL + "/pago-fallido",
+                "pending": settings.HOST_URL + "/pago-en-proceso"
             },
             "auto_return": "approved",
             "payment_methods": {

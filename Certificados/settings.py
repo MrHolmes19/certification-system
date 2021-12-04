@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-
 import secret_config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,9 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = secret_config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+
+ALLOWED_HOSTS = ["*"] # Put here web server
 
 
 # Application definition
@@ -75,30 +76,32 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Certificados.wsgi.application'
 
+# MySQL Database
 
-USER = secret_config.USER
-PASS = secret_config.PASSWORD
+DB_USER = secret_config.DB_USER
+DB_PASS = secret_config.DB_PASSWORD
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql', 
-#         'NAME': 'DB_NAME',
-#         'USER': USER,
-#         'PASSWORD': PASS,
-#         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-#         'PORT': '3306',
-#     }
-# }
-
-DATABASES = {
+if DEBUG == True:  #SQL Database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql', 
+            'NAME': 'DB_NAME',
+            'USER': DB_USER,
+            'PASSWORD': DB_PASS,
+        }
+    }
+else: # Local Database
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',         
+        }
     }
-}
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -152,6 +155,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Contact Data
 # Email settings
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -161,14 +165,21 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'certificaciones.larroca@gmail.com'
 EMAIL_HOST_PASSWORD = secret_config.EMAIL_HOST_PASSWORD
 
-SITE_DOMAIN = 'www.certificacioneslarroca.com'
-
-# Contact Data
-
 ADMIN_PHONE = secret_config.ADMIN_PHONE
 
-MP_TOKEN = secret_config.MP_TOKEN
+# Payment media
 
-# Nomain name
+if DEBUG == False:
+    MP_ACCESS_TOKEN = secret_config.MP_ACCESS_TOKEN
+else:
+    MP_ACCESS_TOKEN = "TEST-3332094717111517-083117-50ddb3f26d4594433d667165a99ad80b-25704844"
 
-HOST_URL = "http://127.0.0.1:8000"
+MP_PUBLIC_TOKEN = secret_config.MP_PUBLIC_TOKEN
+MP_CLIENT_ID = secret_config.MP_CLIENT_ID
+
+# Domain name
+
+if DEBUG == False:
+    HOST_URL = "app.certificaciones-vehiculares.ar"
+else:
+    HOST_URL = "http://127.0.0.1:8000"

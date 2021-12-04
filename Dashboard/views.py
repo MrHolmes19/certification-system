@@ -109,7 +109,7 @@ def operationDetail(request, pk):
 
                     elif jumpPay == "true":
                         message = f"Hola {name}, entrá al siguiente link para continuar con el trámite\
-                                \n: settings.HOST_URL/turno-verificacion/{operation.id}"
+                                \n: {settings.HOST_URL}/turno-verificacion/{operation.id}"
 
                         operation.paid_by = "Arreglado con cliente"
                         operation.paid_amount = operation.final_type.company_fee  
@@ -117,7 +117,7 @@ def operationDetail(request, pk):
 
                     elif jumpAppointment == "true":  
                         message = f"Hola {name}, entrá al siguiente link para continuar con el trámite\
-                                \n: settings.HOST_URL/pago/{operation.id}"
+                                \n: {settings.HOST_URL}/pago/{operation.id}"
 
                         operation.onsite_verified_at = datetime.now()
                         operation.stage = 'Pendiente de pago'
@@ -125,7 +125,7 @@ def operationDetail(request, pk):
                     else:
                         operation.stage = 'Pendiente de pago'
                         message = f"Hola {name}, entrá al siguiente link para continuar con el trámite\
-                                \n: settings.HOST_URL/pago/{operation.id}"
+                                \n: {settings.HOST_URL}/pago/{operation.id}"
 
                     title = "Tu documentacion fue Aprobada"
                     Thread(target = emailNotificationToClient, args = [title,message,operation]).start()
@@ -134,7 +134,7 @@ def operationDetail(request, pk):
                     
                     title = "Tu documentacion fue Rechazada"
                     body = f"Hola {name}, entrá al siguiente link para continuar con el trámite\
-                            \n: settings.HOST_URL/formulario/{operation.id}"
+                            \n: {settings.HOST_URL}/formulario/{operation.id}"
                     Thread(target = emailNotificationToClient, args = [title,body,operation]).start()
                 
                 operation.save()
@@ -198,7 +198,7 @@ def checkVerification(request):
             operation.save()
 
             title = "Turno cancelado - volvé a reservar"
-            body = "Lo sentimos, Cancelamos tu turno por razones de fuerza mayor volve a sacarlo visitando este link: {}/turno-verificacion/{}".format(settings.SITE_DOMAIN, pk)
+            body = f"Lo sentimos, Cancelamos tu turno por razones de fuerza mayor volve a sacarlo visitando este link: {settings.HOST_URL}/turno-verificacion/{pk}"
 
             Thread(target = emailNotificationToClient, args = [title,body,operation]).start()
 
@@ -207,7 +207,7 @@ def checkVerification(request):
             operation.save()
 
             title = "Inspeccion visual rechazada - volvé a reservar"
-            body = "Rechazamos tu vehiculo, volve a sacar turno para una nueva verificacion, visitando este link: {}/turno-verificacion/{}".format(settings.SITE_DOMAIN, pk)
+            body = f"Rechazamos tu vehiculo, volve a sacar turno para una nueva verificacion, visitando este link: {settings.HOST_URL}/turno-verificacion/{pk}"
 
             Thread(target = emailNotificationToClient, args = [title,body,operation]).start()
 
@@ -315,9 +315,9 @@ def certificate(request):
         operation.save()
  
         title = "Certificado disponible"
-        body = "Hola {} {}, Has finalizado el trámite exitosamente! \
+        body = f"Hola {client.name} {client.surname}, Has finalizado el trámite exitosamente! \
                 \n Descargá el certificado del COPIME ingresando con tus credenciales aquí: \
-                \n settings.HOST_URL/descarga-certificado/{}".format(client.name, client.surname, operation.id)
+                \n {settings.HOST_URL}/descarga-certificado/{operation.id}"
         Thread(target = emailNotificationToClient, args = [title,body,operation]).start()
 
         return HttpResponseRedirect(reverse("Dashboard:Operations"))

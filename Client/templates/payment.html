@@ -31,12 +31,12 @@
                 <br><br><br>
 
                 <p> Si preferis realizar una transferencia bancaria, nuestros datos son:<p>
-                <div id="bank-data" class="my-2">
-                <small><small>
+                <div id="bank-data" class="my-2 bg-light">
+                    <small><small>
                         CBU: 0150000035498765654 <br>
-                    ALIAS: CAJON.ROPA.ALADIN <br>
-                    CUENTA: 16050/32
-                </small></small>
+                        ALIAS: CAJON.ROPA.ALADIN <br>
+                        CUENTA: 16050/32
+                    </small></small>
                 </div> 
                 <p> Hacé click en el siguiente botón para notificarnos cuando el pago se haya efectuado:<p>
                 <a href="{% url 'Waiting_payment' pk=operation_id %}" class="btn btn-secondary" role="button">Notificar Pago realizado</a>   
@@ -47,18 +47,19 @@
 
 </section>
 
+<!-- For embedded integration-->
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 
 <script>
 // Adding SDK's credentials
-    const mp = new MercadoPago('TEST-31d847df-1c3f-4c64-a910-1a07f24d3a9b', {
+    const mp = new MercadoPago(settings.MP_PUBLIC_TOKEN, {
         locale: 'es-AR'
     });
 
     // Initializing checkput
     mp.checkout({
         preference: {
-            id: '3332094717111517'
+            //id: mp.id
         },
         render: {
             container: '.mercadopago-button', // className where pay button will be shown
