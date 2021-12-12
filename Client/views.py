@@ -19,7 +19,7 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 import mimetypes
 from django.template.loader import render_to_string
-from weasyprint import HTML
+#from weasyprint import HTML
 
 
 #------------------- login ------------------#
@@ -170,7 +170,7 @@ def rejectedDoc(request, pk):
 
 #------------------- doc_checking -> formulario-pendiente ----------------#
 def waitingDoc(request):   
-    return render(request,"doc_checking.html", {"admin_email": settings.EMAIL_HOST_USER})
+    return render(request,"doc_checking.html", {"admin_email": settings.EMAIL_HOST_USER, "admin_phone": settings.ADMIN_PHONE})
 
 #------------------- payment -> pago ----------------#
 def payment(request, pk):
@@ -410,7 +410,8 @@ def download_inform(request, pk):
         "client": client
     })
 
-    filename = "Informe-{}".format(vehicle.domain)
+    #filename = "Informe-{}".format(vehicle.domain)
+    filename = f"Informe-{vehicle.domain}.pdf"
     response = HttpResponse(content_type="application/pdf")
     response["Content-Disposition"] = "attachment; filename=%s" % filename
 

@@ -11,8 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-import os
-import secret_config
+from . import secret_config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = secret_config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ["*"] # Put here web server
@@ -78,21 +77,12 @@ WSGI_APPLICATION = 'Certificados.wsgi.application'
 
 # MySQL Database
 
-DB_USER = secret_config.DB_USER
-DB_PASS = secret_config.DB_PASSWORD
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if DEBUG == True:  #SQL Database
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql', 
-            'NAME': 'DB_NAME',
-            'USER': DB_USER,
-            'PASSWORD': DB_PASS,
-        }
-    }
+if DEBUG == False:  #SQL Database
+    DATABASES = secret_config.REMOTE_DB
+
 else: # Local Database
     DATABASES = {
     'default': {
@@ -141,7 +131,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = '/home/HernanMonsalvo/certification-system/static/CertificationsApp'
+STATIC_ROOT = '/home/GabyTheRock/certification-system/static/CertificationsApp'
 
 # folder where the images are taken
 
@@ -169,7 +159,7 @@ ADMIN_PHONE = secret_config.ADMIN_PHONE
 
 # Payment media
 
-if DEBUG == False:
+if DEBUG == True:
     MP_ACCESS_TOKEN = secret_config.MP_ACCESS_TOKEN
 else:
     MP_ACCESS_TOKEN = "TEST-3332094717111517-083117-50ddb3f26d4594433d667165a99ad80b-25704844"
@@ -180,6 +170,6 @@ MP_CLIENT_ID = secret_config.MP_CLIENT_ID
 # Domain name
 
 if DEBUG == False:
-    HOST_URL = "app.certificaciones-vehiculares.ar"
+    HOST_URL = "https://app.certificaciones-vehiculares.ar"
 else:
     HOST_URL = "http://127.0.0.1:8000"

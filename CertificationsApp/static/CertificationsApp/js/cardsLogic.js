@@ -101,7 +101,6 @@ function showCards(){
                 inputLabels[i].setAttribute('for','id_image'+ (i+1) +'_uploaded') //Meter condicional en funcion de la URL
 
                 if(i>5){
-                    alert("boludooo")
                     let title = cards[i].querySelector(".card-title")
                     let caption = cards[i].querySelector(".card-text")
                     title.innerHTML = type[2][`picture${i-5}`].title

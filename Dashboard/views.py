@@ -15,7 +15,7 @@ from Dashboard.utils import generate_form
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.template.loader import render_to_string
-from weasyprint import HTML
+#from weasyprint import HTML
 from django.conf import settings
 import os, shutil
 from django.contrib.auth.decorators import login_required
@@ -343,8 +343,7 @@ def operationDetailPDF(request, pk):
     for i in desc_list:
         desc_list[j] = i + "."
         j += 1
-
-    print(desc_list)
+    
     html = render_to_string("pdf_template.html", {
         "operation": operation,
         "description": desc_list,
