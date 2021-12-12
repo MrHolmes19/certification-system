@@ -9,7 +9,7 @@ from django.forms.models import model_to_dict
 from pprint import pprint
 from django.urls import reverse
 from Client.forms import FormDoc
-from .utils import emailNotificationToClient, save_doc
+from .utils import emailNotificationToClient, save_doc, clean_files, schedule_reminder
 from Client.utils import convert_to_localtime
 from Dashboard.utils import generate_form
 import json
@@ -414,16 +414,11 @@ def search(request):
     
     return render(request,"search.html")
 
-def filesCleaner(request):
+def periodic_tasks(request):
     if request.method == 'GET':
-        try:
-            limit_date = datetime.now() - timedelta(days = 30)
-            operations = Operation.objects.filter(certificate_downloaded_at__lte = limit_date, certificate__isnull=False).exclude(certificate="")
-            for operation in operations:
-                operation.certificate = ""
-                operation.save()
-                os.chdir(settings.MEDIA_ROOT)
-                shutil.rmtree(str(operation.id))
-            return HttpResponse(f"Limpieza de archivos realizada. Se borraron {len(operations)} directorios", status=200)
-        except:
-            return HttpResponse("Ocurrió un error durante la limpieza de archivos", status=500)
+        
+        reminder_response, reminder_status = schedule_reminder()
+
+        cleaner_response, cleaner_status = clean_files()
+
+        return HttpResponse(200)

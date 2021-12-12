@@ -17,13 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from Dashboard.views import filesCleaner
+from Dashboard.views import periodic_tasks
 
 urlpatterns = [
     path('', include('Client.urls')),
     path('admin/', admin.site.urls),
     path('administrador/', include('Dashboard.urls')),
-    path('limpieza', filesCleaner, name='Cleaner'),  
+    path('periodicas', periodic_tasks, name='Periodic_tasks'),  
     path('accounts/', include("django.contrib.auth.urls")),
 ]
 

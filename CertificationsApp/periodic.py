@@ -16,7 +16,7 @@ def filesCleaner():
 
 import requests
 
-path = 'http://127.0.0.1:8000/limpieza'
+path = 'https://app.certificaciones-vehiculares.ar/periodicas'
 
 r = requests.get(path, verify = False)
 
