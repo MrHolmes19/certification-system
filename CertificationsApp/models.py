@@ -19,7 +19,7 @@ class Client(models.Model):
     id_number = models.IntegerField(unique=True)
     name = models.CharField(max_length=64)
     surname = models.CharField(max_length=64)
-    mail = models.EmailField(max_length=64, blank=False, unique=True)
+    mail = models.EmailField(max_length=64, blank=False)
     phone = models.IntegerField(blank=False)
 
     class Meta:
@@ -30,7 +30,7 @@ class Client(models.Model):
         return "{} {}".format(self.name, self.surname)
 
 class Vehicle(models.Model):    
-    domain = models.CharField(max_length=7)
+    domain = models.CharField(max_length=7, null = True) #unique=True
     brand = models.CharField(max_length=20)
     model = models.CharField(max_length=64)
     last_type = models.ForeignKey(ModificationsType, related_name='finaltype', on_delete=models.SET_NULL, null=True)

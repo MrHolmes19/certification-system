@@ -4,7 +4,7 @@ from django.forms.widgets import FileInput
 
 class FormLogin(forms.Form):
     id_number = forms.CharField(label="DNI", required=True)
-    domain = forms.CharField(label="Patente", required=True)
+    domain = forms.CharField(label="Patente", required=False) # Antes del chasis era required=True
 
 
 class FormDoc(forms.Form):

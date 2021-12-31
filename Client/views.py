@@ -38,8 +38,14 @@ def login(request):
         form_login = FormLogin(request.POST)
         if form_login.is_valid():
             id_number_input = request.POST.get("id_number").strip()
-            domain_input = request.POST.get("domain").strip()
-
+            domain_input = request.POST.get("domain")
+            if domain_input:
+                domain_input.strip()
+                chassis_input = ""
+            else:
+                chassis_input = request.POST.get("chassis").strip()
+                domain_input = ""
+                
             # input transformation
             if id_number_input.isdigit() == False:
                 numbers = [s for s in id_number_input if s.isdigit()]
@@ -50,7 +56,7 @@ def login(request):
                 domain_input = ''.join(alphanumerics)
 
             # redirection manager
-            targetPage = loginRedirect(id_number_input, domain_input, company_cuit)
+            targetPage = loginRedirect(id_number_input, domain_input, chassis_input, company_cuit)
             if targetPage == "unable":
                 return render(request,"login.html",{'form_login':form_login, "message": "No es posible continuar con el trámite. Contáctenos a la brevedad vía mail o teléfono"})
             return redirect("/" + targetPage)
@@ -60,7 +66,7 @@ def login(request):
 #------------------- Doc -> formulario ----------------#
 def doc(request):
     login_data = request.GET
-    form_doc = FormDoc(initial={'id_number':login_data.get('dni'),'domain':login_data.get('patente')})
+    form_doc = FormDoc(initial={'id_number':login_data.get('dni'),'domain':login_data.get('patente'),'chassis_number':login_data.get('chasis')})
 
     if request.method == "POST":
 
@@ -79,9 +85,14 @@ def doc(request):
             'surname': request.POST.get("surname"),
             'mail': request.POST.get("mail"),
             'phone': phone,
-            #'phone': request.POST.get("phone"),
             }
-            client = Client.objects.create(**client_data)
+            # For cases of new operation by existing client
+            client = Client.objects.filter(id_number=request.POST.get("id_number")).first()
+            if client:
+                client.__dict__.update(**client_data) 
+                client.save()
+            else:
+                client = Client.objects.create(**client_data)
 
             vehicle_data = {
             'domain': request.POST.get("domain"),
@@ -92,8 +103,14 @@ def doc(request):
             'engine_number': request.POST.get("engine_number"),
             'owner': client,
             }
-            vehicle = Vehicle.objects.create(**vehicle_data)
-
+            # vehicle = Vehicle.objects.create(**vehicle_data)
+            vehicle = Vehicle.objects.filter(domain=request.POST.get("domain")).first()
+            if vehicle:
+                vehicle.__dict__.update(**vehicle_data)
+                vehicle.owner_id = client.pk
+                vehicle.save()
+            else:
+                vehicle = Vehicle.objects.create(**vehicle_data)
             operation = Operation.objects.create() # Necesary to generate instance and create path before saving images
             operation = formRegisterOperation(request.POST, request.FILES, instance = operation)
 
@@ -121,15 +138,16 @@ def doc(request):
                     reply_to=[client_data['mail']])
                 try:
                     email.send()
-                    return HttpResponseRedirect(reverse("Waiting_Doc"))
+                    return HttpResponseRedirect(reverse("Waiting_Doc", args=(id,)))
                 except:
                     print("El mail no se mandó")
-                    return HttpResponseRedirect(reverse("Waiting_Doc"))
+                    return HttpResponseRedirect(reverse("Waiting_Doc", args=(id,)))
                 #return redirect("client-module:Waiting_Doc") otra manera de hacerlo
             else:
                 print(operation.errors)
         else:
             print("3:{}".format(form_doc.errors))
+            
     #company=login_data.get('empresa')
     if login_data.get('empresa')!="":
         print(request.GET.get('empresa'))
@@ -169,7 +187,7 @@ def rejectedDoc(request, pk):
 
 
 #------------------- doc_checking -> formulario-pendiente ----------------#
-def waitingDoc(request):   
+def waitingDoc(request, pk):   
     return render(request,"doc_checking.html", {"admin_email": settings.EMAIL_HOST_USER, "admin_phone": settings.ADMIN_PHONE})
 
 #------------------- payment -> pago ----------------#
@@ -277,7 +295,6 @@ def appointment(request, pk):
         schedule = request.POST.get("schedule")
 
         appointment = day + " " + schedule
-        #print(appointment)
         operation.onsite_verified_at = datetime.strptime(appointment, '%Y-%m-%d %H:%M')
         operation.stage = "Verificacion pendiente"
         operation.save()
@@ -287,13 +304,13 @@ def appointment(request, pk):
 
             message = f"Tu turno para la inspeccion visual fue reservado para el {day} a las {schedule}"
             
-            result = emailNotificationToClient(
+            emailNotificationToClient(
                 f"Turno para la verificacion de {domain}",
                 message,
                 operation
-                )
+            )
 
-            return HttpResponseRedirect(reverse("Dashboard:Operations"))
+            return HttpResponseRedirect(reverse("Dashboard:Operations")) #Esto por que redirige a dashboard?
 
             
 

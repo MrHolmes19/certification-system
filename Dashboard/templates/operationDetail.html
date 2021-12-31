@@ -34,7 +34,7 @@
                       {% if forloop.counter < 13 %} 
                         <div class="form-group col-12 col-md-4 pb-2">
                           <label>{{input.label}}</label>
-                          {{input}}
+                            {{input}}
                           <small class="form-text text-muted"></small>
                         </div>
                       {% endif %}
@@ -113,7 +113,7 @@
                   </div>
                   {% if operation.doc_verified_at %}
                   <div class="row my-3 py-2">
-                    <strong>Documentacion verificada el dia: {{operation.doc_verified_at}}</strong>
+                    <strong>Documentación verificada el dia: {{operation.doc_verified_at}}</strong>
                   </div> 
                   {% endif %}
                 </form>
@@ -278,9 +278,19 @@
                     <input type="hidden" name="op_id" value="{{operation.id}}">
                     <button type="submit" class="btn btn-success">Guardar cambios</button>
                   </div>  
-                </form>
+                </form>          
               </div>
-            </div>
+              {% if operation.certificate_uploaded_at %}
+                  <div class="row my-3 py-1">
+                    <strong>Certificado subido el: {{operation.certificate_uploaded_at}}</strong>
+                  </div> 
+                {% endif %}
+                {% if operation.certificate_downloaded_at %}
+                  <div class="row my-3 py-1">
+                    <strong>Certificado descargado el: {{operation.certificate_downloaded_at}}</strong>
+                  </div> 
+                {% endif %}
+            </div>            
           </div>
         </div>        
       </div>

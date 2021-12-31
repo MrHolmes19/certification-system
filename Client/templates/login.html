@@ -17,16 +17,11 @@
                 <p style="color:red">{{message}} </p> 
                 <form action="{% url 'Login' %}" method="POST" id="loginform"> {% csrf_token %}
                     <div class="row">
-                            <div class="form-group col-12 pb-2 d-none" id="cuitInput">
+                            <div class="form-group col-12 pb-2 d-none" id="inputDiv">
                                 <label>CUIT</label>
-                                <input type="text" name="cuit" id="cuit"> <!--^
-                                    pattern = "^[\d]{2,2}[\.,-]?[\d]{1,2}[\.,-]?[\d]{3,3}[\.,-]?[\d]{3,3}[\.,-]?[\d]{1,1}$"
-                                    title:"El Cuit debe tener 11 digitos"
-                                    oninvalid = "El Cuit debe tener 11 digitos"
-                                    data-error="This is a custom Errot Text fot patern and fill blank"[\d]{1,2}\.?[\d]{1,2}\.?[\d]{3,3}\.?[\d]{3,3}\.?[\d]{1,1}$ -->
-                                    
+                                <input type="text" name="cuit" id="cuitInput">
                                 <small class="form-text text-muted"></small>
-                            </div>                            
+                            </div>                             
                         {% for input in form_login %}
                             <div class="form-group col-12 pb-2">
                                 <label>{{input.label}}</label>
@@ -34,12 +29,18 @@
                                 <small class="form-text text-muted"></small>
                             </div>
                         {% endfor %}
+                        <div class="form-group col-12 pb-2 d-none" id="chassisDiv">
+                            <label>N° Chasis</label>
+                            <input type="text" name="chassis" id="chassisInput">
+                            <small class="form-text text-muted"></small>
+                        </div> 
                         <div class="col d-grid gap-2">
                             <button type="submit" class="btn btn-primary">INGRESAR</button>
                         </div> 
                     </div>   
                 </form>  
-                <p class="mt-4"><small class="form-text text-muted"><span id="caption">¿Sos empresa? hace click </span><a onclick="companyToggle()" href="#"> aqui</a></p>
+                <p class="mt-4"><small class="form-text text-muted"><span id="caption">¿Sos empresa? hace click </span><a onclick="companyToggle()" href="#">aqui</a></p>
+                <p class="mt-4"><small class="form-text text-muted"><span id="chassisCaption">¿El vehículo aun no tiene patente? </span><a id="chassisAnchor" onclick="chassisToggle()" href="#"> Entrar con N° de Chasis </a></p>
             </div>
         </div>
 

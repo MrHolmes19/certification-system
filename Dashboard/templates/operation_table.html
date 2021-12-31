@@ -35,10 +35,10 @@
                     <td> </td>
                     {% endif %}
                     <td>
-                        <a id="client-link" href="#" onclick="clientModal('{{op.id_vehicle.owner.name}}',
-                            '{{op.id_vehicle.owner.surname}}', '{{op.id_vehicle.owner.mail}}',
-                            '{{op.id_vehicle.owner.phone}}', '{{op.id_vehicle.owner.id_number}}')">
-                            {{op.id_vehicle.owner.name}} {{op.id_vehicle.owner.surname}}
+                        <a id="client-link" href="#" onclick="clientModal('{{op.owner.name}}',
+                            '{{op.owner.surname}}', '{{op.owner.mail}}',
+                            '{{op.owner.phone}}', '{{op.owner.id_number}}')">
+                            {{op.owner.name}} {{op.owner.surname}}
                         </a>
                     </td>
                     <td>{{op.id_vehicle.brand}} {{op.id_vehicle.model}}</td>

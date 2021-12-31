@@ -6,7 +6,7 @@ from django.utils import timezone
 
 # Stages of an operation (Harcoded --> Check against Client/urls.py)
 stage_levels={
-    "Documentacion a revisar": "formulario-pendiente/",
+    "Documentacion enviada": "formulario-pendiente/",
     "Documentacion rechazada": "formulario/",
     "Pendiente de pago": "pago/",
     "Pago a revisar": "pago-en-proceso/",
@@ -20,7 +20,7 @@ stage_levels={
 
 # Redirect from login depending on current stage of user
 
-def loginRedirect(id_number_input, domain_input, company_cuit):
+def loginRedirect(id_number_input, domain_input, chassis_input, company_cuit):
     client = Client.objects.filter(id_number=id_number_input).first()
     # Check if this client already exists in our database
     if client is not None:
@@ -28,28 +28,25 @@ def loginRedirect(id_number_input, domain_input, company_cuit):
         for i in vehicles.all():
             coincidence = False
             # Check if this client has an operation with this domain
-            if i.domain == domain_input:
+            if i.domain == domain_input or i.chassis_number == chassis_input:
                 coincidence = True
-                vehicle = i
-                operations = i.operations
+                operations = Operation.objects.filter(id_vehicle = i.pk)
                 break
         if coincidence == True:
-            for x in operations.all(): ## ESTO CREO QUE ESTA MAL !!!!! PROBAR
+            for x in operations:
                 # Check if this vehicle has active operations
                 if x.stage != "Operacion completada":
                     # Check if this operation is active
-                    print(x.is_active)
                     if x.is_active == False:
-                        print("----------------------efectivamente es unable")
                         return "unable"
                     stage = x.stage
-                    return stage_levels[stage] + str(x.id)
-                else:
-                    return "formulario/?dni="+id_number_input+"&patente="+domain_input+"&empresa="+company_cuit
+                    return stage_levels[stage] + str(x.id)  
+                                     
+            return "formulario/?dni="+id_number_input+"&patente="+domain_input+"&chasis="+chassis_input+"&empresa="+company_cuit
         else:
-            return "formulario/?dni="+id_number_input+"&patente="+domain_input+"&empresa="+company_cuit
+            return "formulario/?dni="+id_number_input+"&patente="+domain_input+"&chasis="+chassis_input+"&empresa="+company_cuit
     else:
-        return "formulario/?dni="+id_number_input+"&patente="+domain_input+"&empresa="+company_cuit
+        return "formulario/?dni="+id_number_input+"&patente="+domain_input+"&chasis="+chassis_input+"&empresa="+company_cuit
 
 
 def emailNotificationToAdmin(title, body):

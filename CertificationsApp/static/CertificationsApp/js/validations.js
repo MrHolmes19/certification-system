@@ -1,6 +1,6 @@
 
 inputs = document.querySelectorAll('input')
-cuitInput = document.querySelector('#cuit')
+cuitInput = document.querySelector('#cuitInput')
 id_numberInput = document.querySelector('#id_id_number')
 domainInput = document.querySelector('#id_domain')
 

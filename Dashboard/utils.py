@@ -24,7 +24,7 @@ def emailNotificationToClient(title, body, operation):
 def generate_form(pk):
     operation = Operation.objects.get(pk=pk)
     vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
-    client = Client.objects.get(pk=vehicle.owner.id)
+    client = Client.objects.get(pk=operation.owner.id)
 
     # converting model to dict
     operation_dict = model_to_dict(operation)

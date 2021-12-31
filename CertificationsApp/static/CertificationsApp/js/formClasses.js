@@ -18,26 +18,61 @@ labels.forEach(e => {
 let labels = document.querySelectorAll("label")
 idNumberLabel = labels[1];
 domainLabel = labels[2];
-cuitGroupInput = document.getElementById("cuitInput");
-cuitInput = document.getElementById("cuit");
-caption = document.getElementById("caption");
+cuitDiv = document.getElementById("inputDiv");
+cuitInput = document.getElementById("cuitInput");
+company_caption = document.getElementById("caption");
 let company;
 
 function companyToggle(){
 
-    cuitGroupInput.classList.toggle("d-none");
+    cuitDiv.classList.toggle("d-none");
     if(company){
-        caption.innerHTML = "¿Sos empresa? hace click";
+        company_caption.innerHTML = "¿Sos empresa? hace click ";
         idNumberLabel.innerHTML = "DNI"
         domainLabel.innerHTML = "Patente"
         cuitInput.value = ""
         company = false;
     } else {
-        caption.innerHTML = "¿Sos titular? hace click";
+        company_caption.innerHTML = "¿Sos titular? hace click ";
         idNumberLabel.innerHTML = "DNI del titular"
         domainLabel.innerHTML = "Patente del vehiculo del titular"
         company = true;
     }
+}
+
+// login form - toggle to chassis input
+
+chassisDiv = document.getElementById("chassisDiv");
+chassisInput = document.getElementById("chassisInput");
+chassis_caption = document.getElementById("chassisCaption");
+chassisAnchor = document.getElementById("chassisAnchor")
+let chassis;
+
+function chassisToggle(){
+
+    chassisDiv.classList.toggle("d-none");
+    if(chassis){
+        chassis_caption.innerHTML = "¿El vehículo aun no tiene patente? ";
+        chassisAnchor.innerHTML = "Entrar con N° de Chasis";
+        domainInput.value = "";
+        domainLabel.parentElement.hidden = false;
+        //domainLabel.nextSibling.disabled = true;
+        chassis = false;
+    } else {
+        chassis_caption.innerHTML = "¿Preferis ingresar con la patente? ";
+        chassisAnchor.innerHTML = "Entrar con Patente";
+        chassisInput.value = "";
+        domainLabel.parentElement.hidden = true;
+        //domainLabel.nextSibling.disabled = false;
+        chassis = true;
+    }
+}
+
+// doc form - disabled chassis input when client loged in with that
+
+chassis_doc_input = document.getElementById("id_chassis_number")
+if(chassis_doc_input.value != ""){
+    chassis_doc_input.readOnly = true
 }
 
 // doc form - adding bootstrap style to form
@@ -76,20 +111,10 @@ if(window.location.pathname.includes("formulario") && companyParam!=""){
     domainLabel.innerHTML = "Patente del vehiculo del titular"
     
     // setting mail and phone values from company database
+
     emailInput = document.getElementById("id_mail");
     emailInput.value = document.querySelector("input[name='companyMail']").value
     emailInput.setAttribute("readonly", true)
-    // Primer intento
-    //emailInput.setAttribute("hidden", true)
-    //emailLabel.setAttribute("hidden", true)
-    // Segundo intento
-    //emailInput.style.setProperty("display","none")
-    //emailLabel.style.setProperty("display","none")
-    // Tercer intento
-    //emailInput.style.setProperty("visibility","hidden")
-    //emailInput.style.setProperty("position","absolute")
-    //emailLabel.style.setProperty("visibility","hidden")
-    //emailLabel.style.setProperty("position","absolute")
 
     phoneInput = document.getElementById("id_phone");
     phoneInput.value = document.querySelector("input[name='companyPhone']").value
