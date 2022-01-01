@@ -19,7 +19,7 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 import mimetypes
 from django.template.loader import render_to_string
-#from weasyprint import HTML
+from weasyprint import HTML
 
 
 #------------------- login ------------------#
@@ -149,7 +149,7 @@ def doc(request):
             print("3:{}".format(form_doc.errors))
             
     #company=login_data.get('empresa')
-    if login_data.get('empresa')!="":
+    if login_data.get('empresa') not in ["", None]:
         print(request.GET.get('empresa'))
         company = Company.objects.get(cuit=login_data.get('empresa'))
     else:
@@ -261,7 +261,7 @@ def waitingPayment(request, pk):
     body = f"El cliente: '{client.name} {client.surname}' notifica que realizo una tranferencia correspondiente al informe {operation.certificate_number}"
     Thread(target = emailNotificationToAdmin, args = [title,body]).start()
 
-    return render(request,"payment_checking.html", {"operation": operation, "admin_email": settings.EMAIL_HOST_USER})
+    return render(request,"payment_checking.html", {"operation": operation, "admin_email": settings.EMAIL_HOST_USER, "admin_phone": settings.ADMIN_PHONE})
 
 #------------------- appointment -> turno-verificacion ----------------#
 def appointment(request, pk):   
@@ -278,7 +278,7 @@ def appointment(request, pk):
             operation.onsite_verified_at = None
             operation.stage = "Esperando certificado"
             operation.save()
-            return render(request,"download_inprocess_.html", {"admin_email": settings.EMAIL_HOST_USER})
+            return render(request,"download_inprocess_.html", {"admin_email": settings.EMAIL_HOST_USER, "admin_phone": settings.ADMIN_PHONE})
 
         amount = operation.final_type.fee
         print(amount)
@@ -361,7 +361,7 @@ def waitingVerification(request, pk):
 def waitingCertificate(request, pk):
     operation = Operation.objects.get(pk=pk)
 
-    return render(request,"download_inprocess_.html", {"admin_email": settings.EMAIL_HOST_USER})
+    return render(request,"download_inprocess_.html", {"admin_email": settings.EMAIL_HOST_USER, "admin_phone": settings.ADMIN_PHONE})
 
 #------------------- download -> descarga-certificado ----------------#
 
