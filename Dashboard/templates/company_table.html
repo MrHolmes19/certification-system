@@ -61,7 +61,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
             
-                <form action="{% url 'Dashboard:Companies' %}" method="POST">
+                <form action="{% url 'Dashboard:Companies' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                     <div class="modal-body">
                         <div class="mb-3 row">
@@ -86,6 +86,12 @@
                             <label for="companyPhone" class="col-sm-4 col-form-label">Nuevo Teléfono:</label>
                             <div class="col-sm-8">
                                 <input type="text" name="phone" class="form-control" id="companyPhone" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="companyLogo" class="col-sm-4 col-form-label">Subir Logo:</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="file" name="logoInput" id="companyLogo">
                             </div>
                         </div>
                         <div class="row my-2">
@@ -125,7 +131,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
             
-                <form action="{% url 'Dashboard:Companies' %}" method="POST">
+                <form action="{% url 'Dashboard:Companies' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                     <div class="modal-body">
                         <div class="mb-3 row">
@@ -150,6 +156,12 @@
                             <label for="companyPhone" class="col-sm-4 col-form-label">Teléfono:</label>
                             <div class="col-sm-8">
                                 <input type="text" name="phone" class="form-control" id="companyPhone" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label for="companyLogo" class="col-sm-4 col-form-label">Subir Logo:</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="file" name="logoInput" id="companyLogo">
                             </div>
                         </div>
                     <div class="modal-footer">

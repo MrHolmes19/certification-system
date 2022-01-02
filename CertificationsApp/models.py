@@ -52,6 +52,7 @@ class Company(models.Model):
     mail = models.EmailField(max_length=64, blank=False, unique=True)
     phone = models.IntegerField(blank=False)
     enabled = models.BooleanField(default=True)
+    logo = models.ImageField(upload_to="company_logos", blank=True, null=True)
 
     class Meta:
         verbose_name = 'company'
@@ -92,7 +93,7 @@ class Operation(models.Model):
     paid_amount = models.IntegerField(default=0)
     doc_verified_at = models.DateTimeField(default=None, blank=True, null=True)
     onsite_verified_at = models.DateTimeField(default=None, blank=True, null=True)
-    inform_description = models.TextField(default=None, blank=True, null=True)
+    inform_description = models.TextField(default="", blank=True, null=True)
     inform_created_at = models.DateTimeField(default=None, blank=True, null=True)
     certificate = models.FileField(upload_to=file_path, blank=True, null=True)
     certificate_uploaded_at = models.DateTimeField(default=None, blank=True, null=True)

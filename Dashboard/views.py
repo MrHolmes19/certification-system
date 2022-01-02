@@ -329,6 +329,10 @@ def operationDetailPDF(request, pk):
     operation = Operation.objects.get(pk=pk)
     vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
     client = Client.objects.get(pk=vehicle.owner.id)
+    try:
+        company = Company.objects.get(pk=operation.company.id)
+    except Company.DoesNotExist:
+        company = False
 
     if request.method == 'POST':
         description = request.POST.get("description")
@@ -348,7 +352,9 @@ def operationDetailPDF(request, pk):
         "operation": operation,
         "description": desc_list,
         "vehicle": vehicle,
-        "client": client
+        "client": client,
+        "BASE_DIR": settings.BASE_DIR,
+        "company": company
     })
 
     response = HttpResponse(content_type="application/pdf")
@@ -376,6 +382,7 @@ def companies(request):
         company.mail = mail
         company.phone = phone
         company.enabled = True if enabled == "enabled" else False
+        company.logo = request.FILES.get("logoInput") if request.FILES.get("logoInput") else company.logo
 
         company.save()
     
@@ -385,8 +392,9 @@ def companies(request):
         name = request.POST.get("name")
         mail = request.POST.get("mail")
         phone = request.POST.get("phone")
-        
-        company = Company.objects.create(name=name, cuit=cuit, mail=mail, phone=phone)
+        logo = request.FILES.get("logoInput")
+
+        company = Company.objects.create(name=name, cuit=cuit, mail=mail, phone=phone, logo=logo)
         company.save()
 
     try:

@@ -9,7 +9,12 @@
 </head>
 
 <body>
-
+    <div class="watermark">
+        {% if company and company.logo %}
+        <div class="logo">
+            <img src="file://{{BASE_DIR}}{{company.logo.url}}" alt="">
+        </div>
+        {% endif %}
         <div class="header">
             <p>Buenos Aires 15 de septiembre de 2021</p>
             <p><strong>CERTIFICADO Nº:</strong> {{operation.certificate_number}}</p>
@@ -30,15 +35,15 @@
         </div>
 
         <div class="images">
-            <div class="img"><img src="file:///home/gabyTheRock/certification-system{{operation.image3_uploaded.url}}" alt=""></div>
-            <div class="img"><img src="file:///home/gabyTheRock/certification-system{{operation.image4_uploaded.url}}" alt=""></div>
-            <div class="img"><img src="file:///home/gabyTheRock/certification-system{{operation.image5_uploaded.url}}" alt=""></div>
-            <div class="img"><img src="file:///home/gabyTheRock/certification-system{{operation.image6_uploaded.url}}" alt=""></div>
+            <div class="img"><img src="file://{{BASE_DIR}}{{operation.image3_uploaded.url}}" alt=""></div>
+            <div class="img"><img src="file://{{BASE_DIR}}{{operation.image4_uploaded.url}}" alt=""></div>
+            <div class="img"><img src="file://{{BASE_DIR}}{{operation.image5_uploaded.url}}" alt=""></div>
+            <div class="img"><img src="file://{{BASE_DIR}}{{operation.image6_uploaded.url}}" alt=""></div>
             {% if operation.image7_uploaded %}
-                <div class="img"><img src="file:///home/gabyTheRock/certification-system{{operation.image7_uploaded.url}}" alt=""></div>
+                <div class="img"><img src="file://{{BASE_DIR}}{{operation.image7_uploaded.url}}" alt=""></div>
             {% endif %}
             {% if operation.image8_uploaded %}
-                <div class="img"><img src="file:///home/gabyTheRock/certification-system{{operation.image8_uploaded.url}}" alt=""></div>
+                <div class="img"><img src="file://{{BASE_DIR}}{{operation.image8_uploaded.url}}" alt=""></div>
             {% endif %}
         </div>
     
@@ -86,7 +91,9 @@
         </ul>
         <h4 style="text-decoration: underline;">CUALESQUIERA DE ESTAS ACCIONES ANULARÁ LA VALIDEZ DE LA FIRMA DIGITAL Y DEL CERTIFICADO.</h4> 
         </div>
+    </div>
 </body>
+
 
 <style>
 @page {
@@ -98,6 +105,19 @@
         padding: 0;
         border-radius: 5px;
         min-height: 1095px
+    }
+    .logo img{
+        max-width: 200px;
+        max-height: 80px;
+        position: fixed;
+        top: 10px
+        left: 10px
+    }
+    .watermark{
+        background-image: url("{% static 'CertificationsApp/images/marca_de_agua_clarito.jpg' %}");
+        object-fit: cover;
+        background-size: 350px 445px;
+        padding-bottom: 200px;
     }
     .header{
         text-align: right;
@@ -157,6 +177,7 @@
     .about h4{
     font-style: italic;
     }
+
 
 </style>
 

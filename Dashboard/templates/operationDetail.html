@@ -235,6 +235,10 @@
                       {% if not operation.inform_description %}
                       DESCRIPCION: Se ha verificado las adaptaciones pertinentes para el cambio de tipo, de: {{operation.original_type}} a: {{operation.final_type}}.
                       
+                      {% if "asientos" in operation.final_type.available_type %}
+                      Se agrega: una fila de asientos con cinturones de seguridad y apoya cabezas.
+                      {% endif %}
+
                       La modificacion cumple con los requisitos de seguridad activa y pasiva segun lo estipulado en la Ley 24449 y su decreto reglamentario 779/95.
                       
                       el presente certificado tiene una validez de 90 dias corridos a partir de la fecha de emision.

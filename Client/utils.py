@@ -38,7 +38,7 @@ def loginRedirect(id_number_input, domain_input, chassis_input, company_cuit):
         if coincidence == True:
             for x in operations:
                 # Check if this vehicle has active operations
-                if x.stage != "Operacion completada" or x.certificate_downloaded_at > utc.localize(datetime.now()-timedelta(days = 90)):
+                if x.stage != "Operacion completada" or x.certificate_downloaded_at > utc.localize(datetime.now()-timedelta(days = 1)):
                     # Check if this operation is active
                     if x.is_active == False:
                         return "unable"

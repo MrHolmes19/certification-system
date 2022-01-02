@@ -41,7 +41,7 @@
           <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav mx-auto mb-20 mb-lg-0 d-flex container-fluid justify-content-around">
               <li class="nav-item ms-sm-0 ms-lg-auto">
-                <a class="nav-link disabled {% if request.path == '/' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">1) Ingreso</a>
+                <a class="nav-link {% if request.path == '/' %} text-primary {% endif %}" href="{% url 'Login' %}" tabindex="-1" aria-disabled="true">1) Ingreso</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link disabled {% if request.path|slice:':11' == '/formulario' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">2) Completar formulario</a>
@@ -55,7 +55,7 @@
               <li class="nav-item">
                 <a class="nav-link disabled {% if request.path|slice:':21' == '/descarga-certificado' %} text-primary {% endif %}" href="#" tabindex="-1" aria-disabled="true">5) Descargar certificado</a>
               </li>
-              <a class="nav-link ms-auto" href="#"><i class="fas fa-door-open"></i> SALIR </a>
+              <a class="nav-link ms-auto" href="//www.certificaciones-vehiculares.ar"><i class="fas fa-door-open"></i> SALIR </a>
             </ul>
           </div>
         </div>
