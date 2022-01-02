@@ -1,5 +1,5 @@
 
-botonEnviar = document.querySelector("#submit")
+form_doc = document.querySelector("#form_doc")
 
 message = "Gracias por completar el formulario."
 speech = new SpeechSynthesisUtterance(message);
@@ -26,7 +26,8 @@ window.speechSynthesis.onvoiceschanged = function() {
 };
 
 //message.voice = list_voices[1]
-const thanks = (message) =>
+ const thanks = (message) => {
+    console.log("message")
     //window.SpeechSynthesis.speak(new SpeechSynthesisUtterance(message))
 
     //speech = new SpeechSynthesisUtterance(message);
@@ -36,5 +37,5 @@ const thanks = (message) =>
     //speechSynthesis.speak(speech);
 
     window.speechSynthesis.speak(speech);
+ }
 
-//botonEnviar.addEventListener("click", thanks(message));

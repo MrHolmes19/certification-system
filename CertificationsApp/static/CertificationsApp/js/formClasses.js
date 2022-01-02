@@ -121,3 +121,24 @@ if(window.location.pathname.includes("formulario") && companyParam!=""){
     phoneInput.setAttribute("readonly", true)
 }
 
+
+
+// spinner logic
+submit_btn = document.getElementById("form_doc")
+submit_btn.addEventListener('submit', loaderStart)
+loader = document.getElementById("loader")
+inputs.forEach(element => {
+    element.addEventListener('invalid', loaderStop)
+});
+
+//submit_btn.addEventListener('invalid', logValue)
+
+function loaderStop(e) {
+  loader.classList.add("d-none")
+}
+
+function loaderStart(e) {
+    thanks()
+    loader.classList.remove("d-none")
+    console.log(e)
+  }

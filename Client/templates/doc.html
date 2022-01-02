@@ -17,7 +17,7 @@
     <!-- form -->
     <div class="row">
       <div class="col col-md-10 offset-md-1 col-lg-10 offset-lg-1 pt-2 pb-4">
-        <form action="
+        <form id="form_doc" action="
             {% if operation.id != None %}
               {% url 'Rejected_Doc' operation.id %} 
             {% else %}
@@ -71,7 +71,7 @@
           <!-- send button  -->
           <div class="row mt-2">
             <div class="col d-grid gap-2">
-              <button id="submit" type="submit" class="btn btn-primary" onclick="thanks()">Enviar documentacion</button>
+              <button id="submit" type="submit" class="btn btn-primary">Enviar documentacion</button>
             </div>  
           </div>          
         </form>
@@ -80,10 +80,14 @@
   </div>
 </section>
 
+<div class="loadingio-spinner-spinner-6m3q78lkeoc d-none" id="loader"><div class="ldio-sap0jehfsp">
+  <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div></div>
+
+<script src="{% static 'CertificationsApp/js/speaker.js' %}"></script>
 <script src="{% static 'CertificationsApp/js/types.js' %}"></script>
 <script src="{% static 'CertificationsApp/js/formClasses.js' %}"></script>
 <script src="{% static 'CertificationsApp/js/cardsLogic.js' %}"></script> <!--type="module"--> 
-<script src="{% static 'CertificationsApp/js/speaker.js' %}"></script>
 <script src="{% static 'CertificationsApp/js/selects.js' %}"></script>
 
 {% endblock %}
