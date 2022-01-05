@@ -149,11 +149,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Email settings
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'certificaciones.larroca@gmail.com'
-EMAIL_HOST_PASSWORD = secret_config.EMAIL_HOST_PASSWORD
+
+
+if DEBUG == True:
+    # GMAIL
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = secret_config.EMAIL_HOST_USER_TEST
+    EMAIL_HOST_PASSWORD = secret_config.EMAIL_HOST_PASSWORD_TEST
+    #DEFAULT_FROM_EMAIL = secret_config.EMAIL_HOST_USER_TEST
+else:
+    # WEBMAIL (CPANEL)
+
+    EMAIL_HOST = 'mail.certificaciones-vehiculares.ar'
+    EMAIL_HOST_USER = secret_config.EMAIL_HOST_USER
+    EMAIL_HOST_PASSWORD = secret_config.EMAIL_HOST_PASSWORD
+    DEFAULT_FROM_EMAIL = secret_config.EMAIL_HOST_USER
 
 ADMIN_PHONE = secret_config.ADMIN_PHONE
 

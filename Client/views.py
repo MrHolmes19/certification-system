@@ -131,17 +131,11 @@ def doc(request):
                 operation.save()  
 
                 # email sending
-                email = EmailMessage("Nuevo cliente - revisar documentación",
-                    "El cliente: '{} {}' acaba de cargar la documentación para certificar un '{}'".format(client_data['name'],client_data['surname'], operation.final_type),
-                    "",
-                    ["certificaciones.larroca@gmail.com"],
-                    reply_to=[client_data['mail']])
-                try:
-                    email.send()
-                    return HttpResponseRedirect(reverse("Waiting_Doc", args=(id,)))
-                except:
-                    print("El mail no se mandó")
-                    return HttpResponseRedirect(reverse("Waiting_Doc", args=(id,)))
+                title = "Nuevo cliente - revisar documentación"
+                body = f"El cliente: '{client.name} {client.surname}' acaba de cargar la documentación para certificar un '{operation.final_type}'"
+                Thread(target = emailNotificationToAdmin, args = [title,body]).start()
+
+                return HttpResponseRedirect(reverse("Waiting_Doc", args=(id,)))
                 #return redirect("client-module:Waiting_Doc") otra manera de hacerlo
             else:
                 print(operation.errors)
