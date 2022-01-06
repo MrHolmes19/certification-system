@@ -52,6 +52,7 @@ function block_radios(day_value){
 // set min date = today
 var today = new Date();
 var dd = today.getDate();
+var maxday = dd+30;
 var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
 var yyyy = today.getFullYear();
 
@@ -65,8 +66,21 @@ if(mm<10){
 today = yyyy+'-'+mm+'-'+dd;
 day_input.setAttribute("min", today);
 
-// Toggling date input
+// set max date
 
-//const $datepicker = document.querySelector("input[type='date']").root 
+var not_today = new Date();
+not_today.setDate(maxday);
 
-picker
+var m_dd = not_today.getDate();
+var m_mm = not_today.getMonth()+1;
+var m_yyyy = not_today.getFullYear();
+
+if(m_dd<10){
+    m_dd='0'+dd
+} 
+if(m_mm<10){
+    m_mm='0'+m_mm
+} 
+
+max_date = m_yyyy+'-'+m_mm+'-'+m_dd;
+day_input.setAttribute("max", max_date);
