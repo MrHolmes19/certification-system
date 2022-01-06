@@ -34,7 +34,7 @@ class FormDocUpdate(forms.Form):
     mail = forms.EmailField(label="Email", required=True)
     phone = forms.CharField(label="Telefono", required=True, widget=forms.TextInput(
         attrs={'placeholder': "Ej: 11-6582-5214"}))
-    domain = forms.CharField(label="Patente", required=True)
+    domain = forms.CharField(label="Patente", required=False)
     brand = forms.CharField(label="Marca", required=True, widget=forms.TextInput(
         attrs={'placeholder': "Ej: Ford"}))
     model = forms.CharField(label="Modelo", required=True, widget=forms.TextInput(

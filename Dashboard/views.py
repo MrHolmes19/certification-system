@@ -52,12 +52,12 @@ def dashboardVehicles(request):
 
 def operationDetail(request, pk):
 
+    appointments_list = []
     if request.method == "GET":
         
         form, operation = generate_form(pk)
         #getting appointments
         appointments = Operation.objects.all().values_list('onsite_verified_at', flat=True)
-        appointments_list = []
         for i in appointments:
             x = convert_to_localtime(i)
             appointments_list.append(x)
@@ -138,7 +138,7 @@ def operationDetail(request, pk):
                     Thread(target = emailNotificationToClient, args = [title,body,operation]).start()
                 
                 operation.save()
-
+                
                 return HttpResponseRedirect(reverse("Dashboard:Operations"))
             else:
                 print(operationForm.errors)
@@ -173,6 +173,7 @@ def checkPayment(request):
             body = request.POST.get("body")
             amount = request.POST.get("amount")
             operation.paid_amount = amount
+            operation.stage = "Pendiente de pago"
             operation.save()
             Thread(target = emailNotificationToClient, args = [title,body,operation]).start()
 
@@ -331,7 +332,7 @@ def operationDetailPDF(request, pk):
     client = Client.objects.get(pk=vehicle.owner.id)
     try:
         company = Company.objects.get(pk=operation.company.id)
-    except Company.DoesNotExist:
+    except:
         company = False
 
     if request.method == 'POST':
@@ -354,6 +355,7 @@ def operationDetailPDF(request, pk):
         "vehicle": vehicle,
         "client": client,
         "BASE_DIR": settings.BASE_DIR,
+        "STATIC_ROOT": settings.STATIC_ROOT,
         "company": company
     })
 
@@ -378,7 +380,7 @@ def companies(request):
         company = Company.objects.get(id=id)
 
         company.name = name
-        company.cuit = cuit
+        company.cuit = ''.join([s for s in cuit if s.isdigit()]) if cuit.isdigit() == False else cuit
         company.mail = mail
         company.phone = phone
         company.enabled = True if enabled == "enabled" else False
@@ -389,6 +391,7 @@ def companies(request):
     if request.method == "POST" and request.POST.get("action") == "new":
         
         cuit = request.POST.get("cuit")
+        cuit = ''.join([s for s in cuit if s.isdigit()]) if cuit.isdigit() == False else cuit
         name = request.POST.get("name")
         mail = request.POST.get("mail")
         phone = request.POST.get("phone")

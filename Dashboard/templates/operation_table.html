@@ -13,7 +13,7 @@
               <tr>
                 <th scope="col">Detalle</th>
                 <th scope="row">Nº certificado</th>
-                <th scope="col">Cliente</th>
+                <th scope="col">Empresa</th>
                 <th scope="col">Titular</th>
                 <th scope="col">Vehiculo</th>
                 <th scope="col">Patente</th>
@@ -30,9 +30,9 @@
                     </td>
                     <td>{{op.certificate_number}}</td>
                     {% if op.company %}
-                    <td>{{op.company.name}}</td>
+                        <td>{{op.company.name}}</td>
                     {% else %}
-                    <td> </td>
+                        <td> N/A </td>
                     {% endif %}
                     <td>
                         <a id="client-link" href="#" onclick="clientModal('{{op.owner.name}}',
@@ -42,7 +42,11 @@
                         </a>
                     </td>
                     <td>{{op.id_vehicle.brand}} {{op.id_vehicle.model}}</td>
-                    <td>{{op.id_vehicle.domain}}</td>
+                    {% if op.id_vehicle.domain != "" %}
+                        <td>{{op.id_vehicle.domain}}</td>
+                    {% else %}
+                        <td> N/A </td>
+                    {% endif %}
                     <td>{{op.stage}}</td>
                     <td>{{op.original_type}}-->{{op.final_type}}</td>
                     <td>{{op.registrated_at}}</td>

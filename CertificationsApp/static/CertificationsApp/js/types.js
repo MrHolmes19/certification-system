@@ -1,3 +1,5 @@
+const CABINA_SIMPLE = {
+}
 
 const FURGON = {
     "picture1": {
@@ -6,58 +8,23 @@ const FURGON = {
     },
 }
 
-const FURGON_TERMICO = {
-    "picture1": {
-        "title":"Caja aislante",
-        "caption":"Debe verse la caja con material aislante",
-    },
-}
-
-// Cambiar este
-
-const FURGON_ASIENTOS = {
-    "picture1": {
-        "title":"Asientos",
-        "caption":"Debe verse los cinturones de seguridad",
-    },
-}
-
-// por este
-
-// const FURGON_ASIENTOS = {
-//     "picture1": {
-//         "title":"Asientos",
-//         "caption":"Debe verse los cinturones de seguridad",
-//     },
-//     "picture2": {
-//         "title":"Vidrios",
-//         "caption":"Deben verse los vidrios",
-//     },
-// }
-
-
-const CABINA_SIMPLE = {
-}
-
 const FURGON_VIDRIADO = {
     "picture1": {
         "title":"Vidrios",
-        "caption":"Deben verse los vidrios",
+        "caption":"Deben verse los cristales de ambos lados",
     },
 }
 
-// sACAR ESTO
-const FURGON_ASIENTOS_VIDRIADO = {
+const FURGON_VIDRIADO_ASIENTOS = {
     "picture1": {
         "title":"Asientos",
         "caption":"Debe verse los cinturones de seguridad",
     },
     "picture2": {
         "title":"Vidrios",
-        "caption":"Deben verse los vidrios",
+        "caption":"Deben verse los cristales de ambos lados",
     },
 }
-
 
 const MOTORHOME = {
     "picture1": {
@@ -67,6 +34,13 @@ const MOTORHOME = {
     "picture2": {
         "title":"Interior",
         "caption":"Debe mostrarse el interior",
+    },
+}
+
+const FURGON_TERMICO = {
+    "picture1": {
+        "title":"Caja aislante",
+        "caption":"Debe verse la caja con material aislante",
     },
 }
 

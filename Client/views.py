@@ -25,8 +25,8 @@ from weasyprint import HTML
 #------------------- login ------------------#
 def login(request):
     form_login = FormLogin()
+    
     if request.method == "POST":
-
         # If company
         company_cuit = request.POST.get("cuit")
         if company_cuit != "":   
@@ -36,6 +36,7 @@ def login(request):
                 return render(request,"login.html",{'form_login':form_login, "message": "Este CUIT no es valido, contactese con el administrador de la pagina"})
 
         form_login = FormLogin(request.POST)
+        
         if form_login.is_valid():
             id_number_input = request.POST.get("id_number").strip()
             domain_input = request.POST.get("domain")
@@ -54,11 +55,19 @@ def login(request):
             if domain_input.isalnum() == False:
                 alphanumerics = [s for s in domain_input if s.isalnum()]
                 domain_input = ''.join(alphanumerics)
-
+            
+            if chassis_input.isalnum() == False:
+                alphanumerics = [s for s in chassis_input if s.isalnum()]
+                chassis_input = ''.join(alphanumerics)         
+            
             # redirection manager
             targetPage = loginRedirect(id_number_input, domain_input, chassis_input, company_cuit)
             if targetPage == "unable":
-                return render(request,"login.html",{'form_login':form_login, "message": "No es posible continuar con el trámite. Contáctenos a la brevedad vía mail o teléfono"})
+                return render(request,"login.html",{'form_login':form_login, 
+                    "message": "No es posible continuar con el trámite. Contáctenos a la brevedad vía mail o teléfono"})
+            if targetPage[0] == "inProgress":
+                return render(request,"login.html",{'form_login':form_login,
+                    "message": f"El vehículo ya tiene una operación en curso, asignado al cliente {targetPage[1]}, DNI: {targetPage[2]}"})
             return redirect("/" + targetPage)
 
     return render(request,"login.html",{'form_login':form_login})
@@ -103,14 +112,19 @@ def doc(request):
             'engine_number': request.POST.get("engine_number"),
             'owner': client,
             }
-            # vehicle = Vehicle.objects.create(**vehicle_data)
-            vehicle = Vehicle.objects.filter(domain=request.POST.get("domain")).first()
-            if vehicle:
-                vehicle.__dict__.update(**vehicle_data)
+            
+            if request.POST.get("domain") !="":
+                print("----> Entre para buscar dominio")
+                vehicle = Vehicle.objects.filter(domain=request.POST.get("domain")).first()
+                # Only should be able to update the following:
+                vehicle.last_type = request.POST.get("last_type")
+                vehicle.engine_number = request.POST.get("chassis_number")
                 vehicle.owner_id = client.pk
                 vehicle.save()
             else:
+                print("----> Creo uno nuevo nomas =)")
                 vehicle = Vehicle.objects.create(**vehicle_data)
+                
             operation = Operation.objects.create() # Necesary to generate instance and create path before saving images
             operation = formRegisterOperation(request.POST, request.FILES, instance = operation)
 
@@ -166,7 +180,7 @@ def rejectedDoc(request, pk):
 
         operationForm = formUpdateOperation(request.POST, request.FILES, instance = operation)
         if operationForm.is_valid():
-            operation.save()  
+            operation.save() 
 
             operation.stage = 'Documentacion enviada'
 
@@ -174,14 +188,15 @@ def rejectedDoc(request, pk):
             body = f"El cliente: '{client.name} {client.surname}' acaba de modificar la documentación para certificar un '{operation.final_type}'"
             Thread(target = emailNotificationToAdmin, args = [title,body]).start()
 
-            return HttpResponseRedirect(reverse("Waiting_Doc"))
+            return HttpResponseRedirect(reverse("Waiting_Doc", args=(id,)))
         else:
             print(operationForm.errors)
-            return HttpResponseRedirect(reverse("Waiting_Doc"))
+            return HttpResponseRedirect(reverse("Waiting_Doc", args=(id,)))
 
 
 #------------------- doc_checking -> formulario-pendiente ----------------#
 def waitingDoc(request, pk):   
+   
     return render(request,"doc_checking.html", {"admin_email": settings.EMAIL_HOST_USER, "admin_phone": settings.ADMIN_PHONE})
 
 #------------------- payment -> pago ----------------#
@@ -404,6 +419,10 @@ def download_inform(request, pk):
     operation = Operation.objects.get(pk=pk)
     vehicle = Vehicle.objects.get(pk=operation.id_vehicle.id)
     client = Client.objects.get(pk=vehicle.owner.id)
+    try:
+        company = Company.objects.get(pk=operation.company.id)
+    except:
+        company = False
 
     description = operation.inform_description
     desc_list = description.split(".")
@@ -418,7 +437,10 @@ def download_inform(request, pk):
         "operation": operation,
         "description": desc_list,
         "vehicle": vehicle,
-        "client": client
+        "client": client,
+        "BASE_DIR": settings.BASE_DIR,
+        "STATIC_ROOT": settings.STATIC_ROOT,
+        "company": company
     })
 
     #filename = "Informe-{}".format(vehicle.domain)

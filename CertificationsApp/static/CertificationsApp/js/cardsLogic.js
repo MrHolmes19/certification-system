@@ -35,16 +35,16 @@ overlays.forEach(overlay => {
 
 // List of type id, amount of photos, title and descriptions for cards (hardcoded)
 
+
 typesInfo = [
-    ["1", "0", FURGON],
-    ["2", "1", FURGON_TERMICO],
-    ["3", "1", FURGON_ASIENTOS],
-    ["4", "0", CABINA_SIMPLE], 
-    ["5", "1", FURGON_VIDRIADO], 
-    ["6", "2", FURGON_ASIENTOS_VIDRIADO],
-    ["7", "2", MOTORHOME],
-    ["8", "2", FURGON_FRIGORIFICO],
-    ["9", "2", TRAILER],
+    ["1", "0", CABINA_SIMPLE],
+    ["2", "1", FURGON], 
+    ["3", "1", FURGON_VIDRIADO],
+    ["4", "2", FURGON_VIDRIADO_ASIENTOS],
+    ["5", "2", MOTORHOME],
+    ["6", "1", FURGON_TERMICO],
+    ["7", "2", FURGON_FRIGORIFICO],
+    ["8", "2", TRAILER],
 ];
     
     
@@ -80,7 +80,7 @@ function block_same_type(type){
     finalType.getElementsByTagName('option')[type].disabled = true
 }
 function showCards(){
-    for(i=0; i<8; i++){
+    for(i=0; i<9; i++){
         try{
             cards[i].setAttribute('class','card my-2 border-secondary d-none')
         }

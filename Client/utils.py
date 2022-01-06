@@ -24,22 +24,32 @@ stage_levels={
 # Redirect from login depending on current stage of user
 
 def loginRedirect(id_number_input, domain_input, chassis_input, company_cuit):
+    
+    # 1) Avoids a second operation for a vehicle with an operation in Progress
+    if domain_input:
+        vehicle = Vehicle.objects.filter(domain = domain_input).first()
+    else:
+        vehicle = Vehicle.objects.filter(chassis_number = chassis_input).first()
+    if vehicle:
+        if vehicle.owner.id_number != int(id_number_input):
+            return "inProgress", f'{vehicle.owner.name} {vehicle.owner.surname}', vehicle.owner.id_number
+    
     client = Client.objects.filter(id_number=id_number_input).first()
-    # Check if this client already exists in our database
+    # 2) Checks if this client already exists in our database
     if client is not None:
         vehicles = client.vehicles
         for i in vehicles.all():
             coincidence = False
-            # Check if this client has an operation with this domain
+            # 3) Checks if this client has an operation with this domain
             if i.domain == domain_input or i.chassis_number == chassis_input:
                 coincidence = True
                 operations = Operation.objects.filter(id_vehicle = i.pk)
                 break
         if coincidence == True:
             for x in operations:
-                # Check if this vehicle has active operations
-                if x.stage != "Operacion completada" or x.certificate_downloaded_at > utc.localize(datetime.now()-timedelta(days = 1)):
-                    # Check if this operation is active
+                # 4) Checks if this vehicle has active operations
+                if x.stage != "Operacion completada" or x.certificate_downloaded_at > utc.localize(datetime.now()-timedelta(days = 90)):
+                    # 5) Checks if this operation is active
                     if x.is_active == False:
                         return "unable"
                     stage = x.stage
