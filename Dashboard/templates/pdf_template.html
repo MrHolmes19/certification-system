@@ -10,11 +10,13 @@
 
 <body>
     <div class="watermark">
-        {% if company and company.logo %}
         <div class="logo">
-            <img src="file://{{BASE_DIR}}{{company.logo.url}}" alt="">
+            {% if company and company.logo %}
+                <img src="file://{{BASE_DIR}}{{company.logo.url}}" alt="">
+            {% else %}
+                <p>{{company.name}}</p>
+            {% endif %}
         </div>
-        {% endif %}
         <div class="header">
             <p>Buenos Aires 15 de septiembre de 2021</p>
             <p><strong>CERTIFICADO Nº:</strong> {{operation.certificate_number}}</p>
@@ -65,7 +67,7 @@
         </div>
 
         <div class="firma">
-            <img src="{% static 'CertificationsApp/images/firma.png' %}" alt="">
+            <img src="file://{{STATIC_ROOT}}/images/firma.png" alt="FIRMA">
         </div>
 
         <p style="page-break-before: always" ></p>
@@ -114,7 +116,7 @@
         left: 10px
     }
     .watermark{
-        background-image: url("{% static 'CertificationsApp/images/marca_de_agua_clarito.jpg' %}");
+        background-image: url("file://{{STATIC_ROOT}}/images/marca_de_agua_clarito.jpg");
         object-fit: cover;
         background-size: 350px 445px;
         padding-bottom: 200px;
@@ -168,7 +170,7 @@
     }
     .about{
         margin: 20px;
-        margin-top: 40px;
+        margin-top: 80px;
     }
     .about h3{
         text-align: center;

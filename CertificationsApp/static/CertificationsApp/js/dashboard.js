@@ -67,3 +67,16 @@ function search(value){
   });
 }
 
+/* Dynamic table's title */
+
+let table_title = document.getElementById("table_title")
+
+if(window.location.pathname.includes("Clientes")){
+  table_title.innerHTML = "Registro de Clientes"
+} else if(window.location.pathname.includes("Vehiculos")){
+  table_title.innerHTML = "Registro de Vehículos"
+} else if(window.location.pathname.includes("Empresas")){
+  table_title.innerHTML = "Empresas dadas de alta"
+} else{
+  table_title.innerHTML = "Registro de Operaciones"
+}

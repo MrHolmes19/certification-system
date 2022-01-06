@@ -28,9 +28,13 @@
                     <td>{{cli.mail}}</td>
                     <td>{{cli.phone}}</td>
                     <td>
-                      {% for vehicle in cli.vehicles.all %}
-                        {{vehicle}}
-                      {% endfor %}
+                        {% for vehicle in cli.vehicles.all %}
+                          {% if vehicle.domain == "" %}
+                            {{vehicle.model}}, sin patente
+                          {% else %}
+                            {{vehicle.model}}, {{vehicle.domain}}
+                          {% endif %}
+                        {% endfor %}
                     </td>
                 </tr>
               {% endfor %}
