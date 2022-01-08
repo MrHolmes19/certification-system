@@ -225,7 +225,7 @@
               <div class="col-4"><h6>Nº: <strong>{{operation.certificate_number}}</strong></h6></div>
               <div class="col-4"><h6>Estado: <strong>{{operation.stage}}</strong></h6></div>
               <div class="container-fluid">
-                <form action="{% url 'Dashboard:Operation-pdf' pk=operation.id %}" method="POST">
+                <form action="{% url 'Dashboard:Operation-pdf' pk=operation.id %}" target="_blank" method="POST">
                   {% csrf_token %}
                     <input type="hidden" name="op_id" value="{{operation.id}}">
                     <label class="mb-2" for="description-text">Descripcion</label>
