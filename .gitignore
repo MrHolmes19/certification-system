@@ -1,4 +1,6 @@
 secret_config.py
 
-media/*
+media/
 
+CertificationsApp/static/CertificationsApp/bootstrap/css/
+CertificationsApp/static/CertificationsApp/bootstrap/js/
