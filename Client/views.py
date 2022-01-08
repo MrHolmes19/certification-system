@@ -19,7 +19,7 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 import mimetypes
 from django.template.loader import render_to_string
-from weasyprint import HTML
+#from weasyprint import HTML
 
 
 #------------------- login ------------------#
@@ -114,15 +114,17 @@ def doc(request):
             }
             
             if request.POST.get("domain") !="":
-                print("----> Entre para buscar dominio")
                 vehicle = Vehicle.objects.filter(domain=request.POST.get("domain")).first()
-                # Only should be able to update the following:
+            else:
+                vehicle = Vehicle.objects.filter(chassis_number=request.POST.get("chassis_number")).first()
+                
+            if vehicle:
+                # Only will update the following fields:
                 vehicle.last_type = request.POST.get("last_type")
                 vehicle.engine_number = request.POST.get("chassis_number")
                 vehicle.owner_id = client.pk
                 vehicle.save()
             else:
-                print("----> Creo uno nuevo nomas =)")
                 vehicle = Vehicle.objects.create(**vehicle_data)
                 
             operation = Operation.objects.create() # Necesary to generate instance and create path before saving images
@@ -188,10 +190,10 @@ def rejectedDoc(request, pk):
             body = f"El cliente: '{client.name} {client.surname}' acaba de modificar la documentación para certificar un '{operation.final_type}'"
             Thread(target = emailNotificationToAdmin, args = [title,body]).start()
 
-            return HttpResponseRedirect(reverse("Waiting_Doc", args=(id,)))
+            return HttpResponseRedirect(reverse("Waiting_Doc", args=(pk,)))
         else:
             print(operationForm.errors)
-            return HttpResponseRedirect(reverse("Waiting_Doc", args=(id,)))
+            return HttpResponseRedirect(reverse("Waiting_Doc", args=(pk,)))
 
 
 #------------------- doc_checking -> formulario-pendiente ----------------#

@@ -4,7 +4,8 @@
   "description": "Aplicacion web a pedido creada con Python sobre el framework Django y Bootstrap + Javascript para el diseño del front.",
   "main": "index.js",
   "scripts": {
-    "build": "purgecss --css CertificationsApp/static/CertificationsApp/bootstrap/css/bootstrap.css --content Client/templates/*.html Dashboard/templates/*.html CertificationsApp/static/CertificationsApp/js/*.js  --output CertificationsApp/static/CertificationsApp/bootstrap/css/reduced-Bootstrap.css"
+
+    "build": "purgecss --css CertificationsApp/static/CertificationsApp/bootstrap/css/bootstrap.min.css --content Client/templates/*.html Dashboard/templates/*.html CertificationsApp/static/CertificationsApp/js/*.js  --output CertificationsApp/static/CertificationsApp/css/reduced-bootstrap.css"
   },
   "repository": {
     "type": "git",
