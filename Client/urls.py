@@ -1,9 +1,5 @@
 from django.urls import path
 from . import views
-#from django.conf import settings  --> por si lo necesitamos a futuro
-#from django.conf.urls.static import static  --> por si lo necesitamos a futuro
-
-#app_name = 'client-module'
 
 urlpatterns = [
     path('', views.login, name="Login"),

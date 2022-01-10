@@ -10,7 +10,9 @@ from django.conf import settings
 from threading import Thread
 
 def emailNotificationToClient(title, body, operation):
-
+    '''
+    Function that builds an email and sends to the Client
+    '''
     receiver = operation.company.mail if operation.company else operation.owner.mail  
     email = EmailMessage(title, body, settings.EMAIL_HOST_USER, [receiver])
     try:

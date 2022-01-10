@@ -15,7 +15,7 @@ from Dashboard.utils import generate_form
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.template.loader import render_to_string
-#from weasyprint import HTML
+from weasyprint import HTML
 from django.conf import settings
 import os, shutil
 from django.contrib.auth.decorators import login_required

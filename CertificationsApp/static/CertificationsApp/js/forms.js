@@ -7,12 +7,6 @@ inputs.forEach(e => {
     e.classList.add("form-control");
 });
 
-/*   LE DA UN POCO DE PADDING, PERO CREO QUE SE PUEDE QUITAR
-labels.forEach(e => {
-    e.classList.add("form-label"); 
-});
-*/
-
 // login form - toggle to company user
 
 let labels = document.querySelectorAll("label")
@@ -56,14 +50,12 @@ function chassisToggle(){
         chassisAnchor.innerHTML = "Entrar con N° de Chasis";
         domainInput.value = "";
         domainLabel.parentElement.hidden = false;
-        //domainLabel.nextSibling.disabled = true;
         chassis = false;
     } else {
         chassis_caption.innerHTML = "¿Preferis ingresar con la patente? ";
         chassisAnchor.innerHTML = "Entrar con Patente";
         chassisInput.value = "";
         domainLabel.parentElement.hidden = true;
-        //domainLabel.nextSibling.disabled = false;
         chassis = true;
     }
 }
@@ -120,8 +112,6 @@ if(window.location.pathname.includes("formulario") && companyParam!=""){
     phoneInput.value = document.querySelector("input[name='companyPhone']").value
     phoneInput.setAttribute("readonly", true)
 }
-
-
 
 // spinner logic
 submit_btn = document.getElementById("form_doc")

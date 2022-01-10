@@ -17,13 +17,19 @@ stage_levels={
     "Verificacion pendiente": "verificacion-pendiente/",
     "Esperando certificado": "certificado-en-proceso/",
     "Certificado disponible": "descarga-certificado/",
-    "Certificado expirado": "fuckyou/",
+    #"Certificado expirado": "certificado-expirado/",   NOT IMPLEMENTED YET
     "Operacion completada": "descarga-certificado/",
 }
 
 # Redirect from login depending on current stage of user
 
 def loginRedirect(id_number_input, domain_input, chassis_input, company_cuit):
+    '''
+    Receive credentials sent by client
+    Make some validations and look for existing operation with this credentials
+    return path for redirection or string to trigger the message error in frontend
+    '''
+    new_ops_path = f"formulario/?dni={id_number_input}&patente={domain_input}&chasis={chassis_input}&empresa={company_cuit}"
     
     # 1) Avoids a second operation for a vehicle with an operation in Progress
     if domain_input:
@@ -53,17 +59,18 @@ def loginRedirect(id_number_input, domain_input, chassis_input, company_cuit):
                     if x.is_active == False:
                         return "unable"
                     stage = x.stage
-                    return stage_levels[stage] + str(x.id)
-                                     
-            return "formulario/?dni="+id_number_input+"&patente="+domain_input+"&chasis="+chassis_input+"&empresa="+company_cuit
+                    return stage_levels[stage] + str(x.id)                                     
+            return new_ops_path
         else:
-            return "formulario/?dni="+id_number_input+"&patente="+domain_input+"&chasis="+chassis_input+"&empresa="+company_cuit
+            return new_ops_path
     else:
-        return "formulario/?dni="+id_number_input+"&patente="+domain_input+"&chasis="+chassis_input+"&empresa="+company_cuit
+        return new_ops_path
 
 
 def emailNotificationToAdmin(title, body):
-    
+    '''
+    Function that builds an email and sends to the Admin
+    '''
     email = EmailMessage(subject=title, body=body, to=[settings.EMAIL_HOST_USER])
     try:
         email.send()
@@ -73,6 +80,9 @@ def emailNotificationToAdmin(title, body):
 
 
 def convert_to_localtime(utctime):
+    '''
+    Convert UTC to Local Timezone defined in settings.py
+    '''    
     try:
         fmt = '%Y-%m-%dT%H:%M'
         utc = utctime.replace(tzinfo=pytz.UTC)

@@ -19,11 +19,14 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 import mimetypes
 from django.template.loader import render_to_string
-#from weasyprint import HTML
+from weasyprint import HTML
 
 
 #------------------- login ------------------#
-def login(request):
+def login(request):    
+    '''
+    Make validations, transform data from inputs and redirect client according to the state of the operation 
+    '''
     form_login = FormLogin()
     
     if request.method == "POST":
@@ -33,7 +36,8 @@ def login(request):
             try:
                 company = Company.objects.get(cuit=company_cuit)
             except Company.DoesNotExist:
-                return render(request,"login.html",{'form_login':form_login, "message": "Este CUIT no es valido, contactese con el administrador de la pagina"})
+                return render(request,"login.html",{'form_login':form_login,
+                                "message": "Este CUIT no es valido, contactese con el administrador de la pagina"})
 
         form_login = FormLogin(request.POST)
         
@@ -67,15 +71,21 @@ def login(request):
                     "message": "No es posible continuar con el trámite. Contáctenos a la brevedad vía mail o teléfono"})
             if targetPage[0] == "inProgress":
                 return render(request,"login.html",{'form_login':form_login,
-                    "message": f"El vehículo ya tiene una operación en curso, asignado al cliente {targetPage[1]}, DNI: {targetPage[2]}"})
+                    "message": f"El vehículo ya tiene una operación en curso, asignado al cliente {targetPage[1]},\
+                        DNI: {targetPage[2]}"})
             return redirect("/" + targetPage)
 
     return render(request,"login.html",{'form_login':form_login})
 
 #------------------- Doc -> formulario ----------------#
 def doc(request):
+    '''
+    Process the client data, validate it and create a new operation saving all the information
+    in the database, in respective tables
+    '''
     login_data = request.GET
-    form_doc = FormDoc(initial={'id_number':login_data.get('dni'),'domain':login_data.get('patente'),'chassis_number':login_data.get('chasis')})
+    form_doc = FormDoc(initial={'id_number':login_data.get('dni'),'domain':login_data.get('patente'),
+                                'chassis_number':login_data.get('chasis')})
 
     if request.method == "POST":
 
@@ -148,7 +158,8 @@ def doc(request):
 
                 # email sending
                 title = "Nuevo cliente - revisar documentación"
-                body = f"El cliente: '{client.name} {client.surname}' acaba de cargar la documentación para certificar un '{operation.final_type}'"
+                body = f"El cliente: '{client.name} {client.surname}' acaba de cargar \
+                    la documentación para certificar un '{operation.final_type}'"
                 Thread(target = emailNotificationToAdmin, args = [title,body]).start()
 
                 return HttpResponseRedirect(reverse("Waiting_Doc", args=(id,)))
@@ -157,10 +168,9 @@ def doc(request):
                 print(operation.errors)
         else:
             print("3:{}".format(form_doc.errors))
-            
-    #company=login_data.get('empresa')
+    
+    # for GET request        
     if login_data.get('empresa') not in ["", None]:
-        print(request.GET.get('empresa'))
         company = Company.objects.get(cuit=login_data.get('empresa'))
     else:
         company = ""
@@ -168,6 +178,9 @@ def doc(request):
 
 #------------------- doc_checking -> formulario-pendiente ----------------#
 def rejectedDoc(request, pk):
+    '''
+    Render the form page with data alredy sent when admin rejects some picture
+    '''
     if request.method == "GET":
         
         form, operation = generate_form(pk)
@@ -198,11 +211,16 @@ def rejectedDoc(request, pk):
 
 #------------------- doc_checking -> formulario-pendiente ----------------#
 def waitingDoc(request, pk):   
-   
+    '''
+    Render a page for noticing client when the doc is sent successfully
+    '''
     return render(request,"doc_checking.html", {"admin_email": settings.EMAIL_HOST_USER, "admin_phone": settings.ADMIN_PHONE})
 
 #------------------- payment -> pago ----------------#
 def payment(request, pk):
+    '''
+    
+    '''
     if request.method == "GET":
 
         operation = Operation.objects.get(pk=pk)

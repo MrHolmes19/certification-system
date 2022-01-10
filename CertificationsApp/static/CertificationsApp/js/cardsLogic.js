@@ -35,7 +35,6 @@ overlays.forEach(overlay => {
 
 // List of type id, amount of photos, title and descriptions for cards (hardcoded)
 
-
 typesInfo = [
     ["1", "0", CABINA_SIMPLE],
     ["2", "1", FURGON], 
@@ -135,55 +134,6 @@ labelInputs.forEach(label => {
 });
 
 
-// INTENTO 1 - FUNCIONES POR SEPARADO (SUPUESTAMENTE DEBERIA ANDAR) 
-
-/*
-function hiddeLabel(i){
-    document.getElementById('label_' + i).classList.add("inactive");
-}
-
-function showPreview(i){
-    document.getElementById('image_' + i).src = window.URL.createObjectURL(files[0]);
-}
-
-function allInOne(i){
-    hiddeLabel(i);
-    showPreview(i);
-}
-
-imageInputs.forEach(input => {
-    input.setAttribute(
-        'onchange',
-        'document.getElementById("image_' + i + '").src = window.URL.createObjectURL(this.files[0])',
-        'document.getElementById("label_' + i + '").classList.add("inactive")'
-    );
-    
-    //input.setAttribute('onchange',this.hiddeLabel(i), this.showPreview(i));
-    //input.setAttribute('onchange',function() {hiddeLabel(i),showPreview(i)});
-    input.setAttribute('onchange',(function() {allInOne(i)})());
-    i++;  
-});
-
-
-// INTENTO 2 - Con un EventListener pasandole parametros via funciones
-
-/*
-var alcambio = function(){
-    document.getElementById("label_"+ i).classList.add("inactive");
-    document.getElementById("overlay_" + i).classList.add("inactive2");
-}
-
-var labelInputs = document.querySelectorAll(".card .container label");
-
-i = 1;
-
-labelInputs.forEach(label => {
-    label.addEventListener("click", alcambio(i));
-    i++;
-});
-
-*/
-
 //block all inputs except those how need to be updated
 
 text_inputs = document.querySelectorAll('input:not([type="hidden"])');
@@ -217,8 +167,6 @@ function block_inputs(){
 var current_url = window.location.pathname
 
 path_length = current_url.length
-//console.log(path_length)
-
 
 //encontrar otra forma de hacer esto
 if(path_length > 12 && path_length < 15){

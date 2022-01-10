@@ -49,6 +49,7 @@ function messageModal(){
     modal.toggle()
 }
 
+// ------------- TRASLADAR A ALLMODALS !!!!!!!!!!!!!   -----------------
 
 // appointmentModal
 var appointment_Modal = new bootstrap.Modal(document.getElementById('appointmentModal'), {keyboard: false})
@@ -56,7 +57,6 @@ var appointment_Modal = new bootstrap.Modal(document.getElementById('appointment
 function appointmentModal(){   
     appointment_Modal.toggle()
 }
-
 
 
 // preview images modal
@@ -117,8 +117,6 @@ if(currentState == false){ //inactive
 
 function toggleState(){
     currentState = stateSwitch.checked
-    // console.log("current es check: " + currentState)
-    // console.log("onload es check: " + onloadState)
     if(currentState!=onloadState){
         stateButton.hidden = false
         stateButton.disabled = false
@@ -128,15 +126,9 @@ function toggleState(){
     if(currentState == false){
         switchLabel.innerHTML = "Operacion Inactiva"
         stateSwitch.value = "off"
-        // console.log("Entró en false. HTML: ")
-        // console.log(stateSwitch)
-        // console.log("Entró en false. Valor del input: " + stateSwitch.value)
     }else{
         switchLabel.innerHTML = "Operacion Activa"
         stateSwitch.value = "on"
-        // console.log("Entró en true. HTML: ")
-        // console.log(stateSwitch)
-        // console.log("Entró en true. Valor del input: " + stateSwitch.value)
     }
 }
 
