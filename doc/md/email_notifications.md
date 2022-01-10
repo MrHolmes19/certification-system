@@ -21,4 +21,4 @@ De igual manera, el administrador recibe un mail cada vez que haya ingresado un 
 
 
 
----> [Siguiente](doc/md/state.md#GESTION-DE-OPERACIONES-INACTIVAS)
+---> [Siguiente](state.md#GESTION-DE-OPERACIONES-INACTIVAS)

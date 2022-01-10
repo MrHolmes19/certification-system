@@ -6,4 +6,4 @@ El administrador tiene la posibilidad de cambiar el estado de una operaciÃ³n a â
 
 
 
----> [Siguiente](doc/md/always_on_tasks.md#TAREAS-RUTINARIAS)
+---> [Siguiente](always_on_tasks.md#TAREAS-RUTINARIAS)

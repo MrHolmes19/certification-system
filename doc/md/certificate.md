@@ -13,4 +13,4 @@ Cuando el cliente ingrese con la operación en estado “Certificado Disponible�
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/5.cliente-descarga de certificado.png?raw=true" width="800">
 
 
----> [Siguiente](doc/md/email_notifications.md#NOTIFICACIONES-POR-MAIL)
+---> [Siguiente](email_notifications.md#NOTIFICACIONES-POR-MAIL)

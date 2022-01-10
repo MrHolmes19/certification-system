@@ -28,4 +28,4 @@ También es posible rechazar una cita ya concertada, o rechazar la verificación
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/4.admin-aprobacion-verif-vehicular.png?raw=true" width="800">
 
 
----> [Siguiente](doc/md/pdf_inform.md#GENERACION-DE-INFORME-PDF)
+---> [Siguiente](pdf_inform.md#GENERACION-DE-INFORME-PDF)

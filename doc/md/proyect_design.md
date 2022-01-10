@@ -48,4 +48,4 @@ A continuación, se expresan los estados desde el inicio de la operación hasta 
 |10	|Certificado descargado	|Operación completa|
 
 
----> [Siguiente](doc/md/funcionalidades.md#FUNCIONALIDADES-DEL-SISTEMA)
+---> [Siguiente](funcionalidades.md#FUNCIONALIDADES-DEL-SISTEMA)

@@ -46,4 +46,4 @@ Es posible modificar una o todas las tarifas de cada servicio ofrecido, desde di
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-tarifas.png?raw=true" width="800">
 
 
----> [Siguiente](doc/md/code.md#ORGANIZACIÓN-DEL-CÓDIGO)
+---> [Siguiente](code.md#ORGANIZACIÓN-DEL-CÓDIGO)

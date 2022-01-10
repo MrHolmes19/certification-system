@@ -51,4 +51,4 @@ En caso de que el cliente sea una empresa que representa un titular, el administ
 
 
 
----> [Siguiente](doc/md/payment.md#SISTEMA-DE-PAGO)
+---> [Siguiente](payment.md#SISTEMA-DE-PAGO)

@@ -38,4 +38,4 @@ Al aprobarse el pago, se anularán las opciones sobre la sección anterior (Form
 
 
 
----> [Siguiente](doc/md/appointment.md#SISTEMA-DE-TURNOS)
+---> [Siguiente](appointment.md#SISTEMA-DE-TURNOS)
