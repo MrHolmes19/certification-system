@@ -37,4 +37,4 @@ El cliente ha solicitado que se tengan en cuenta las siguientes características
 
 Tomando en consideración las demandas de nuestro cliente, elaboramos un diagrama conceptual del funcionamiento del negocio con la integración de un aplicativo web, para presentarle nuestra propuesta:
 
-<img src="https://github.com/MrHolmes19/certification-system/doc/diagrams/diag-propuesta-negocio.png?raw=true" width="800">
+<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/diagrams/diag-propuesta-negocio.png?raw=true" width="800">

@@ -1,16 +1,13 @@
 A continuación detallamos las funcionalidades de este sistema web:
 
-  + [Carga de documentación](login#INGRESO-Y-REDIRECCIONAMIENTO)
-  + [Sistema de pago](doc/md/payment#SISTEMA-DE-PAGO)
-  + [Sistema de turnos](MrHolmes19/certification-system/doc/md/appointment#SISTEMA-DE-TURNOS)
   + [Carga de documentación](login.md#INGRESO-Y-REDIRECCIONAMIENTO)
-  + [Sistema de pago](doc/md/payment.md#SISTEMA-DE-PAGO)
-  + [Sistema de turnos](MrHolmes19/certification-system/doc/md/appointment.md#SISTEMA-DE-TURNOS)
-  + [Generación informe PDF](#pdf_inform)
-  + [Descarga de archivos](#certificate)
-  + [Notificaciones por mail](#email_notifications)
-  + [Gestión de operaciones inactivas](#state)
-  + [Tareas rutinarias](#always_on_tasks)
-  + [Tablero de comando](#dashboard)
+  + [Sistema de pago](payment.md#SISTEMA-DE-PAGO)
+  + [Sistema de turnos](appointment.md#SISTEMA-DE-TURNOS)
+  + [Generación informe PDF](pdf_inform.md#GENERACION-DE-INFORME-PDF)
+  + [Descarga de archivos](certificate.md#CARGA-Y-DESCARGA-DEL-CERTIFICADO)
+  + [Notificaciones por mail](email_notifications.md#NOTIFICACIONES-POR-MAIL)
+  + [Gestión de operaciones inactivas](state.md#GESTION-DE-OPERACIONES-INACTIVAS)
+  + [Tareas rutinarias](always_on_tasks.md#TAREAS-RUTINARIAS)
+  + [Tablero de comando](dashboard.md#TABLERO-DE-COMANDO)
 
   

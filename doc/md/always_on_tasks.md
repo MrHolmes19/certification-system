@@ -1,6 +1,6 @@
-# TAREAS RUTINARIAS (ALWAYS-ON TASKS)
+# TAREAS RUTINARIAS
 
-Hemos implementado 2 funciones que corren en todo momento. 
+Hemos implementado 2 funciones que corren en todo momento (Always-on tasks). 
 
 ## Limpieza de archivos viejos
 

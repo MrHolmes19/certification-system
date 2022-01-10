@@ -16,18 +16,18 @@ Se diseñaron los siguientes diagramas:
 
 #### Diagrama Entidad - Relación:
 
-<img src="https://github.com/MrHolmes19/certification-system/doc/diagrams/diag-entidad-relacion.png?raw=true" width="800">
+<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/diagrams/diag-entidad-relacion.png?raw=true" width="800">
 
 #### Modelo relacional:
 
-<img src="https://github.com/MrHolmes19/certification-system/doc/diagrams/modelo-relacional.png?raw=true" width="800">
+<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/diagrams/modelo-relacional.png?raw=true" width="800">
 
 
 ## Interaccion Cliente - Administrador
 
 En el siguiente esquema se puede observar el flujo de una operación, y el rol que ocupa el cliente (En rojo) y el administrador (En Azul).
 
-<img src="https://github.com/MrHolmes19/certification-system/doc/diagrams/diag-flujo-de-proceso.png?raw=true" width="800">
+<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/diagrams/diag-flujo-de-proceso.png?raw=true" width="800">
 
 
 ## Estado de la operación
