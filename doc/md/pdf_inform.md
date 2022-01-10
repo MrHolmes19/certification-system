@@ -7,3 +7,6 @@ A partir de la carga de la documentación, el administrador puede generar un inf
 El informe además cuenta con una marca de agua, el logo de la empresa en el membrete y firma digital
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/5.admin-pdf.png?raw=true" width="800">
+
+
+---> [Siguiente](doc/md/certificate.md#CARGA-Y-DESCARGA-DEL-CERTIFICADO)

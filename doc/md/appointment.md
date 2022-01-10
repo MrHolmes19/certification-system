@@ -26,3 +26,6 @@ Desde el detalle de operaciones, es posible asignar un turno al cliente.
 También es posible rechazar una cita ya concertada, o rechazar la verificación vehicular si el vehículo no esta apto para su aprobación. En ambos casos la operación volverá al estado de “Turno pendiente” redireccionando al cliente al paso anterior. Si se aprueba la verificación vehicular la operación pasará al estado final que es “Esperando certificado”.
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/4.admin-aprobacion-verif-vehicular.png?raw=true" width="800">
+
+
+---> [Siguiente](doc/md/pdf_inform.md#GENERACION-DE-INFORME-PDF)

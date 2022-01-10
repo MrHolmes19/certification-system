@@ -1,6 +1,6 @@
 # SISTEMA DE CERTIFICACIONES
 
-<p align="center"> <img src="https://github.com/MrHolmes19/certification-system/tree/main/CertificationsApp/static/CertificationsApp/images/motorhome4.png?raw=true" width="150" align="center"> </p>
+<p align="center"> <img src="https://github.com/MrHolmes19/certification-system/blob/main/CertificationsApp/static/CertificationsApp/images/motorhome4.png?raw=true" width="80" align="center"> </p>
 
 ## RESUMEN DEL PROYECTO
 
@@ -40,7 +40,7 @@ Trabajo realizado en colaboración, por:
     + [Planificación Base de datos](doc/md/proyect_design.md#resumen-del-proyecto)
     + [Interacción Cliente – Administrador](doc/md/proyect_design.md#Interaccion-Cliente-Administrador)
     + [Estados de cada operación](doc/md/proyect_design.md#Estado-de-la-operación)
-- [Funcionalidades del sistema](#el-rincon-de-los-budines)
+- [Funcionalidades del sistema](doc/md/funcionalidades.md#FUNCIONALIDADES-DEL-SISTEMA)
     + [Carga de documentación](doc/md/login.md#INGRESO-Y-REDIRECCIONAMIENTO)
     + [Sistema de pago](doc/md/payment.md#SISTEMA-DE-PAGO)
     + [Sistema de turnos](doc/md/appointment.md#SISTEMA-DE-TURNOS)

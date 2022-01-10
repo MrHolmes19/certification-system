@@ -1,3 +1,5 @@
+# FUNCIONALIDADES DEL SISTEMA
+
 A continuación detallamos las funcionalidades de este sistema web:
 
   + [Carga de documentación](login.md#INGRESO-Y-REDIRECCIONAMIENTO)

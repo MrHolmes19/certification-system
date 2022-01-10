@@ -35,3 +35,7 @@ Si el pago se rechaza, el administrador podrá enviar un mensaje personalizado v
 Al aprobarse el pago, se anularán las opciones sobre la sección anterior (Formulario) y quedará registrado los datos del pago:
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/3.admin-pago-efectuado.png?raw=true" width="800">
+
+
+
+---> [Siguiente](doc/md/appointment.md#SISTEMA-DE-TURNOS)

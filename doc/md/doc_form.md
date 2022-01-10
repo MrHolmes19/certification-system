@@ -49,3 +49,6 @@ En caso de que el cliente sea una empresa que representa un titular, el administ
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/2.admin-doc-aprobacion-con-salto.png?raw=true" width="800">
 
+
+
+---> [Siguiente](doc/md/payment.md#SISTEMA-DE-PAGO)

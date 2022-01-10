@@ -9,3 +9,6 @@ Esta rutina se dispara todos los días y tiene como objetivo eliminar toda la in
 ## Recordatorio de turno por mail
 
 Esta notificación adicional a las ya mencionadas se realiza un día antes de la cita concertada, para recordar al cliente que tiene que presentarse físicamente con su vehículo.
+
+
+---> [Siguiente](doc/md/dashboard.md#TABLERO-DE-COMANDO)

@@ -18,3 +18,7 @@ Todos los mails incluyen un link o información precisa de como seguir:
 De igual manera, el administrador recibe un mail cada vez que haya ingresado un nuevo cliente o cuando el proceso requiera de su intervención.
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/mail-a-admin-general.png?raw=true" width="800">
+
+
+
+---> [Siguiente](doc/md/state.md#GESTION-DE-OPERACIONES-INACTIVAS)
