@@ -1,6 +1,6 @@
 # SISTEMA DE CERTIFICACIONES
 
-<p align="center"> <img src="https://github.com/MrHolmes19/certification-system/tree/main/CertificationsApp/static/CertificationsApp/images/motorhome4.png?raw=true" width="150" align="center"> </p>
+<p align="center"> <img src="https://github.com/MrHolmes19/certification-system/blob/main/CertificationsApp/static/CertificationsApp/images/motorhome4.png?raw=true" width="150" align="center"> </p>
 
 ## RESUMEN DEL PROYECTO
 
