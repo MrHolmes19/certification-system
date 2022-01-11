@@ -10,7 +10,6 @@ Teniendo en cuenta la siguiente información:
 + Cada vehículo pertenecerá a un cliente y solo podrá tener una operación activa a la vez.
 + Cada empresa podrá tener varias operaciones en curso.
 + Cada modificación de vehículo (tipo) podrá tener su tarifa individual.
-+ Se deberá registrar los turnos para verificación visual.
 
 Se diseñaron los siguientes diagramas:
 
@@ -20,12 +19,14 @@ Se diseñaron los siguientes diagramas:
 
 #### Modelo relacional:
 
+Nuestra base de datos contiene las siguientes tablas interrelacionadas, entre sí:
+
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/diagrams/modelo-relacional-dark.png?raw=true" width="1000">
 
 
 ## Interaccion Cliente - Administrador
 
-En el siguiente esquema se puede observar el flujo de una operación, y el rol que ocupa el cliente (En turquesa) y el administrador (En amarillo).
+En el siguiente esquema se puede observar el flujo de proceso de una operación, y el rol que ocupa el cliente (En turquesa) y el administrador (En amarillo).
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/diagrams/diag-flujo-de-proceso-dark.png?raw=true" width="1000">
 
@@ -48,4 +49,4 @@ A continuación, se expresan los estados desde el inicio de la operación hasta 
 |10	|Certificado descargado	|Operación completa|
 
 
----> [Siguiente](funcionalidades.md#FUNCIONALIDADES-DEL-SISTEMA)
+[--- Siguiente --->>>](funcionalidades.md#FUNCIONALIDADES-DEL-SISTEMA)

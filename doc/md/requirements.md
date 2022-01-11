@@ -40,4 +40,4 @@ Tomando en consideración las demandas de nuestro cliente, elaboramos un diagram
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/diagrams/diag-propuesta-negocio-dark.png?raw=true" width="1000">
 
 
----> [Siguiente](proyect_design.md#DISEÑO-ESTRUCTURAL-DEL-PROYECTO)
+[--- Siguiente --->>>](proyect_design.md#DISEÑO-ESTRUCTURAL-DEL-PROYECTO)

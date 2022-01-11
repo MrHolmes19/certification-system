@@ -8,7 +8,7 @@ Luego del ingreso, el usuario deberá completar algunos campos con datos de cont
 
 Al seleccionar las listas desplegables de los últimos inputs, se renderizan unas “cards” con las fotos necesarias en función del tipo de cambio que el cliente desee realizar en su vehículo.
 
-<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/2.cliente-selects.png?raw=true" width="800">
+<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/2.cliente-formulario-selects.png?raw=true" width="800">
 
 Para cargar las imágenes, basta con hacer click sobre la misma y habilitará al usuario a seleccionar un archivo de su dispositivo (Válido en versión escritorio y mobile)
 
@@ -18,7 +18,7 @@ Luego de completar el formulario y presionar el botón de enviar, si todos los c
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/2.cliente-formulario-envio-formulario.png?raw=true" width="800">
 
-El usuario podrá acceder a una ayuda ventana de ayuda
+El usuario podrá acceder a una ventana de ayuda
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/2.cliente-formulario-boton-ayuda.png?raw=true" width="800">
 
@@ -31,7 +31,7 @@ Si el administrador rechaza la documentación por posibles inconsistencias, el u
 
 Desde el tablero de comando, se puede filtrar por aquellas operaciones que están pendientes de revisión
 
-<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/2.admin-operaciones-pendientes-de-revision.png?raw=true" width="800">
+<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/2.admin-operaciones-pendientes-de-revision.png?raw=true" width="1000">
 
 Cliqueando en la lupa, se accede al “Detalle” de la operación. El primer encabezado del acordeón contiene la información de la documentación enviada por el cliente, y es desde ahí donde se puede aceptar o rechazar la documentación.
 
@@ -51,4 +51,4 @@ En caso de que el cliente sea una empresa que representa un titular, el administ
 
 
 
----> [Siguiente](payment.md#SISTEMA-DE-PAGO)
+[--- Siguiente --->>>](payment.md#SISTEMA-DE-PAGO)

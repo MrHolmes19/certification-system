@@ -13,6 +13,8 @@ Las carpetas principales donde se alojan los archivos de código son las siguien
 
 Contiene los archivos fundamentales del proyecto y del funcionamiento de Django. Aloja dentro:
 
+| Carpeta/archivo  | Contenido/Objetivo |
+| ------------- | :------------- |
 | settings.py:  | Es un archivo que guarda todas las configuraciones generales de Django. Las configuraciones privadas, que incluyen credenciales están en un archivo aparte, no compartido en el repositorio |
 | urls.py:  | urls generales |
 
@@ -21,6 +23,8 @@ Contiene los archivos fundamentales del proyecto y del funcionamiento de Django.
 
 Contiene información que es compartida por la sección de clientes y la de administrador. Contiene:
 
+| Carpeta/archivo  | Contenido/Objetivo |
+| ------------- | :------------- |
 | static:  | Carpeta que contiene a su vez subcarpetas con archivos estáticos (css, Js, imágenes, etc). |
 | admin.py:  | Se definen las clases para visualizar información desde la plataforma de administrador que ofrece Django para los super usuarios del proyecto. |
 | models.py: | Aquí definimos las clases que conformarán las tablas y respectivas columnas de nuestra base de datos, dado que utilizamos el ORM que provee Django para abstraernos del lenguaje SQL. |
@@ -31,6 +35,8 @@ Contiene información que es compartida por la sección de clientes y la de admi
 
 Contiene todo lo relacionado a la sección de cliente. Aloja dentro:
 
+| Carpeta/archivo  | Contenido/Objetivo |
+| ------------- | :------------- |
 | templates: | Almacena todas las plantillas .html que son renderizadas durante la aplicación. |
 | urls.py: | urls particulares, donde se asigna una vista “view” para cada uno. |
 | forms.py: | Se definen aquí las clases que toma el modelForm de Django para la construcción de formularios para la interfaz donde se carga la documentación. |
@@ -43,6 +49,8 @@ Contiene todo lo relacionado a la sección de cliente. Aloja dentro:
 
 Contiene todo lo relacionado a la sección del administrador del negocio. Aloja dentro:
 
+| Carpeta/archivo  | Contenido/Objetivo |
+| ------------- | :------------- |
 | templates: | Almacena todas las plantillas .html que son renderizadas durante la aplicación. |
 | urls.py: | urls particulares, donde se asigna una vista “view” para cada uno. |
 | forms.py: | Se definen aquí las clases que toma el modelForm de Django para la construcción de formularios. |
@@ -63,6 +71,8 @@ Contiene los archivos .md que renderizan esta documentación que estas leyendo :
 
 Los estilos son otorgados principalmente desde el html mediante clases de Bootstrap, aunque nosotros escribimos algunos estilos personalizados. Todos los archivos de estilo se encuentran dentro de la carpeta “CertificationsApp/static/css“:
 
+| Carpeta/archivo  | Contenido/Objetivo |
+| ------------- | :------------- |
 | clientStyles.css: | Estilos para la sección de cliente. |
 | dashboardStyles.css: | Estilos para la sección del administrador. |
 | loader.css: | Icono o “spinner” del cargador, cuando el programa se encuentra procesando una acción demandante. |
@@ -76,6 +86,8 @@ Para el funcionamiento de los componentes de Bootstrap nos servimos del archivo 
 
 Para las animaciones, estilos dinámicos y otras funcionalidades personalizados, nos servimos de varios archivos JS alojados dentro de la carpeta “CertificationsApp/static/js“, a saber:
 
+| Carpeta/archivo  | Contenido/Objetivo |
+| ------------- | :------------- |
 | allModals.js: | Código para habilitar los modals de Bootstrap. Se encuentran en archivo aparte ya que necesitamos insertar contenido dinámico dentro de los mismos. |
 | appointmentes.js: | Provee la funcionalidad para el sistema de turnos, tanto para seleccionar fecha con el botón de calendario desplegable, así como los horarios. |
 | cardsLogic.js: | Describe la lógica que adoptan las cartas dinámicas que muestran las imágenes que debe subir el usuario según el cambio de tipo seleccionado. |
@@ -87,3 +99,6 @@ Para las animaciones, estilos dinámicos y otras funcionalidades personalizados,
 | tabs.js: | Asigna un resaltado a la opción seleccionada de la barra de navegación del tablero de comando. |
 | types.js: | Archivo JSON con información de cada tipo de vehículo. |
 | validations.js: | Validaciones de inputs del lado del front. |
+
+
+[--- Siguiente --->>>](testing.md#TESTING)
