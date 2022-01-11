@@ -25,18 +25,18 @@ Permite aplicar un filtro rápido sobre el estado de cada operación
 
 Cada registro de operación posee una lupa a la izquierda de todo en la columna “Detalle”. Haciendo click se accede a una nueva interfaz, donde puede consultarse información sobre la operación y ejecutar decisiones sobre todos los aspectos de la operación. Tras finalizar la operación, quedan guardadas las fechas de todos los eventos importantes, lo cual permite hacer un trackeo.
 
-<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-detalle de operaciones.png?raw=true" width="800">
+<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-detalle de operaciones.png?raw=true" width="700">
 
 
 ## Alta de empresas
 
 Un cliente puede entrar como empresa y acceder al beneficio de una tarifa preferencial. Para eso, el usuario debe previamente dar de alta dicha empresa, agregando la información pertinente.
 
-<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-alta-empresas.png?raw=true" width="1000">
+<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-alta-empresas.png?raw=true" width="900">
 
 El administrar puede en todo momento modificar la información de cada empresa e incluso deshabilitarla y con eso restringir el acceso a sus operaciones
 
-<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-modif empresas.png?raw=true" width="1000">
+<img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-modif empresas.png?raw=true" width="900">
 
 
 ## Modificación de tarifas

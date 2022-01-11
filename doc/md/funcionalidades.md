@@ -1,8 +1,9 @@
 # FUNCIONALIDADES DEL SISTEMA
 
-A continuación detallamos las funcionalidades de este sistema web:
+A continuación detallamos las funcionalidades principales de este sistema web:
 
-  + [Carga de documentación](login.md#INGRESO-Y-REDIRECCIONAMIENTO)
+  + [Ingreso y direccionamiento](login.md#INGRESO-Y-REDIRECCIONAMIENTO)
+  + [Carga de documentación](doc_form.md#CARGA-DE-DOCUMENTACION)
   + [Sistema de pago](payment.md#SISTEMA-DE-PAGO)
   + [Sistema de turnos](appointment.md#SISTEMA-DE-TURNOS)
   + [Generación informe PDF](pdf_inform.md#GENERACION-DE-INFORME-PDF)

@@ -8,19 +8,18 @@
 
 Esto es una plataforma o sistema web para gestionar el negocio de nuestro cliente (Certificaciones de modificaciones en vehículos para su posterior homologación). Incluye: Carga de documentación, Sistema de pago, sistema de turnos, envío de notificaciones, instrucciones always-on-task de autolimpieza y recordatorio de citas, y un panel de administrador para gestión de tarifas, altas y bajas, consultas y control de las operaciones).
 
---------------------------------------------------------------------
-[***CLICK AQUI PARA ACCEDER A LA APLICACION***](https://app.certificaciones-vehiculares.ar/)
---------------------------------------------------------------------
+[*Acceder a la aplicación*](https://app.certificaciones-vehiculares.ar/)
+
 
 ### Criterios de diseño
 
-La plataforma se ha diseñado de acuerdo al patrón Model View Controller (MVC) o bien Model View Template (MVT). Está dividida en 2 principales secciones: Una para la autogestión del usuario cliente y otra para la gestión del usuario administrador, bajo el aspecto de un tablero de comando. 
-Se ha desarrollado todo el código en inglés.
+La plataforma se ha diseñado de acuerdo al patrón Model View Controller (MVC) o bien Model View Template (MVT). Está dividida en 2 principales secciones: Una para la autogestión del usuario cliente y otra para la gestión del usuario administrador, bajo el aspecto de un tablero de comando. Es totalmente "responsive designed".
+El código se ha escrito totalmente en inglés.
 
 ### Tecnologías aplicadas 
 
-El Back-End Fue construido mediante el framework web de Python, Django. Para el Front-end, se ha optado por aprovechar las facilidades del framework Bootstrap para los estilos y funcionalidades básicas y hemos utilizado CSS puro JavaScript Vanilla para estilos y funcionalidades específicas.
-La base de datos es SQL y utilizamos MySQL para gestionarla. La aplicación está subido al servidor "PythonAnywhere"
+El Back-End Fue construido mediante el framework web de Python, Django. Para el Front-end, se ha optado por aprovechar las facilidades del framework Bootstrap para los estilos y funcionalidades básicas y hemos utilizado CSS puro y Vanilla Javascript para estilos y funcionalidades específicas.
+La base de datos es SQL y utilizamos MySQL para gestionarla. La aplicación está subida al servidor "PythonAnywhere"
 
 
 ### Autores
@@ -41,7 +40,8 @@ Trabajo realizado en colaboración, por:
     + [Interacción Cliente – Administrador](doc/md/proyect_design.md#Interaccion-Cliente-Administrador)
     + [Estados de cada operación](doc/md/proyect_design.md#Estado-de-la-operación)
 - [Funcionalidades del sistema](doc/md/funcionalidades.md#FUNCIONALIDADES-DEL-SISTEMA)
-    + [Carga de documentación](doc/md/login.md#INGRESO-Y-REDIRECCIONAMIENTO)
+    + [Ingreso y direccionamiento](doc/md/login.md#INGRESO-Y-REDIRECCIONAMIENTO)
+    + [Carga de documentación](doc/md/doc_form.md#CARGA-DE-DOCUMENTACION)
     + [Sistema de pago](doc/md/payment.md#SISTEMA-DE-PAGO)
     + [Sistema de turnos](doc/md/appointment.md#SISTEMA-DE-TURNOS)
     + [Generación informe PDF](doc/md/pdf_inform.md#GENERACION-DE-INFORME-PDF)
