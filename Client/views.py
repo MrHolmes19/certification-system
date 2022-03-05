@@ -296,7 +296,7 @@ def waitingPayment(request, pk):
 def appointment(request, pk):   
     if request.method == "GET" and request.GET.get('collection_id') is not None:
         payment_data = request.GET
-        payment_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        payment_date = datetime.now().strftime('%Y-%m-%d %H:%M')
         payment_type = payment_data['payment_type']
         new_stage = 'Turno pendiente'
 
@@ -340,9 +340,7 @@ def appointment(request, pk):
             )
 
             return HttpResponseRedirect(reverse("Dashboard:Operations")) #Esto por que redirige a dashboard?
-
             
-
         return render(request,"verification_inprocess.html", {"date":day, "time":schedule})
 
     operation = Operation.objects.get(pk=pk)
@@ -358,7 +356,7 @@ def appointment(request, pk):
         appointments_list.append(x)
 
     appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder) 
-    #print(appointments_list)
+
     return render(request,"appointment.html", {"operation":operation, "appointments_list": appointments_list})
 
 ''' NO VA MAS. ERA PARA EL CALENDLY
@@ -429,7 +427,7 @@ def download_certificate(request, pk):
     if operation.certificate_downloaded_at:
         operation.stage = "Operacion completada"
 
-    operation.certificate_downloaded_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S') #eliminar esta linea
+    operation.certificate_downloaded_at = datetime.now().strftime('%Y-%m-%d %H:%M') #eliminar esta linea
     operation.save()  
 
     return response
@@ -473,7 +471,7 @@ def download_inform(request, pk):
     if operation.certificate_downloaded_at:
         operation.stage = "Operacion completada"
 
-    operation.certificate_downloaded_at = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    operation.certificate_downloaded_at = datetime.now().strftime('%Y-%m-%d %H:%M')
     operation.save()  
 
     return response

@@ -20,6 +20,7 @@ from django.conf import settings
 import os, shutil
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
+import locale
 
 @login_required
 def dashboard(request):
@@ -239,8 +240,6 @@ def appointments(request):
         for sch in day_schedules:
             sch.delete()
 
-        #print(len(appointments))
-
         for appo in appointments:
             appointment = day + " " + appo
 
@@ -249,6 +248,7 @@ def appointments(request):
             sch = Schedule.objects.create(appointment=appointment)
 
         return HttpResponseRedirect(reverse("Dashboard:Appointments"))
+        
 
     appointments = Operation.objects.all().values_list('onsite_verified_at', flat=True)
     appointments_list = []
@@ -265,13 +265,11 @@ def appointments(request):
     appointments_list = json.dumps(list(appointments_list), cls=DjangoJSONEncoder)
     block_list = json.dumps(list(block_list), cls=DjangoJSONEncoder)
     appointments = Operation.objects.all().filter(onsite_verified_at__isnull=False, stage="Verificacion pendiente").order_by("onsite_verified_at")  #.values_list('onsite_verified_at', flat=True)
-    # print("appo_list: ", appointments_list)
-    # print("block_list: ", block_list)
     for i in appointments:
         i.onsite_verified_at = convert_to_localtime(i.onsite_verified_at).replace("T", " ")
 
     return render(request,"appointments.html", {"operations": appointments, "appointments_list": appointments_list, "block_list": block_list})
-
+    
 
 def fees(request):
 
@@ -338,6 +336,7 @@ def operationDetailPDF(request, pk):
     if request.method == 'POST':
         description = request.POST.get("description")
         operation.inform_description = description
+        operation.inform_created_at = datetime.now().strftime('%Y-%m-%d %H:%M')
         operation.save()
     else:
         description = operation.inform_description
@@ -349,6 +348,11 @@ def operationDetailPDF(request, pk):
         desc_list[j] = i + "."
         j += 1
     
+    
+    locale.setlocale(locale.LC_TIME, "es_ES")
+    date = datetime. strptime(operation.inform_created_at, '%Y-%m-%d %H:%M')
+    date = datetime.strftime(date, '%d %b %Y')
+    
     html = render_to_string("pdf_template.html", {
         "operation": operation,
         "description": desc_list,
@@ -356,7 +360,8 @@ def operationDetailPDF(request, pk):
         "client": client,
         "BASE_DIR": settings.BASE_DIR,
         "STATIC_ROOT": settings.STATIC_ROOT,
-        "company": company
+        "company": company,
+        "date": date,
     })
 
     response = HttpResponse(content_type="application/pdf")
