@@ -1,57 +1,59 @@
-# SISTEMA DE CERTIFICACIONES
+[*Leer esto en español*](https://github.com/MrHolmes19/certification-system/blob/main/leeme.md)
+
+# CERTIFICATION SYSTEM
 
 <p align="center"> <img src="https://github.com/MrHolmes19/certification-system/blob/main/CertificationsApp/static/CertificationsApp/images/motorhome4.png?raw=true" width="80" align="center"> </p>
 
-## RESUMEN DEL PROYECTO
+## PROJECT SUMMARY
 
-### Presentación
+### Presentation
 
-Esto es una plataforma o sistema web para gestionar el negocio de nuestro cliente (Certificaciones de modificaciones en vehículos para su posterior homologación). Incluye: Carga de documentación, Sistema de pago, sistema de turnos, envío de notificaciones, instrucciones always-on-task de autolimpieza y recordatorio de citas, y un panel de administrador para gestión de tarifas, altas y bajas, consultas y control de las operaciones).
+This is a web system to manage our client's business (Certifications of vehicle modifications for subsequent approval). Includes: Documentation loading, payment system, appointment system, sending notifications, always-on-task self-cleaning instructions and appointment reminder, and an administrator panel for managing fees, registrations and cancellations, queries and control of operations).
 
-[*Acceder a la aplicación*](https://app.certificaciones-vehiculares.ar/)
-
-
-### Criterios de diseño
-
-La plataforma se ha diseñado de acuerdo al patrón Model View Controller (MVC) o bien Model View Template (MVT). Está dividida en 2 principales secciones: Una para la autogestión del usuario cliente y otra para la gestión del usuario administrador, bajo el aspecto de un tablero de comando. Es totalmente "responsive designed".
-El código se ha escrito totalmente en inglés.
-
-### Tecnologías aplicadas 
-
-El Back-End Fue construido mediante el framework web de Python, Django. Para el Front-end, se ha optado por aprovechar las facilidades del framework Bootstrap para los estilos y funcionalidades básicas y hemos utilizado CSS puro y Vanilla Javascript para estilos y funcionalidades específicas.
-La base de datos es SQL y utilizamos MySQL para gestionarla. La aplicación está subida al servidor "PythonAnywhere"
+[*Access the application*](https://app.certificaciones-vehiculares.ar/)
 
 
-### Autores
+### Design principles
 
-Trabajo realizado en colaboración, por:
-- Leandro Márquez (lnmarquez19@gmail.com)
+The platform has been designed according to the Model View Controller (MVC) or Model View Template (MVT) pattern. It is divided into 2 main sections: One for client user self-management and another for administrator user management, under the guise of a dashboard. It is totally "responsive designed".
+The code has been written entirely in English.
+
+### Applied technologies
+
+The Back-End was built using the Python web framework, Django. For the Front-end, we have chosen to take advantage of the facilities of the Bootstrap framework for basic styles and functionalities and we have used pure CSS and Vanilla Javascript for specific styles and functionalities.
+The database is SQL and we use MySQL to manage it. The application is uploaded to the "PythonAnywhere" server.
+
+
+### Authors
+
+Work done in collaboration, by:
+- Leandro Marquez (lnmarquez19@gmail.com)
 - Hernán Monsalvo (monsalvo.h@hotmail.com)
 
 
-## INDICE DEL CONTENIDO
+## TABLE OF CONTENTS
 
-- [Requerimientos del cliente](doc/md/requirements.md#REQUERIMIENTOS-DEL-CLIENTE)
-    + [Comprensión del negocio](doc/md/requirements.md#Comprensión-del-negocio)
-    + [Requerimientos particulares](doc/md/requirements.md#Requerimientos-particulares)
-    + [Esquema conceptual](doc/md/requirements.md#Propuesta)
-- [Diseño estructural del proyecto](doc/md/proyect_design.md#DISEÑO-ESTRUCTURAL-DEL-PROYECTO)
-    + [Planificación Base de datos](doc/md/proyect_design.md#resumen-del-proyecto)
-    + [Interacción Cliente – Administrador](doc/md/proyect_design.md#Interaccion-Cliente-Administrador)
-    + [Estados de cada operación](doc/md/proyect_design.md#Estado-de-la-operación)
-- [Funcionalidades del sistema](doc/md/funcionalidades.md#FUNCIONALIDADES-DEL-SISTEMA)
-    + [Ingreso y direccionamiento](doc/md/login.md#INGRESO-Y-REDIRECCIONAMIENTO)
-    + [Carga de documentación](doc/md/doc_form.md#CARGA-DE-DOCUMENTACION)
-    + [Sistema de pago](doc/md/payment.md#SISTEMA-DE-PAGO)
-    + [Sistema de turnos](doc/md/appointment.md#SISTEMA-DE-TURNOS)
-    + [Generación informe PDF](doc/md/pdf_inform.md#GENERACION-DE-INFORME-PDF)
-    + [Descarga de archivos](doc/md/certificate.md#CARGA-Y-DESCARGA-DEL-CERTIFICADO)
-    + [Notificaciones por mail](doc/md/email_notifications.md#NOTIFICACIONES-POR-MAIL)
-    + [Gestión de operaciones inactivas](doc/md/state.md#GESTION-DE-OPERACIONES-INACTIVAS)
-    + [Tareas rutinarias](doc/md/always_on_tasks.md#TAREAS-RUTINARIAS)
-    + [Tablero de comando](doc/md/dashboard.md#TABLERO-DE-COMANDO)
-- [Organización del código](doc/md/code.md#ORGANIZACIÓN-DEL-CÓDIGO)     
-    + [Estructura de carpetas](doc/md/code.md#ESTRUCTURA-DE-CARPETAS)
-    + [Estilos](doc/md/code.md#ESTILOS)
-    + [Interactividad dinámica](doc/md/code.md#INTERACTIVIDAD-EN-EL-FRONT)
+- [Customer requirements](doc/md/requirements.md#REQUERIMIENTOS-DEL-CLIENTE)
+    + [Business Understanding](doc/md/requirements.md#Comprensión-del-negocio)
+    + [Particular Requirements](doc/md/requirements.md#Requerimientos-particulares)
+    + [Conceptual scheme](doc/md/requirements.md#Propuesta)
+- [Structural design of the project](doc/md/proyect_design.md#DISEÑO-ESTRUCTURAL-DEL-PROYECTO)
+    + [Database Planning](doc/md/proyect_design.md#resumen-del-proyecto)
+    + [Client-Administrator Interaction](doc/md/proyect_design.md#Interaccion-Cliente-Administrador)
+    + [Status of each operation](doc/md/proyect_design.md#Estado-de-la-operación)
+- [System Features](doc/md/funcionalidades.md#FUNCIONALIDADES-DEL-SISTEMA)
+    + [Login & Redirection](doc/md/login.md#INGRESO-Y-REDIRECCIONAMIENTO)
+    + [Documentation upload](doc/md/doc_form.md#CARGA-DE-DOCUMENTACION)
+    + [Payment system](doc/md/payment.md#SISTEMA-DE-PAGO)
+    + [Appointment System](doc/md/appointment.md#SISTEMA-DE-TURNOS)
+    + [PDF report generation](doc/md/pdf_inform.md#GENERACION-DE-INFORME-PDF)
+    + [File download](doc/md/certificate.md#CARGA-Y-DESCARGA-DEL-CERTIFICADO)
+    + [Email notifications](doc/md/email_notifications.md#NOTIFICACIONES-POR-MAIL)
+    + [Inactive Operations Management](doc/md/state.md#GESTION-DE-OPERACIONES-INACTIVAS)
+    + [Routine tasks](doc/md/always_on_tasks.md#TAREAS-RUTINARIAS)
+    + [Dashboard](doc/md/dashboard.md#TABLERO-DE-COMANDO)
+- [Code Organization](doc/md/code.md#ORGANIZACIÓN-DEL-CÓDIGO)
+    + [Folder structure](doc/md/code.md#ESTRUCTURA-DE-CARPETAS)
+    + [Styles](doc/md/code.md#ESTILOS)
+    + [Dynamic interactivity](doc/md/code.md#INTERACTIVIDAD-EN-EL-FRONT)
 - [Testing](doc/md/testing.md#TESTING)
