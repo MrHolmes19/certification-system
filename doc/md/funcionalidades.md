@@ -1,16 +1,14 @@
-# FUNCIONALIDADES DEL SISTEMA
+# SYSTEM FUNCTIONALITIES
 
-A continuación detallamos las funcionalidades principales de este sistema web:
+Below we detail the main functionalities of this web system:
 
-  + [Ingreso y direccionamiento](login.md#INGRESO-Y-REDIRECCIONAMIENTO)
-  + [Carga de documentación](doc_form.md#CARGA-DE-DOCUMENTACION)
-  + [Sistema de pago](payment.md#SISTEMA-DE-PAGO)
-  + [Sistema de turnos](appointment.md#SISTEMA-DE-TURNOS)
-  + [Generación informe PDF](pdf_inform.md#GENERACION-DE-INFORME-PDF)
-  + [Descarga de archivos](certificate.md#CARGA-Y-DESCARGA-DEL-CERTIFICADO)
-  + [Notificaciones por mail](email_notifications.md#NOTIFICACIONES-POR-MAIL)
-  + [Gestión de operaciones inactivas](state.md#GESTION-DE-OPERACIONES-INACTIVAS)
-  + [Tareas rutinarias](always_on_tasks.md#TAREAS-RUTINARIAS)
-  + [Tablero de comando](dashboard.md#TABLERO-DE-COMANDO)
-
-  
+   + [Login and routing](login.md#LOGIN-AND-REDIRECT)
+   + [Documentation upload](doc_form.md#DOCUMENTATION-UPLOAD)
+   + [Payment system](payment.md#PAYMENT-SYSTEM)
+   + [Appointment system](appointment.md#APPOINTMENT-SYSTEM)
+   + [PDF report generation](pdf_inform.md#PDF-REPORT-GENERATION)
+   + [File download](certificate.md#LOAD-AND-DOWNLOAD-OF-CERTIFICATE)
+   + [Notifications by mail](email_notifications.md#NOTIFICATIONS-BY-MAIL)
+   + [Management of inactive operations](state.md#MANAGEMENT-OF-INACTIVE-OPERATIONS)
+   + [Routine Tasks](always_on_tasks.md#RUTINARY-TASKS)
+   + [Dashboard](dashboard.md#DASHBOARD)
