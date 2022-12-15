@@ -1,4 +1,4 @@
-# COMMAND BOARD
+# DASHBOARD
 
 ## Main interface
 
