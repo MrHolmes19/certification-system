@@ -1,14 +1,14 @@
-# TAREAS RUTINARIAS
+# DAILY WORKS
 
-Hemos implementado 2 funciones que corren en todo momento (Always-on tasks). 
+We have implemented 2 functions that run at all times (Always-on tasks).
 
-## Limpieza de archivos viejos
+## Clean up old files
 
-Esta rutina se dispara todos los días y tiene como objetivo eliminar toda la información de aquellas operaciones completadas o inactivas que tienen más de 90 días de antigüedad. Esto es a fines de mantener un espacio de almacenamiento controlado.
+This routine is triggered every day and is intended to delete all information for those completed or inactive operations that are older than 90 days. This is for the purpose of maintaining a controlled storage space.
 
-## Recordatorio de turno por mail
+## Shift reminder by email
 
-Esta notificación adicional a las ya mencionadas se realiza un día antes de la cita concertada, para recordar al cliente que tiene que presentarse físicamente con su vehículo.
+This additional notification to those already mentioned is made one day before the scheduled appointment, to remind the client that they have to physically present themselves with their vehicle.
 
 
-[--- Siguiente --->>>](dashboard.md#TABLERO-DE-COMANDO)
+[--- Next --->>>](dashboard.md#DASHBOARD)
