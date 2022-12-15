@@ -1,4 +1,4 @@
-# INCOME AND REDIRECT
+# LOGIN AND REDIRECT
 
 ## Access Logic
 
