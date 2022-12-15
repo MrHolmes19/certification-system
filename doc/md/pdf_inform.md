@@ -1,12 +1,12 @@
-# GENERACION DE INFORME PDF
+# PDF REPORT GENERATION
 
-A partir de la carga de la documentación, el administrador puede generar un informe en PDF. El mismo se crea sobre una plantilla y toma dinámicamente los datos del cliente, el vehículo y el detalle de la operación, ofreciendo un campo para que el administrador pueda agregar comentarios manualmente.
+From the documentation upload, the administrator can generate a PDF report. It is created on a template and dynamically takes the data of the client, the vehicle and the detail of the operation, offering a field so that the administrator can add comments manually.
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/5.admin-texto-pdf.png?raw=true" width="800">
 
-El informe además cuenta con una marca de agua, el logo de la empresa en el membrete y firma digital
+The report also has a watermark, the company logo on the letterhead and digital signature
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/5.admin-pdf.png?raw=true" width="800">
 
 
-[--- Siguiente --->>>](certificate.md#CARGA-Y-DESCARGA-DEL-CERTIFICADO)
+[--- Next --->>>](certificate.md#UPLOAD-AND-DOWNLOAD-OF-CERTIFICATE)
