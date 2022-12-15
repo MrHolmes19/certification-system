@@ -1,5 +1,7 @@
-# TESTING
+#TESTING
 
-Debido a las múltiples alternativas para loguearse, las múltiples acciones de los usuarios y del administrador, la diversidad de validaciones, etc., la cantidad de caminos que puede tomar una operación es muy grande y por lo tanto dificil de testear por un ser humano. 
+Due to the multiple alternatives to log in, the multiple actions of the users and the administrator, the diversity of validations, etc., the number of paths that an operation can take is very large and therefore difficult to test by a human being.
 
-Por esa razón, estamos desarrollando un sistema de pruebas utilizando web scrapping para simular todos los procesos y detectar posibles errores.
+For that reason, the best way to test is implementing a testing system based on web scrapping tools like selenium, to simulate all the processes and detect possible errors. 
+
+In the end, it was not developed because when it went into production, the system had no failures until today. Are we so good?
