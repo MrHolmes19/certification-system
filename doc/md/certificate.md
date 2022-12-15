@@ -1,16 +1,16 @@
-# CARGA Y DESCARGA DEL CERTIFICADO
+# UPLOAD AND DOWNLOAD THE CERTIFICATE
 
-## Lado Administrador
+## Admin Side
 
-Una vez la operación esté en estado “Esperando certificado” el administrador podrá subir el certificado otorgado por el COPIME. La operación pasará al estado de “Certificado Disponible”.
+Once the operation is in the "Waiting for certificate" status, the administrator will be able to upload the certificate granted by COPIME. The operation will go to the status of "Certificate Available".
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/6.admin-subir-certificado.png?raw=true" width="800">
 
-## Lado Cliente
+## Client Side
 
-Cuando el cliente ingrese con la operación en estado “Certificado Disponible” será redirigido hacia la última interfaz, donde podrá descargar los archivos (el informe y el certificado). Tendrá 90 días desde que se suba el certificado, para poder descargarlo antes de que se elimine.
+When the client enters with the operation in the "Certificate Available" status, they will be redirected to the last interface, where they can download the files (the report and the certificate). You will have 90 days from when the certificate is uploaded to download it before it is deleted.
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/5.cliente-descarga de certificado.png?raw=true" width="800">
 
 
-[--- Siguiente --->>>](email_notifications.md#NOTIFICACIONES-POR-MAIL)
+[--- Next --->>>](email_notifications.md#NOTIFICATIONS-BY-MAIL)
