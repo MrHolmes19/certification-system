@@ -1,43 +1,43 @@
-# REQUERIMIENTOS DEL CLIENTE
+# REQUIREMENTS OF THE CLIENT
 
-## Comprensión del negocio
+## Business understanding
 
-El servicio que ofrece nuestro cliente es la elaboración de un informe técnico en el que consta el cambio de tipo de un vehículo (Por ejemplo, para convertir un furgón comercial a uno familiar) y la gestión del certificado emitido por el colegio de ingenieros mecánicos (COPIME). 
+The service offered by our client is the preparation of a technical report that includes the change of type of a vehicle (For example, to convert a commercial van to a family one) and the management of the certificate issued by the College of Mechanical Engineers (COPIME).
 
-El informe es firmado por un ingeniero homologado por dicho instituto. Ambos documentos son necesarios para luego presentar ante el Registro del automotor (DNRPA) y obtener la homologación del cambio para circular legalmente.
+The report is signed by an engineer certified by said institute. Both documents are necessary to later present before the Automotive Registry (DNRPA) and obtain the approval of the change to circulate legally.
 
-## Requerimientos particulares
+## Particular requirements
 
-El cliente ha solicitado que se tengan en cuenta las siguientes características, para la construcción del aplicativo web:
+The client has requested that the following characteristics be taken into account for the construction of the web application:
 
-#### Ingreso y acceso
-+ Debe contemplar el ingreso tanto de clientes particulares como de empresas que representen a varios clientes (Empresas de repuestos, concesionarias, etc.).
-+ Se debe poder ingresar con DNI del titular, CUIT de la empresa (cuando aplique) y Patente del vehículo. También debe poderse ingresar con N° chasis, si el vehículo no posee patente.
+#### Entry and access
++ It must contemplate the entry of both private clients and companies that represent several clients (companies of spare parts, dealers, etc.).
++ You must be able to enter with the ID of the owner, CUIT of the company (when applicable) and Vehicle License. It must also be possible to enter with the chassis number, if the vehicle does not have a license plate.
 
-#### Pago
-+ Debe aceptar todos los medios de pago digitales (Tarjetas, MercadoPago y transferencia bancaria)
-+ Debe estar la posibilidad de modificar las tarifas de los servicios y desacoplar otras tarifas preferenciales (con descuento) para empresas.
+#### Payment
++ You must accept all digital payment methods (Cards, MercadoPago and bank transfer)
++ There must be the possibility of modifying the rates of the services and decoupling other preferential rates (with discounts) for companies.
 
-#### Turnos
-+ Sistema para que el cliente pueda reservar un turno para la verificación técnica.
-+ Los turnos deben poder sacarse para las próximas 2 semanas como máximo en un horario pre establecido.
-+ El administrador debe poder asignar turnos a los clientes y rechazar los ya reservados
-+ El administrador debe poder restringir horarios y fechas
-+ El sistema debe enviar mail al cliente recordándole el turno un día antes.
+#### Shifts
++ System so that the client can reserve a turn for the technical verification.
++ Shifts must be able to be taken out for the next 2 weeks maximum at a pre-established schedule.
++ The administrator must be able to assign shifts to customers and reject those already reserved
++ Admin should be able to restrict times and dates
++ The system must send an email to the client reminding him of the shift one day before.
 
-#### Informe PDF
-+ Con la información cargada por el cliente, debe poder emitirse un informe en PDF en base a una plantilla.
-+ El PDF debe contar con: Marca de agua, membrete con logo de la empresa representante y firma digital 
+#### PDF Report
++ With the information uploaded by the client, it must be possible to issue a PDF report based on a template.
++ The PDF must have: Watermark, letterhead with the logo of the representative company and digital signature
 
-#### Descarga de archivos
-+ El cliente debe poder ingresar, una vez estén subidos los archivos, y descargarlos. Además, tendrá 90 días para volver a descargarlos antes de que caduque.
+#### File Download
++ The client must be able to enter, once the files are uploaded, and download them. Plus, you'll have 90 days to re-download them before they expire.
 
 
-## Propuesta
+## Proposal
 
-Tomando en consideración las demandas de nuestro cliente, elaboramos un diagrama conceptual del funcionamiento del negocio con la integración de un aplicativo web, para presentarle nuestra propuesta:
+Taking into consideration the demands of our client, we elaborated a conceptual diagram of the operation of the business with the integration of a web application, to present our proposal:
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/diagrams/diag-propuesta-negocio-dark.png?raw=true" width="1000">
 
 
-[--- Siguiente --->>>](proyect_design.md#DISEÑO-ESTRUCTURAL-DEL-PROYECTO)
+[--- Next --->>>](proyect_design.md#STRUCTURAL-DESIGN-OF-THE-PROJECT)
