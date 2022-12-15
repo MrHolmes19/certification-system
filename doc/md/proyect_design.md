@@ -1,52 +1,52 @@
-# DISEÑO ESTRUCTURAL DEL PROYECTO
+# STRUCTURAL DESIGN OF THE PROJECT
 
-## Base de datos
+## Database
 
-Teniendo en cuenta la siguiente información:
+Considering the following information:
 
-+ Cada operación deberá tener información inherente, como estados del proceso, fechas, si esta activa o no, etc.
-+ Cada operación estará vinculada con un cliente y un vehículo.
-+ Cada cliente podrá tener más de un vehículo y por lo tanto más de una operación en curso.
-+ Cada vehículo pertenecerá a un cliente y solo podrá tener una operación activa a la vez.
-+ Cada empresa podrá tener varias operaciones en curso.
-+ Cada modificación de vehículo (tipo) podrá tener su tarifa individual.
++ Each operation must have inherent information, such as process states, dates, whether it is active or not, etc.
++ Each operation will be linked to a client and a vehicle.
++ Each client may have more than one vehicle and therefore more than one operation in progress.
++ Each vehicle will belong to a client and can only have one active operation at a time.
++ Each company may have several operations in progress.
++ Each vehicle modification (type) may have its individual rate.
 
-Se diseñaron los siguientes diagramas:
+The following diagrams were designed:
 
-#### Diagrama Entidad - Relación:
+#### Entity relationship diagram:
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/diagrams/diag-entidad-relacion-dark.png?raw=true" width="1000">
 
-#### Modelo relacional:
+#### Relational model:
 
-Nuestra base de datos contiene las siguientes tablas interrelacionadas, entre sí:
+Our database contains the following interrelated tables:
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/diagrams/modelo-relacional-dark.png?raw=true" width="1000">
 
 
-## Interaccion Cliente - Administrador
+## Client - Administrator interaction
 
-En el siguiente esquema se puede observar el flujo de proceso de una operación, y el rol que ocupa el cliente (En turquesa) y el administrador (En amarillo).
+The following diagram shows the process flow of an operation, and the role played by the client (in turquoise) and the administrator (in yellow).
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/diagrams/diag-flujo-de-proceso-dark.png?raw=true" width="1000">
 
 
-## Estado de la operación
+## Status of the operation
 
-A continuación, se expresan los estados desde el inicio de la operación hasta su conclusión, el significado para ambos tipos de usuario y el número de referencia para identificarlo en el flujo del proceso
+Next, the states are expressed from the beginning of the operation to its conclusion, the meaning for both types of user and the reference number to identify it in the process flow.
 
-|Estados |Cliente |Administrador|
+|States |Customer |Administrator|
 | -------------: | -------------: |------------- |
-|1	|Documentación enviada	|Revisar documentación|
-|2	|Modificar documentación	|Documentación rechazada|
-|3	|Pago pendiente	|Documentación aprobada|
-|4	|Pago informado	|Pago a revisar|
-|5	|Turno pendiente	|Pago confirmado|
-|6	|Turno sacado	|Verificación pendiente|
-|7	|Esperando certificado	|Verificación aprobada|
-|8	|Certificado disponible	|Certificado disponible|
-|9	|Certificado expirado	|Certificado expirado|
-|10	|Certificado descargado	|Operación completa|
+|1 |Documentation sent |Review documentation|
+|2 |Modify documentation |Rejected documentation|
+|3 |Pending payment |Approved documentation|
+|4 |Informed payment |Payment to review|
+|5 |Pending shift |Payment confirmed|
+|6 |Shift removed |Verification pending|
+|7 |Waiting for certificate |Verification passed|
+|8 |Certificate Available |Certificate Available|
+|9 |Certificate expired |Certificate expired|
+|10 |Certificate downloaded |Operation complete|
 
 
-[--- Siguiente --->>>](funcionalidades.md#FUNCIONALIDADES-DEL-SISTEMA)
+[--- Next --->>>](functionalities.md#SYSTEM-FUNCTIONALITIES)
