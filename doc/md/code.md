@@ -1,104 +1,104 @@
-# ORGANIZACIÓN DEL CÓDIGO
+# ORGANIZATION OF THE CODE
 
-## ESTRUCTURA DE CARPETAS
+## FOLDER STRUCTURE
 
-Teniendo el siguiente arbol de carpetas y archivos:
+Having the following tree of folders and files:
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/carpeta-codigo.png?raw=true" width="200">
 
-Las carpetas principales donde se alojan los archivos de código son las siguientes:
+The main folders where the code files are located are the following:
 
 
-#### Certificados
+#### Certificates
 
-Contiene los archivos fundamentales del proyecto y del funcionamiento de Django. Aloja dentro:
+It contains the fundamental files of the project and of the operation of Django. House inside:
 
 | Carpeta/archivo  | Contenido/Objetivo |
 | ------------- | :------------- |
-| settings.py:  | Es un archivo que guarda todas las configuraciones generales de Django. Las configuraciones privadas, que incluyen credenciales están en un archivo aparte, no compartido en el repositorio |
-| urls.py:  | urls generales |
+| settings.py:  | It's a file that holds all of Django's general settings. Private configurations, including credentials, are in a separate file, not shared in the repository |
+| urls.py:  | global urls |
 
 
 #### CertificationsApp
 
-Contiene información que es compartida por la sección de clientes y la de administrador. Contiene:
+It contains information that is shared by the customer section and the administrator section. Contains:
 
-| Carpeta/archivo  | Contenido/Objetivo |
+| Folder/file | Content/Objective |
 | ------------- | :------------- |
-| static:  | Carpeta que contiene a su vez subcarpetas con archivos estáticos (css, Js, imágenes, etc). |
-| admin.py:  | Se definen las clases para visualizar información desde la plataforma de administrador que ofrece Django para los super usuarios del proyecto. |
-| models.py: | Aquí definimos las clases que conformarán las tablas y respectivas columnas de nuestra base de datos, dado que utilizamos el ORM que provee Django para abstraernos del lenguaje SQL. |
-| periodic.py: | Contiene 2 funciones que son las que se disparan periódicamente: Limpieza de archivos viejos y recordatorio de mails. |
+| static: | Folder that contains in turn subfolders with static files (css, Js, images, etc). |
+| admin.py: | The classes are defined to display information from the administrator platform that Django offers for the super users of the project. |
+| models.py: | Here we define the classes that will make up the tables and respective columns of our database, since we use the ORM provided by Django to abstract from the SQL language. |
+| periodic.py: | It contains 2 functions that are triggered periodically: Cleaning of old files and email reminder. |
  
 
 #### Client
 
-Contiene todo lo relacionado a la sección de cliente. Aloja dentro:
+Contains everything related to the customer section. House inside:
 
-| Carpeta/archivo  | Contenido/Objetivo |
+| Folder/file | Content/Objective |
 | ------------- | :------------- |
-| templates: | Almacena todas las plantillas .html que son renderizadas durante la aplicación. |
-| urls.py: | urls particulares, donde se asigna una vista “view” para cada uno. |
-| forms.py: | Se definen aquí las clases que toma el modelForm de Django para la construcción de formularios para la interfaz donde se carga la documentación. |
-| utils.py: | Escribimos algunas funciones que reutilizamos en varias instancias dentro de la lógica de la aplicación, como el envío de mails, conversión horaria, y también parte de la lógica de redireccionamiento para no abultar la lógica del Login |
-| tests.py: | Código utilizado durante la fase de desarrollo para realizar pruebas unitarias. |
-| views.py: | Contiene la lógica y el renderizado de todas las funcionalidades y páginas. |
+| templates: | Stores all the .html templates that are rendered during the application. |
+| urls.py: | particular urls, where a view is assigned to each one. |
+| forms.py: | The classes that the Django modelForm takes for the construction of forms for the interface where the documentation is loaded are defined here. |
+| utils.py: | We wrote some functions that we reuse in several instances within the logic of the application, such as sending emails, time conversion, and also part of the redirection logic so as not to bulk up the Login |
+| tests.py: | Code used during the development phase to perform unit tests. |
+| views.py: | It contains the logic and rendering of all the functionalities and pages. |
 
 
 #### Dashboard
 
-Contiene todo lo relacionado a la sección del administrador del negocio. Aloja dentro:
+Contains everything related to the business administrator section. House inside:
 
-| Carpeta/archivo  | Contenido/Objetivo |
+| Folder/file | Content/Objective |
 | ------------- | :------------- |
-| templates: | Almacena todas las plantillas .html que son renderizadas durante la aplicación. |
-| urls.py: | urls particulares, donde se asigna una vista “view” para cada uno. |
-| forms.py: | Se definen aquí las clases que toma el modelForm de Django para la construcción de formularios. |
-| utils.py: | Escribimos algunas funciones para no abultar la lógica del Dashboard en el archivo views.py. Introdujimos aquí las funciones que se disparan desde periodic.py. |
-| Views.py: | Contiene la lógica y el renderizado de todas las funcionalidades y páginas. |
+| templates: | Stores all the .html templates that are rendered during the application. |
+| urls.py: | particular urls, where a view is assigned to each one. |
+| forms.py: | The classes that Django's modelForm takes to build forms are defined here. |
+| utils.py: | We wrote some functions so as not to bulk up the Dashboard logic in the views.py file. We've introduced here the functions that are fired from periodic.py. |
+| Views.py: | It contains the logic and rendering of all the functionalities and pages. |
 
 
-#### Media
+#### media
 
-En esta carpeta se genera dinámicamente las carpetas que contienen las imágenes que sube el cliente en la página de formulario, así como también el certificado que sube el administrador en la última etapa 
+In this folder, the folders containing the images that the client uploads on the form page are dynamically generated, as well as the certificate that the administrator uploads in the last stage.
 
 #### doc
 
-Contiene los archivos .md que renderizan esta documentación que estas leyendo :)
+Contains the .md files that render this documentation you are reading :)
 
 
-## ESTILOS
+## STYLES
 
-Los estilos son otorgados principalmente desde el html mediante clases de Bootstrap, aunque nosotros escribimos algunos estilos personalizados. Todos los archivos de estilo se encuentran dentro de la carpeta “CertificationsApp/static/css“:
+Styles are mainly given from the html via Bootstrap classes, although we do write some custom styles. All the style files are located inside the “CertificationsApp/static/css” folder:
 
-| Carpeta/archivo  | Contenido/Objetivo |
+| Folder/file | Content/Objective |
 | ------------- | :------------- |
-| clientStyles.css: | Estilos para la sección de cliente. |
-| dashboardStyles.css: | Estilos para la sección del administrador. |
-| loader.css: | Icono o “spinner” del cargador, cuando el programa se encuentra procesando una acción demandante. |
-| reduced-bootstrap.css:  | Es una contracción del archivo de Bootstrap que usamos durante el desarrollo, que conserva solamente las clases que utilizamos. Esta contracción se realiza antes de subir a producción con el comando “npm run build” que dispara la función de la Liberia “purgecss”. |
-| Archivos minificados: | Todos los archivos con extensión “.min.css” son archivos minificados, con el objetivo de reducir el tamaño y mejorar el rendimiento de la app durante le renderizado. Este minificado se realiza con ayuda de “CSS minifier”. |
+| clientStyles.css: | Styles for the client section. |
+| dashboardStyles.css: | Styles for the admin section. |
+| loader.css: | Icon or "spinner" of the loader, when the program is processing a demanding action. |
+| reduced-bootstrap.css: | It's a contraction of the Bootstrap file we use during development, which only preserves the classes we use. This contraction is done before going to production with the command “npm run build” which triggers the Liberia function “purgecss”. |
+| Minified files: | All files with the “.min.css” extension are minified files, with the aim of reducing the size and improving the performance of the app during rendering. This minification is done with the help of “CSS minifier”. |
 
 
-## INTERACTIVIDAD EN EL FRONT
+## INTERACTIVITY AT THE FRONT FRONT
 
-Para el funcionamiento de los componentes de Bootstrap nos servimos del archivo “CertificationsApp/static/bootstrap/js/Bootstrap.min.js”.
+For the Bootstrap components to work, we use the file “CertificationsApp/static/bootstrap/js/Bootstrap.min.js”.
 
-Para las animaciones, estilos dinámicos y otras funcionalidades personalizados, nos servimos de varios archivos JS alojados dentro de la carpeta “CertificationsApp/static/js“, a saber:
+For custom animations, dynamic styles and other functionality, we use various JS files located within the “CertificationsApp/static/js” folder, namely:
 
-| Carpeta/archivo  | Contenido/Objetivo |
+| Folder/file | Content/Objective |
 | ------------- | :------------- |
-| allModals.js: | Código para habilitar los modals de Bootstrap. Se encuentran en archivo aparte ya que necesitamos insertar contenido dinámico dentro de los mismos. |
-| appointmentes.js: | Provee la funcionalidad para el sistema de turnos, tanto para seleccionar fecha con el botón de calendario desplegable, así como los horarios. |
-| cardsLogic.js: | Describe la lógica que adoptan las cartas dinámicas que muestran las imágenes que debe subir el usuario según el cambio de tipo seleccionado. |
-| dashboard.js: | Permite desplegar una serie de funcionalidades relativas al panel de control del administrador, como ser: Efectos de la barra lateral, títulos dinámicos y búsqueda en tiempo real de registros. |
-| forms.js: | Aplica a todas las páginas que poseen formularios, generando distintas funcionalidades, como por ej: Alternancia de inputs y leyendas en el formulario de Login, agregado de estilos a inputs que se generan automáticamente por Django con el modelForm, y el símbolo de “cargando” cuando se envía el formulario al Backend. |
-| operationDetail.js: | Provee a la página de “detalle de operaciones” las funcionalidades como: Bloquear todos los botones cuando la operación está inactiva, bloquear inputs cuando el formulario ya está aprobado, bloquea botones de aprobar ante el rechazo de alguna imagen, etc. |
-| responsive.js: | Aplica diseño adaptable a mobile a la interfaz del tablero de comando (No pude hacerse con clases de Bootstrap) |
-| speaker.js: | Función para emitir un sonido al enviar el formulario que confirme la recepción correcta del formulario.|
-| tabs.js: | Asigna un resaltado a la opción seleccionada de la barra de navegación del tablero de comando. |
-| types.js: | Archivo JSON con información de cada tipo de vehículo. |
-| validations.js: | Validaciones de inputs del lado del front. |
+| allModals.js: | Code to enable Bootstrap modals. They are in a separate file since we need to insert dynamic content within them. |
+| appointments.js: | It provides the functionality for the shift system, both to select the date with the drop-down calendar button, as well as the schedules. |
+| cardsLogic.js: | Describes the logic adopted by the dynamic cards that show the images that the user must upload according to the selected type change. |
+| dashboard.js: | It allows displaying a series of functionalities related to the administrator's control panel, such as: Sidebar effects, dynamic titles and real-time search of records. |
+| forms.js: | Applies to all pages that have forms, generating different functionalities, such as: Alternation of inputs and legends in the Login form, adding styles to inputs that are automatically generated by Django with the modelForm, and the "loading" symbol when the form is submitted to the Backend. |
+| operationDetail.js: | Provides the "operations detail" page with functionalities such as: Block all buttons when the operation is inactive, block inputs when the form is already approved, block approve buttons when an image is rejected, etc. |
+| responsive.js: | Applies mobile responsive design to the dashboard interface (Couldn't get hold of Bootstrap classes) |
+| speaker.js: | Function to emit a sound when submitting the form that confirms the correct reception of the form.|
+| tabs.js: | Assigns a highlight to the selected option on the dashboard navigation bar. |
+| types.js: | JSON file with information for each type of vehicle. |
+| validations.js: | Validations of inputs on the front side. |
 
 
-[--- Siguiente --->>>](testing.md#TESTING)
+[--- Next --->>>](testing.md#TESTING)
