@@ -1,4 +1,4 @@
-# DAILY WORKS
+# RUTINARY TASKS
 
 We have implemented 2 functions that run at all times (Always-on tasks).
 
