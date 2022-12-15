@@ -1,49 +1,48 @@
-# TABLERO DE COMANDO
+# COMMAND BOARD
 
-## Interfaz principal
+## Main interface
 
-El tablero de comando es la sección de la aplicación que tiene el administrador para ver la situación de las operaciones y tomar decisiones sobre ellas.
-Esta sección consiste en una barra de navegación vertical, que permite visualizar distintas tablas, realizar filtros rápidos sobre ellas y realizar otras acciones como modificar tarifas, ver y modificar turnos, ver estadísticas del negocio, etc.
+The dashboard is the section of the application that the administrator has to see the status of the operations and make decisions about them.
+This section consists of a vertical navigation bar, which allows you to view different tables, perform quick filters on them and perform other actions such as modify rates, view and modify shifts, view business statistics, etc.
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-interfaz.png?raw=true" width="1000">
 
-## Buscador
+## Seeker
 
-Pueden visualizarse las tablas de operaciones, clientes, vehículos y empresas registradas. Todas poseen un buscador en tiempo real para encontrar rápidamente el registro deseado.
+The tables of operations, customers, vehicles and registered companies can be viewed. They all have a real-time search engine to quickly find the desired record.
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-buscador-tablas.png?raw=true" width="700">
 
+## Filters
 
-## Filtros
-
-Permite aplicar un filtro rápido sobre el estado de cada operación
+Allows you to apply a quick filter on the status of each operation
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-dashboard-con-filtro.png?raw=true" width="800">
 
 
-## Detalle de operaciones
+## Detail of operations
 
-Cada registro de operación posee una lupa a la izquierda de todo en la columna “Detalle”. Haciendo click se accede a una nueva interfaz, donde puede consultarse información sobre la operación y ejecutar decisiones sobre todos los aspectos de la operación. Tras finalizar la operación, quedan guardadas las fechas de todos los eventos importantes, lo cual permite hacer un trackeo.
+Each operation record has a magnifying glass to the left of everything in the "Detail" column. By clicking, you access a new interface, where you can consult information about the operation and execute decisions on all aspects of the operation. After completing the operation, the dates of all important events are saved, which allows tracking.
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-detalle de operaciones.png?raw=true" width="700">
 
 
-## Alta de empresas
+## Registration of companies
 
-Un cliente puede entrar como empresa y acceder al beneficio de una tarifa preferencial. Para eso, el usuario debe previamente dar de alta dicha empresa, agregando la información pertinente.
+A client can enter as a company and access the benefit of a preferential rate. For this, the user must previously register said company, adding the pertinent information.
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-alta-empresas.png?raw=true" width="900">
 
-El administrar puede en todo momento modificar la información de cada empresa e incluso deshabilitarla y con eso restringir el acceso a sus operaciones
+The administrator can at any time modify the information of each company and even disable it and with that restrict access to its operations
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-modif empresas.png?raw=true" width="900">
 
 
-## Modificación de tarifas
+## Modification of fees
 
-Es posible modificar una o todas las tarifas de cada servicio ofrecido, desde dicha sección.
+It is possible to modify one or all the rates of each service offered, from this section.
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.admin-tarifas.png?raw=true" width="900">
 
 
-[--- Siguiente --->>>](code.md#ORGANIZACIÓN-DEL-CÓDIGO)
+[--- Next --->>>](code.md#CODE-ORGANIZATION)
