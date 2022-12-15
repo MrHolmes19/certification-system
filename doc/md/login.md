@@ -1,35 +1,35 @@
-# INGRESO Y REDIRECCIONAMIENTO
+# INCOME AND REDIRECT
 
-## Lógica de acceso
+## Access Logic
 
-El aplicativo comienza con la interfaz de Login, donde el usuario cliente deberá loguearse con sus credenciales para avanzar en el proceso. Debido a las múltiples alternativas para ingresar, los distintos estados de cada operación y las restricciones existentes, se construyó una lógica de validación y redirección, que obedece al siguiente diagrama
+The application begins with the Login interface, where the client user must log in with her credentials to advance in the process. Due to the multiple alternatives to enter, the different states of each operation and the existing restrictions, a validation and redirection logic was built, which obeys the following diagram
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/diagrams/diag-logica-de-login-dark.png?raw=true" width="1000">
 
-## Visualización e interacción 
+## Visualization and interaction
 
-Decidimos tener una sola página de login y darle al usuario la decisión de cambiar los inputs de ingreso de acuerdo a su condición (titular o empresa representante) o información disponible (Patente o N° de chasis del vehiculo)
+We decided to have a single login page and give the user the decision to change the entry inputs according to their condition (owner or representative company) or available information (Patent or vehicle chassis number).
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.cliente-login-cambio-de-inputs.png?raw=true" width="800">
 
-## Validaciones en el navegador
+## Validations in the browser
 
-Del lado del navegador, hemos puesto validaciones con patrones, basados en expresiones regulares, para asegurarnos de que el cliente ingrese información coherente. Por ejemplo, restringiendo la cantidad de números o letras según el input
+On the browser side, we've put in pattern validations, based on regular expressions, to make sure that the client inputs consistent information. For example, restricting the number of numbers or letters based on the input
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.cliente-login-validacion.png?raw=true" width="800">
 
-Decidimos permitir ingresar caracteres especiales (Ej. CUIT con guiones o separado por miles con puntos) para facilitar la experiencia de usuario.
+We decided to allow entering special characters (eg CUIT with hyphens or separated by thousands with dots) to facilitate the user experience.
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.cliente-login-no alfanumericos.png?raw=true" width="800">
 
 
-## Validaciones en el servidor
+## Validations on the server
 
-Del lado del servidor, capturamos los ingresos no permitidos entregando un mensaje al usuario:
+On the server side, we capture disallowed logins by delivering a message to the user:
 
 <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.cliente-login-error-op-en-curso.png?raw=true" height="400">  <img src="https://github.com/MrHolmes19/certification-system/blob/main/doc/screenshots/1.cliente-login-error-cuit.png?raw=true" height="400">
 
-Por otro lado, hemos pulido la información entrante para eliminar caracteres no alfanuméricos y normalizar el tipo de dato almacenado y así evitar errores en comparaciones de búsqueda a futuro.
+On the other hand, we have polished the incoming information to eliminate non-alphanumeric characters and normalize the type of data stored and thus avoid errors in future search comparisons.
 
 
-[--- Siguiente --->>>](doc_form.md#CARGA-DE-DOCUMENTACION)
+[--- Next --->>>](doc_form.md#LOAD-DOCUMENTATION)
